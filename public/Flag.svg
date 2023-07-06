@@ -1,0 +1,14 @@
+<svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Flag">
+<g clip-path="url(#clip0_539_15289)">
+<rect id="Rectangle 160299" x="-11.3281" y="-1.95312" width="74.2188" height="50.7812" fill="white" stroke="white" stroke-width="3.90625"/>
+<rect id="Rectangle 160300" x="-6.25" y="-0.518555" width="21.875" height="50" fill="#1D925D"/>
+<rect id="Rectangle 160301" x="34.375" y="-0.518555" width="21.875" height="50" fill="#1D925D"/>
+</g>
+</g>
+<defs>
+<clipPath id="clip0_539_15289">
+<rect width="50" height="50" rx="25" fill="white"/>
+</clipPath>
+</defs>
+</svg>
