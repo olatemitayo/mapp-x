@@ -5,9 +5,10 @@ import { Popover, TextInput } from "@mantine/core";
 
 interface PagesProps {
   text: string;
+  page: string;
 }
 
-export default function Pages({ text }: PagesProps) {
+export default function Pages({ text, page }: PagesProps) {
   return (
     <div>
       <p className="text-[#8F9198] text-[14px] font-[500]">
@@ -15,9 +16,7 @@ export default function Pages({ text }: PagesProps) {
       </p>
       <div className="flex items-center justify-between">
         <div className="flex items-center justify-center gap-12">
-          <h2 className="text-[32px] font-[600] text-[#1B1E2C]">
-            Global Dashboard
-          </h2>
+          <h2 className="text-[32px] font-[600] text-[#1B1E2C]">{page}</h2>
           <div className="flex gap-3 border-[#DADADD] bg-white p-2 rounded-[8px] min-w-[80px]">
             <Image
               width={24}
@@ -48,7 +47,7 @@ export default function Pages({ text }: PagesProps) {
                       <h4>KE</h4>
                     </div>
                   </Link>
-                  <Link href="/nigeriadb">
+                  <Link href="#">
                     <div className="flex gap-1">
                       <Image
                         src="/Uganda.svg"

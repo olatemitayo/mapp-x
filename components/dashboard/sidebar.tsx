@@ -10,8 +10,8 @@ const Items = [
   },
   {
     img: "/farmers.png",
-    text: "Famers",
-    link: "/famers",
+    text: "Farmers",
+    link: "/farmers",
   },
   {
     img: "/map.png",
@@ -21,7 +21,7 @@ const Items = [
   {
     img: "/feo.png",
     text: "FEOs",
-    link: "/feo",
+    link: "/feos",
   },
   {
     img: "/activity.png",
@@ -46,7 +46,7 @@ const groups = [
 export default function Sidebar() {
   return (
     <>
-      <div className="w-[200px]  py-6  h-[100vh]  bg-[#65110D] flex flex-col items-center">
+      <div className="w-[200px]  py-6  h-[100vh]  bg-[#65110D] flex flex-col items-center ">
         <figure className="flex items-center gap-2 mb-10">
           <Image
             src="/dashboardLogo.svg"

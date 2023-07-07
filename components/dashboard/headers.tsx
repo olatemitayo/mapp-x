@@ -1,6 +1,4 @@
-import Head from "next/head";
 import Image from "next/image";
-// import clsx from "clsx";
 
 const HeaderItems = [
   {
@@ -45,7 +43,7 @@ const HeaderItems = [
 
 import React from "react";
 
-export default function headers() {
+export default function Headers() {
   return (
     <div className="flex items-center gap-6 mt-6 overflow-x-scroll no-scrollbar ">
       {HeaderItems.map((item) => (
