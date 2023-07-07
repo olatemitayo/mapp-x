@@ -1,9 +1,9 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import AuthText from "@/components/common/auth-text";
-import Button from "@/components/common/button";
-import AuthImg from "@/components/common/auth-img";
+import AuthText from "@/components/auth/auth-text";
+import Button from "@/components/auth/button";
+import AuthImg from "@/components/auth/auth-img";
 
 export default function CreateNewPasword() {
   return (

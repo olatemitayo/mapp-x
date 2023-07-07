@@ -1,5 +1,6 @@
 import { Progress } from "@mantine/core";
 import Image from "next/image";
+import { Data } from "../farmers/famersdata";
 
 import FarmerModal from "../farmers/farmermodal";
 
@@ -91,7 +92,7 @@ export default function Feotable() {
           <div className="flex items-center gap-1">
             <h2 className="text-2xl font-semibold">FEOs</h2>
             <span className="bg-[#FCE9E8] text-[#BF2018] px-3 py-1 rounded-[32px]">
-              25,000
+              {Data.length}
             </span>
           </div>
           <div className="relative">

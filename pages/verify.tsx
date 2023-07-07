@@ -1,10 +1,10 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import AuthText from "@/components/common/auth-text";
-import AuthImg from "@/components/common/auth-img";
-import Pin from "@/components/common/pin";
-import Button from "@/components/common/button";
+import AuthText from "@/components/auth/auth-text";
+import AuthImg from "@/components/auth/auth-img";
+import Pin from "@/components/auth/pin";
+import Button from "@/components/auth/button";
 import { Group, PinInput } from "@mantine/core";
 
 export default function Verify() {

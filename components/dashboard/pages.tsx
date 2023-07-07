@@ -6,9 +6,10 @@ import { Popover, TextInput } from "@mantine/core";
 interface PagesProps {
   text: string;
   page: string;
+  children?: React.ReactNode;
 }
 
-export default function Pages({ text, page }: PagesProps) {
+export default function Pages({ text, page, children }: PagesProps) {
   return (
     <div>
       <p className="text-[#8F9198] text-[14px] font-[500]">
@@ -17,7 +18,7 @@ export default function Pages({ text, page }: PagesProps) {
       <div className="flex items-center justify-between">
         <div className="flex items-center justify-center gap-12">
           <h2 className="text-[32px] font-[600] text-[#1B1E2C]">{page}</h2>
-          <div className="flex gap-3 border-[#DADADD] bg-white p-2 rounded-[8px] min-w-[80px]">
+          {/* <div className="flex gap-3 border-[#DADADD] bg-white p-2 rounded-[8px] min-w-[80px]">
             <Image
               width={24}
               height={24}
@@ -78,7 +79,8 @@ export default function Pages({ text, page }: PagesProps) {
                 </div>
               </Popover.Dropdown>
             </Popover>
-          </div>
+          </div> */}
+          {children}
         </div>
         <div className="flex w-[485px] justify-between p-3 rounded-[30px] bg-white">
           <TextInput

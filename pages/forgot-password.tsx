@@ -1,7 +1,7 @@
 import Link from "next/link";
-import AuthImg from "@/components/common/auth-img";
-import Button from "@/components/common/button";
-import AuthText from "@/components/common/auth-text";
+import AuthImg from "@/components/auth/auth-img";
+import Button from "@/components/auth/button";
+import AuthText from "@/components/auth/auth-text";
 import Image from "next/image";
 import { TextInput } from "@mantine/core";
 
