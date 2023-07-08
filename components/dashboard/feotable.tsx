@@ -2,7 +2,8 @@ import { Progress } from "@mantine/core";
 import Image from "next/image";
 import { Data } from "../farmers/famersdata";
 
-import FarmerModal from "../farmers/farmermodal";
+import FarmerModal from "../feo/feomodal";
+import Latestfeo from "../profile/latestfeo";
 
 interface FEOData {
   name: string;
@@ -16,37 +17,77 @@ const FEOranking: FEOData[] = [
   {
     name: "Taiwo Johnson",
     farmers: "123",
-    mapped: "152",
+    mapped: "101",
     progress: 100,
     img: "/usa.svg",
   },
   {
     name: "Musa Abdullahi",
     farmers: "345",
-    mapped: "300",
+    mapped: "89",
     progress: 78.1,
     img: "/Uganda.svg",
   },
   {
     name: "Ajayi Daniel",
     farmers: "231",
-    mapped: "124",
+    mapped: "200",
     progress: 45.6,
     img: "/Kenya.svg",
   },
   {
     name: "Fabiyi Victoria",
     farmers: "567",
-    mapped: "345",
+    mapped: "400",
+    progress: 37.5,
+    img: "/Flag.svg",
+  },
+  {
+    name: "Abidemi Victoria",
+    farmers: "567",
+    mapped: "324",
+    progress: 37.5,
+    img: "/Flag.svg",
+  },
+  {
+    name: "Temitayo Olatunji",
+    farmers: "567",
+    mapped: "550",
+    progress: 37.5,
+    img: "/Flag.svg",
+  },
+  {
+    name: "Adeniji Victoria",
+    farmers: "455",
+    mapped: "444",
+    progress: 37.5,
+    img: "/Flag.svg",
+  },
+  {
+    name: "Lanre Wale",
+    farmers: "367",
+    mapped: "299",
+    progress: 37.5,
+    img: "/Flag.svg",
+  },
+  {
+    name: "Fabiyi Olubiyi",
+    farmers: "567",
+    mapped: "99",
     progress: 37.5,
     img: "/Flag.svg",
   },
 ];
 
-export function Individual() {
+export function Individual(): JSX.Element {
+  //to get the top 4 FEOs with highest number of mapping
+  const Data: FEOData[] = FEOranking.sort(
+    (a, b) => parseInt(b.mapped) - parseInt(a.mapped)
+  );
+  const highestMapped: FEOData[] = Data.slice(0, 4);
   return (
     <div className="flex flex-col ">
-      {FEOranking.map((feo) => (
+      {highestMapped.map((feo) => (
         <div
           key={feo.name}
           className="flex items-center justify-between font-semibold mb-7"
@@ -106,7 +147,9 @@ export default function Feotable() {
             />
           </div>
         </div>
-        <div></div>
+        <div>
+          <Latestfeo />
+        </div>
         <div></div>
         <div></div>
       </div>

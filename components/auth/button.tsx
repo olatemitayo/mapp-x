@@ -3,7 +3,7 @@ import { ComponentProps } from "react";
 
 interface ButtonProps extends ComponentProps<"button"> {
   text: string;
-  className?: string; // Make className prop optional
+  className?: string;
 }
 
 export default function Button({ text, className }: ButtonProps) {

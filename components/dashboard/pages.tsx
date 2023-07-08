@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Popover, TextInput } from "@mantine/core";
+import { AuthContext, ContextType } from "@/pages/_app";
 
 interface PagesProps {
   text: string;
@@ -10,6 +11,7 @@ interface PagesProps {
 }
 
 export default function Pages({ text, page, children }: PagesProps) {
+  const { photo_url } = useContext(AuthContext) as ContextType;
   return (
     <div className="">
       <p className="text-[#8F9198] text-[14px] font-[500]">

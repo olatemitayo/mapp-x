@@ -59,6 +59,7 @@ export default function FarmerModal() {
           close: {},
         }}
       >
+        {/* DETAILS MODAL  */}
         <div className="pt-10">
           <Stepper
             active={active}
@@ -149,7 +150,7 @@ export default function FarmerModal() {
                   </div>
                   <TextInput
                     placeholder="Phone number"
-                    label="Email Address"
+                    label="Phone number"
                     size="md"
                     withAsterisk
                     required
@@ -179,6 +180,7 @@ export default function FarmerModal() {
               </div>
             </Stepper.Step>
             <Stepper.Step label="Assign Location">
+              {/* ASSIGN LOCATION  */}
               <div className="flex flex-col gap-6">
                 <Select
                   label="Country"
@@ -242,22 +244,66 @@ export default function FarmerModal() {
                 </Button>
               </div>
             </Stepper.Step>
+            {/* CONFIRM ENTRIES  */}
             <Stepper.Step label="Confirm Entries">
-              Step 3 content: Get full access
-              <div>
+              <div className="flex flex-col gap-5 my-7">
+                <div className="flex justify-between">
+                  <h5>First Name</h5>
+                  <h5>{"lateef"}</h5>
+                </div>
+                <div className="flex justify-between">
+                  <h5>Last Name</h5>
+                  <h5>{"Abiodun"}</h5>
+                </div>
+                <div className="flex justify-between">
+                  <h5>Email Address</h5>
+                  <h5>{"alateef@africaexchange.com"}</h5>
+                </div>
+                <div className="flex justify-between">
+                  <h5>Phone Number</h5>
+                  <h5>{"+234 (8) 10-6545-067"}</h5>
+                </div>
+                <div className="flex justify-between">
+                  <h5>Country</h5>
+                  <h5>{"Nigeria"}</h5>
+                </div>
+                <div className="flex justify-between">
+                  <h5>State</h5>
+                  <h5>{"Oyo"}</h5>
+                </div>
+                <div className="flex justify-between">
+                  <h5>City</h5>
+                  <h5>{"Ibadan"}</h5>
+                </div>
+              </div>
+              <div className="mt-6 flex justify-between">
                 <Button
                   variant="default"
                   onClick={prevStep}
-                  className="bg-[#bf2018] text-white"
+                  className="bg-none text-[#4A4C58] hover:bg-none"
                 >
-                  Back
+                  <span className="me-2">
+                    <Image width={16} height={16} src="/back.svg" alt="back" />
+                  </span>
+                  Assign Location
                 </Button>
-                <Button onClick={nextStep}>Next step</Button>
+                <Button
+                  onClick={nextStep}
+                  className="bg-[#bf2018] text-[#fff] hover:bg-[#bf2018]"
+                >
+                  Save Entries
+                  <span className="ms-2">
+                    <Image
+                      width={16}
+                      height={16}
+                      src="/forward.svg"
+                      alt="forward"
+                    />
+                  </span>
+                </Button>
               </div>
             </Stepper.Step>
-            <Stepper.Completed>
-              Completed, click back button to get to previous step
-            </Stepper.Completed>
+            <Stepper.Completed>Completed!</Stepper.Completed>
           </Stepper>
         </div>
       </Modal>
@@ -275,7 +321,7 @@ export default function FarmerModal() {
           <span style={{ display: "inline-block", marginInlineEnd: "4px" }}>
             <Image width={24} height={24} src="/add_circle.svg" alt="add" />
           </span>
-          Add Farmers
+          Add new
         </Button>
       </Group>
     </>

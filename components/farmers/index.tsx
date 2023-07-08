@@ -1,2 +1,2 @@
 export * from "./farmers-table";
-export * from "./farmermodal";
+export * from "../feo/feomodal";

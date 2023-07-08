@@ -4,6 +4,7 @@ import { BackgroundImage, Box, Center, Menu } from "@mantine/core";
 import Link from "next/link";
 import Image from "next/image";
 import { profile } from "../components/common/database";
+import Latestfeo from "@/components/profile/latestfeo";
 // import { Menu, Button, Text } from "@mantine/core";
 
 export default function Profile() {
@@ -120,7 +121,7 @@ export default function Profile() {
                 </h2>
               </div>
               {/* FEO CONTENT  */}
-              <div className="flex flex-col gap-6 px-7  ">
+              {/* <div className="flex flex-col gap-6 px-7  ">
                 <div className="flex gap-3 items-center justify-between"></div>
                 <div className="flex gap-3 items-center justify-between">
                   <div className="flex gap-3">
@@ -179,7 +180,8 @@ export default function Profile() {
                     />
                   </div>
                 </div>
-              </div>
+              </div> */}
+              <Latestfeo className="noshadow" />
               <Link href="/feos" className="text-end px-7 pb-3 text-[#bf2018]">
                 See all
               </Link>

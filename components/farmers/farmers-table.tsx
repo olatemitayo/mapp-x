@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Image from "next/image";
 import {
-  Text,
   Pagination,
   Table,
   Progress,
@@ -10,7 +9,8 @@ import {
 } from "@mantine/core";
 import { Data } from "./famersdata";
 
-const itemsPerPage = 10; // Number of items to display per page
+//  Number of items to display per page
+const itemsPerPage = 10;
 
 export default function Farmertable() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -86,7 +86,7 @@ export default function Farmertable() {
         </div>
       </div>
 
-      <Table captionSide="bottom" className="h-full">
+      <Table captionSide="bottom" className="h-[100vh]">
         <thead>{ths}</thead>
         <tbody className="">{rows}</tbody>
       </Table>

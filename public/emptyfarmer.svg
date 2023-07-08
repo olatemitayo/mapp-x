@@ -1,0 +1,10 @@
+<svg width="56" height="57" viewBox="0 0 56 57" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="4" y="4.5" width="48" height="48" rx="24" fill="#FCE9E8"/>
+<path d="M29.89 33.8599L27.14 31.1099" stroke="#BF2018" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M29.86 31.1401L27.11 33.8901" stroke="#BF2018" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M25.31 18.5L21.69 22.13" stroke="#BF2018" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M31.69 18.5L35.31 22.13" stroke="#BF2018" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M18.5 24.3501C18.5 22.5001 19.49 22.3501 20.72 22.3501H36.28C37.51 22.3501 38.5 22.5001 38.5 24.3501C38.5 26.5001 37.51 26.3501 36.28 26.3501H20.72C19.49 26.3501 18.5 26.5001 18.5 24.3501Z" stroke="#BF2018" stroke-width="1.5"/>
+<path d="M20 26.5L21.41 35.14C21.73 37.08 22.5 38.5 25.36 38.5H31.39C34.5 38.5 34.96 37.14 35.32 35.26L37 26.5" stroke="#BF2018" stroke-width="1.5" stroke-linecap="round"/>
+<rect x="4" y="4.5" width="48" height="48" rx="24" stroke="#FDF2F1" stroke-width="8"/>
+</svg>
