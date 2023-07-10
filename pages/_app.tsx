@@ -35,7 +35,6 @@ export interface User {
 export type ContextType = {
   user: UserDetails | null;
   setUser: Dispatch<SetStateAction<UserDetails | null>>;
-  company: string;
   photo_url: string;
 };
 
@@ -44,12 +43,11 @@ export const AuthContext = createContext<ContextType | null>(null);
 export default function App({ Component, pageProps }: AppProps) {
   const [user, setUser] = useState<UserDetails | null>(null);
 
-  const photo_url = "AFEX";
+  const photo_url = `${""}`;
 
   let storeData = {
     user,
     setUser,
-    company,
     photo_url,
   };
   return (

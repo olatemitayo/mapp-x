@@ -1,34 +1,10 @@
 import { useState } from "react";
 import Image from "next/image";
-import {
-  Pagination,
-  Table,
-  Progress,
-  Checkbox,
-  TextInput,
-} from "@mantine/core";
+import { Table, Progress, TextInput } from "@mantine/core";
 import { Data } from "./famersdata";
 
-//  Number of items to display per page
-const itemsPerPage = 10;
-
 export default function Farmertable() {
-  const [currentPage, setCurrentPage] = useState(1);
   const totalItems = Data.length;
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
-
-  // Calculate the range of items to display on the current page
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  let endIndex = startIndex + itemsPerPage;
-  if (endIndex > totalItems) {
-    endIndex = totalItems;
-  }
-  const displayedItems = Data.slice(startIndex, endIndex);
-
-  // Handle page change
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-  };
 
   const ths = (
     <tr>
@@ -42,7 +18,7 @@ export default function Farmertable() {
     </tr>
   );
 
-  const rows = displayedItems.map((item) => (
+  const rows = Data.map((item) => (
     <tr key={item.name}>
       <td>{item.name}</td>
       <td>{item.phone}</td>
@@ -90,14 +66,6 @@ export default function Farmertable() {
         <thead>{ths}</thead>
         <tbody className="">{rows}</tbody>
       </Table>
-
-      <Pagination
-        total={totalPages}
-        defaultValue={currentPage}
-        onChange={handlePageChange}
-        className="paginw"
-        classNames={{}}
-      />
     </div>
   );
 }

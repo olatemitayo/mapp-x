@@ -80,7 +80,8 @@ export default function FarmerModal() {
               },
             }}
           >
-            <Stepper.Step label="Details">
+            {/* DETAILS  */}
+            <Stepper.Step label="Details" completedIcon={1}>
               <div className="flex flex-col gap-4 ">
                 <TextInput
                   placeholder="Enter Name"
@@ -115,8 +116,8 @@ export default function FarmerModal() {
                     input: " focus:border-[#C1C2C6] ",
                   }}
                 />
-                <div className="flex relative">
-                  <div className="absolute top-10 left-10 z-30">
+                <div className="relative flex">
+                  <div className="absolute z-30 top-10 left-10">
                     <Popover width={75} position="bottom" withArrow shadow="md">
                       <Popover.Target>
                         <Image
@@ -179,8 +180,8 @@ export default function FarmerModal() {
                 </div>
               </div>
             </Stepper.Step>
-            <Stepper.Step label="Assign Location">
-              {/* ASSIGN LOCATION  */}
+            {/* ASSIGN LOCATION  */}
+            <Stepper.Step label="Assign Location" completedIcon={2}>
               <div className="flex flex-col gap-6">
                 <Select
                   label="Country"
@@ -217,7 +218,7 @@ export default function FarmerModal() {
                   }}
                 />
               </div>
-              <div className="mt-6 flex justify-between">
+              <div className="flex justify-between mt-6">
                 <Button
                   variant="default"
                   onClick={prevStep}
@@ -245,7 +246,7 @@ export default function FarmerModal() {
               </div>
             </Stepper.Step>
             {/* CONFIRM ENTRIES  */}
-            <Stepper.Step label="Confirm Entries">
+            <Stepper.Step label="Confirm Entries" completedIcon={3}>
               <div className="flex flex-col gap-5 my-7">
                 <div className="flex justify-between">
                   <h5>First Name</h5>
@@ -276,7 +277,7 @@ export default function FarmerModal() {
                   <h5>{"Ibadan"}</h5>
                 </div>
               </div>
-              <div className="mt-6 flex justify-between">
+              <div className="flex justify-between mt-6">
                 <Button
                   variant="default"
                   onClick={prevStep}
@@ -303,7 +304,7 @@ export default function FarmerModal() {
                 </Button>
               </div>
             </Stepper.Step>
-            <Stepper.Completed>Completed!</Stepper.Completed>
+            {/* <Stepper.Completed>Completed!</Stepper.Completed> */}
           </Stepper>
         </div>
       </Modal>

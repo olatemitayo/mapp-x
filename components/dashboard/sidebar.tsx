@@ -46,7 +46,7 @@ const groups = [
 export default function Sidebar() {
   return (
     <>
-      <div className="w-[200px]  py-6  h-[100vh]  bg-[#65110D] flex flex-col items-center ">
+      <div className="w-[200px] h-[100vh]  py-6   bg-[#65110D] flex flex-col items-center ">
         <figure className="flex items-center gap-2 mb-10">
           <Image
             src="/dashboardLogo.svg"

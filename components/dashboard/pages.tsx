@@ -13,7 +13,7 @@ interface PagesProps {
 export default function Pages({ text, page, children }: PagesProps) {
   const { photo_url } = useContext(AuthContext) as ContextType;
   return (
-    <div className="">
+    <div className="h-[100px]">
       <p className="text-[#8F9198] text-[14px] font-[500]">
         pages/<span className="text-[#1B1E2C]">{text}</span>{" "}
       </p>
@@ -23,7 +23,7 @@ export default function Pages({ text, page, children }: PagesProps) {
           {children}
         </div>
         <div className="flex w-[485px] justify-between p-3 rounded-[30px] bg-white">
-          <div className="flex relative">
+          <div className="relative flex">
             <Image
               width={11}
               height={11}

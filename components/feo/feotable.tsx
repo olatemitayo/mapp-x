@@ -1,16 +1,43 @@
-import React from "react";
-import { Data } from "./famersdata";
-import { TextInput } from "@mantine/core";
 import Image from "next/image";
+import { Table, Progress, TextInput } from "@mantine/core";
+import { Data } from "../farmers/famersdata";
 
-export default function Nofarmersdata() {
+export default function Farmertable() {
+  const totalItems = Data.length;
+
+  const ths = (
+    <tr>
+      <th>Full name</th>
+      <th>Phone</th>
+      <th>Email</th>
+      <th>Farmers</th>
+      <th>Mapped Farmlands</th>
+      <th>Progress</th>
+      <th>Location</th>
+    </tr>
+  );
+
+  const rows = Data.map((item) => (
+    <tr key={item.name}>
+      <td>{item.name}</td>
+      <td>{item.phone}</td>
+      <td>{item.email}</td>
+      <td>{item.farmers}</td>
+      <td>{item.mapped}</td>
+      <td>
+        <Progress color="#BF2018" value={item.progress} />
+      </td>
+      <td>{item.location}</td>
+    </tr>
+  ));
+
   return (
     <div className="flex flex-col h-full gap-5 p-6 mt-4 rounded-[20px] bg-white">
       <div className="flex items-center justify-between gap-1">
         <div className="flex gap-2">
-          <h2 className="text-2xl font-semibold">All Farmers</h2>
+          <h2 className="text-2xl font-semibold">All FEOs</h2>
           <span className="bg-[#FCE9E8] text-[#BF2018] px-3 py-1 rounded-[32px]">
-            {Data.length}
+            {totalItems}
           </span>
         </div>
         <div>
@@ -33,22 +60,11 @@ export default function Nofarmersdata() {
           </div>
         </div>
       </div>
-      {/* EMPTY FAMRER  */}
-      <div className="flex items-center justify-center h-full">
-        <div className="flex flex-col items-center gap-4">
-          <Image
-            width={70}
-            height={70}
-            src={"/emptyfarmer.svg"}
-            alt="emptyfarmer"
-          />
-          <h3 className="text-[18px] font-semibold">The list is empty</h3>
-          <div className="text-center text-[14px] font-normal">
-            <p>There is currently no farmers data on this list.</p>
-            <p>Please check back later.</p>
-          </div>
-        </div>
-      </div>
+
+      <Table captionSide="bottom" className="h-[100vh]">
+        <thead>{ths}</thead>
+        <tbody className="">{rows}</tbody>
+      </Table>
     </div>
   );
 }

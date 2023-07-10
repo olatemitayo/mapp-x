@@ -12,9 +12,9 @@ import { Popover } from "@mantine/core";
 export default function Dashboard() {
   return (
     <>
-      <main className="grid grid-cols-[auto_1fr]">
+      <main className=" grid grid-cols-[auto_1fr] ">
         <Sidebar />
-        <div className="py-6 h-[100vh] flex-1 px-5  bg-[#F5F5F6] overflow-x-auto">
+        <div className="py-6 h-[100vh] flex flex-col px-5  bg-[#F5F5F6] overflow-auto">
           <Pages text="Dashboard" page="Global Dashboard">
             <div className="flex gap-3 border-[#DADADD] bg-white p-2 rounded-[8px] min-w-[80px]">
               <Image
@@ -84,12 +84,14 @@ export default function Dashboard() {
               </Popover>
             </div>
           </Pages>
-          {/* headers */}
-          <div className="flex overflow-x-auto no-scrollbar">
-            <Headers />
+          <div className="flex-1 overflow-auto no-scrollbar">
+            <div className="flex ">
+              <Headers />
+            </div>
+            <Graph />
+            <Feotable />
           </div>
-          <Graph />
-          <Feotable />
+          {/* headers */}
         </div>
       </main>
     </>
