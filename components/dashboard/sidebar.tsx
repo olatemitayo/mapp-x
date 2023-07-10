@@ -36,12 +36,18 @@ const groups = [
     text: "Profile",
     link: "/profile",
   },
-  {
-    img: "/logout.png",
-    text: "Log Out",
-    link: "/logout",
-  },
 ];
+
+const logout = {
+  img: "/logout.png",
+  text: "Log Out",
+  link: "/logout",
+};
+
+const handleLogout = () => {
+  localStorage.clear();
+  window.location.href = "/signin";
+};
 
 export default function Sidebar() {
   return (
@@ -81,6 +87,21 @@ export default function Sidebar() {
                 </li>
               </Link>
             ))}
+            <Link href={""} className="flex items-center gap-3">
+              <Image
+                src={logout.img}
+                width={24}
+                height={24}
+                alt={logout.text}
+              />
+              <li
+                key={logout.text}
+                onClick={handleLogout}
+                className="text-base text-white"
+              >
+                {logout.text}
+              </li>
+            </Link>
           </ul>
         </div>
       </div>

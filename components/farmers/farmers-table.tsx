@@ -1,10 +1,10 @@
 import { useState } from "react";
 import Image from "next/image";
-import { Table, Progress, TextInput } from "@mantine/core";
-import { Farmers } from "./famersdata";
+import { Table, TextInput } from "@mantine/core";
+import { FarmersList } from "./famersdata";
 
 export default function Farmertable() {
-  const totalItems = Farmers.length;
+  const totalItems = FarmersList.length;
 
   const ths = (
     <tr>
@@ -14,21 +14,17 @@ export default function Farmertable() {
       <th>Assigned FEO</th>
       <th>Address</th>
       <th>Country</th>
-      <th>Location</th>
     </tr>
   );
 
-  const rows = Farmers.map((item) => (
+  const rows = FarmersList.map((item) => (
     <tr key={item.name}>
       <td>{item.name}</td>
+      <td>{item.id}</td>
       <td>{item.phone}</td>
-      <td>{item.email}</td>
-      <td>{item.farmers}</td>
-      <td>{item.mapped}</td>
-      <td>
-        <Progress color="#BF2018" value={item.progress} />
-      </td>
-      <td>{item.location}</td>
+      <td>{item.assigned}</td>
+      <td>{item.address}</td>
+      <td>{item.country}</td>
     </tr>
   ));
 

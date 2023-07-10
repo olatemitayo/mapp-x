@@ -1,3 +1,5 @@
+import React, { useContext, useState, useEffect } from "react";
+import { AuthContext, ContextType, UserDetails } from "@/pages/_app";
 import Pages from "@/components/dashboard/pages";
 import Sidebar from "@/components/dashboard/sidebar";
 import { BackgroundImage } from "@mantine/core";
@@ -7,12 +9,28 @@ import { profile } from "@/components/database/profile";
 import Latestfeo from "@/components/profile/latestfeo";
 
 export default function Profile() {
+  const [payload, setPayload] = useState<UserDetails>({
+    img: "",
+    first_name: "",
+    last_name: "",
+  });
+
+  useEffect(() => {
+    if (localStorage.getItem("my-user")) {
+      setPayload(JSON.parse(localStorage.getItem("my-user") as string));
+    }
+
+    return () => {};
+  }, []);
   return (
     <>
       <main className="grid grid-cols-[auto_1fr]">
         <Sidebar />
         <div className="py-6 flex flex-col px-5  bg-[#F5F5F6] overflow-auto">
-          <Pages text="Profile" page={profile[0].name} />
+          <Pages
+            text="Profile"
+            page={`${payload.last_name} ${payload.first_name}`}
+          />
           <div className="flex-1 overflow-auto no-scrollbar">
             <div className="flex bg-white w-[100%] h-[40%]   mx-auto mt-8">
               <BackgroundImage
@@ -33,7 +51,7 @@ export default function Profile() {
                   </div>
                   <div>
                     <h1 className="text-[#4A4C58] font-semibold">
-                      {profile[0].name}
+                      {`${payload.last_name} ${payload.first_name}`}
                     </h1>
                     <p className="text-[#8F9198] ">{profile[0].role}</p>
                   </div>

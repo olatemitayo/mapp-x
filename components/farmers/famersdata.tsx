@@ -1,7 +1,26 @@
 // export const Data = [];
-export const Farmers = [
+// export const FarmersList = [];
+export const FarmersList = [
   {
     name: "Jaja Prosper",
+    id: "AM131242",
+    phone: "08192832838",
+    email: "jpropser@email.com",
+    assigned: "Temitayo Olawale",
+    address: "kaduna, Kaduna",
+    country: "nigeria",
+  },
+  {
+    name: "Mentor Dami",
+    id: "AM131242",
+    phone: "08192832838",
+    email: "jpropser@email.com",
+    assigned: "Temitayo Olawale",
+    address: "kaduna, Kaduna",
+    country: "nigeria",
+  },
+  {
+    name: "Blessing Okeoma",
     id: "AM131242",
     phone: "08192832838",
     email: "jpropser@email.com",
@@ -19,7 +38,7 @@ export const Farmers = [
     country: "nigeria",
   },
   {
-    name: "Jaja Prosper",
+    name: "Ify Hafsah",
     id: "AM131242",
     phone: "08192832838",
     email: "jpropser@email.com",
@@ -28,7 +47,7 @@ export const Farmers = [
     country: "nigeria",
   },
   {
-    name: "Jaja Prosper",
+    name: "Agent White",
     id: "AM131242",
     phone: "08192832838",
     email: "jpropser@email.com",
@@ -37,7 +56,7 @@ export const Farmers = [
     country: "nigeria",
   },
   {
-    name: "Jaja Prosper",
+    name: "Agent White",
     id: "AM131242",
     phone: "08192832838",
     email: "jpropser@email.com",
@@ -46,7 +65,25 @@ export const Farmers = [
     country: "nigeria",
   },
   {
-    name: "Jaja Prosper",
+    name: "Agent White",
+    id: "AM131242",
+    phone: "08192832838",
+    email: "jpropser@email.com",
+    assigned: "Temitayo Olawale",
+    address: "kaduna, Kaduna",
+    country: "nigeria",
+  },
+  {
+    name: "Agent White",
+    id: "AM131242",
+    phone: "08192832838",
+    email: "jpropser@email.com",
+    assigned: "Temitayo Olawale",
+    address: "kaduna, Kaduna",
+    country: "nigeria",
+  },
+  {
+    name: "Agent White",
     id: "AM131242",
     phone: "08192832838",
     email: "jpropser@email.com",

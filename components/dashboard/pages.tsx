@@ -1,8 +1,9 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+
 import { Popover, TextInput } from "@mantine/core";
-import { AuthContext, ContextType } from "@/pages/_app";
+import { AuthContext, ContextType, UserDetails } from "@/pages/_app";
 
 interface PagesProps {
   text: string;
@@ -11,7 +12,20 @@ interface PagesProps {
 }
 
 export default function Pages({ text, page, children }: PagesProps) {
-  const { photo_url } = useContext(AuthContext) as ContextType;
+  const [payload, setPayload] = useState<UserDetails>({
+    img: "",
+    first_name: "",
+    last_name: "",
+  });
+
+  useEffect(() => {
+    if (localStorage.getItem("my-user")) {
+      setPayload(JSON.parse(localStorage.getItem("my-user") as string));
+    }
+
+    return () => {};
+  }, []);
+
   return (
     <div className="h-[100px]">
       <p className="text-[#8F9198] text-[14px] font-[500]">
@@ -48,6 +62,8 @@ export default function Pages({ text, page, children }: PagesProps) {
             alt="notifications"
           />
           <Image src="/widget.svg" width={24} height={24} alt="widget" />
+          {/* <span className=" text-davy-grey">{payload?.img}</span> */}
+
           <Image src="/dp.svg" width={41} height={41} alt="display picture" />
         </div>
       </div>

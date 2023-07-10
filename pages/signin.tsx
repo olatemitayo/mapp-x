@@ -1,43 +1,65 @@
 import { useRef, useState, useEffect, FormEvent } from "react";
 import Link from "next/link";
+import axios from "axios";
+import router from "next/router";
+import { isNotEmpty, useForm } from "@mantine/form";
 import AuthImg from "@/components/auth/auth-img";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Button from "@/components/auth/button";
 import AuthText from "@/components/auth/auth-text";
 import { PasswordInput, TextInput } from "@mantine/core";
+import { User } from "./_app";
 
+interface UserProps {
+  email: string;
+  password: string;
+}
 export default function SignIn() {
-  // const Login: React.FC = () => {
-  const userRef = useRef<HTMLInputElement | null>(null);
-  const errRef = useRef<HTMLDivElement | null>(null);
-
-  const [user, setUser] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [errMsg, setErrMsg] = useState<string>("");
-
-  useEffect(() => {
-    if (userRef.current) {
-      userRef.current.focus();
-    }
-  }, []);
-
-  useEffect(() => {
-    setErrMsg("");
-  }, [user, password]);
-
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setUser("");
-    setPassword("");
-    console.log(user, password);
+  const Login = (value: UserProps) => {
+    axios
+      .post("https://web-production-5804.up.railway.app/api/account/login/", {
+        email: value.email,
+        password: value.password,
+      })
+      .then(function (res) {
+        if (res.data?.token) {
+          localStorage.setItem("my-user", JSON.stringify(res.data));
+          toast("You have successfully logged in");
+          router.push("/dashboard");
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+        toast.error("Invalid login details");
+      });
   };
+
+  const [userDetails, setUserDetails] = useState<UserProps>({
+    email: "",
+    password: "",
+  });
+
+  const form = useForm({
+    initialValues: { email: "", password: "" },
+
+    // functions will be used to validate values at corresponding key
+    validate: {
+      email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
+      password: isNotEmpty(),
+    },
+  });
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    Login(userDetails);
+  };
+
   return (
     <>
       <main className="flex">
-        <p
-          ref={errRef}
-          className={errMsg ? "errMsg" : "offscreen"}
-          aria-live="assertive"
-        ></p>
+        <ToastContainer toastClassName="customToast" />
+
         <div className="w-[53%] h-[100vh] flex flex-col justify-center items-center text-start ">
           <div className="w-[60%]">
             <AuthText
@@ -46,7 +68,9 @@ export default function SignIn() {
             />
             <form
               action=""
-              onClick={handleSubmit}
+              onSubmit={form.onSubmit((value) => {
+                Login(value);
+              })}
               className="mt-[72px] flex flex-col gap-6"
             >
               <div className="grid gap-3">
@@ -55,12 +79,11 @@ export default function SignIn() {
                   label="Email address"
                   radius="md"
                   withAsterisk
-                  required
-                  ref={userRef}
+                  type="email"
                   id="email"
+                  {...form.getInputProps("email")}
+                  required
                   autoComplete="off"
-                  onChange={(e) => setUser(e.target.value)}
-                  value={user}
                   classNames={{
                     input: "text-[#2C2F3C] rounded-[0.75rem]  py-7 text-[14px]",
                     label: "text-[16px] mb-4",
@@ -72,9 +95,8 @@ export default function SignIn() {
                   label="Password"
                   withAsterisk
                   required
+                  {...form.getInputProps("password")}
                   id="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
                   classNames={{
                     input:
                       "text-[#2C2F3C] rounded-[0.75rem] py-7 text-[14px] flex items-center self-center ",

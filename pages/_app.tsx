@@ -1,16 +1,18 @@
 import "@/styles/globals.css";
-import { MantineProvider } from "@mantine/core";
-import { Dispatch, SetStateAction, createContext, useState } from "react";
 import type { AppProps } from "next/app";
+import { MantineProvider } from "@mantine/core";
+import {
+  Dispatch,
+  SetStateAction,
+  useState,
+  createContext,
+  useEffect,
+} from "react";
 
 export interface UserDetails {
-  user: User;
-  token: string;
-  number_of_notifications: number;
-  number_of_messages: number;
-  facebook: null;
-  twitter: null;
-  apple: null;
+  first_name: string;
+  last_name: string;
+  img: string;
 }
 
 export interface User {
@@ -35,7 +37,6 @@ export interface User {
 export type ContextType = {
   user: UserDetails | null;
   setUser: Dispatch<SetStateAction<UserDetails | null>>;
-  photo_url: string;
 };
 
 export const AuthContext = createContext<ContextType | null>(null);
@@ -43,12 +44,9 @@ export const AuthContext = createContext<ContextType | null>(null);
 export default function App({ Component, pageProps }: AppProps) {
   const [user, setUser] = useState<UserDetails | null>(null);
 
-  const photo_url = `${""}`;
-
   let storeData = {
     user,
     setUser,
-    photo_url,
   };
   return (
     <MantineProvider withGlobalStyles withNormalizeCSS>
