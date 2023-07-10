@@ -64,7 +64,7 @@ export default function Feohead() {
       </div>
 
       {/* section  */}
-      <div className="flex items-center justify-between gap-1 p-6 mt-4 bg-white rounded-xl">
+      {/* <div className="flex items-center justify-between gap-1 p-6 mt-4 bg-white rounded-xl">
         <div className="flex gap-2">
           <h2 className="text-2xl font-semibold">All FEO</h2>
         </div>
@@ -87,7 +87,7 @@ export default function Feohead() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 }

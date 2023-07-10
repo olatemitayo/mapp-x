@@ -1,24 +1,24 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Table, Progress, TextInput } from "@mantine/core";
-import { Data } from "./famersdata";
+import { Farmers } from "./famersdata";
 
 export default function Farmertable() {
-  const totalItems = Data.length;
+  const totalItems = Farmers.length;
 
   const ths = (
     <tr>
       <th>Full name</th>
+      <th>Follo ID</th>
       <th>Phone</th>
-      <th>Email</th>
-      <th>Farmers</th>
-      <th>Mapped Farmlands</th>
-      <th>Progress</th>
+      <th>Assigned FEO</th>
+      <th>Address</th>
+      <th>Country</th>
       <th>Location</th>
     </tr>
   );
 
-  const rows = Data.map((item) => (
+  const rows = Farmers.map((item) => (
     <tr key={item.name}>
       <td>{item.name}</td>
       <td>{item.phone}</td>
@@ -34,14 +34,15 @@ export default function Farmertable() {
 
   return (
     <div className="flex flex-col h-full gap-5 p-6 mt-4 rounded-[20px] bg-white">
-      <div className="flex items-center justify-between gap-1">
-        <div className="flex gap-2">
-          <h2 className="text-2xl font-semibold">All Farmers</h2>
-          <span className="bg-[#FCE9E8] text-[#BF2018] px-3 py-1 rounded-[32px]">
-            {totalItems}
-          </span>
-        </div>
-        <div>
+      <div className="flex flex-col overflow-auto">
+        <div className="flex items-center justify-between gap-1">
+          <div className="flex gap-2">
+            <h2 className="text-2xl font-semibold">All Farmers</h2>
+            <span className="bg-[#FCE9E8] text-[#BF2018] px-3 py-1 rounded-[32px]">
+              {totalItems}
+            </span>
+          </div>
+
           <div className="flex gap-3">
             <TextInput
               className="border-2  w-[284px] rounded-[8px] px-4 "
@@ -60,12 +61,13 @@ export default function Farmertable() {
             </div>
           </div>
         </div>
+        <div className="flex-1 overflow-auto no-scrollbar ">
+          <Table captionSide="bottom" className="h-[100vh]">
+            <thead className="flex-1 overflow-auto">{ths}</thead>
+            <tbody className="">{rows}</tbody>
+          </Table>
+        </div>
       </div>
-
-      <Table captionSide="bottom" className="h-[100vh]">
-        <thead>{ths}</thead>
-        <tbody className="">{rows}</tbody>
-      </Table>
     </div>
   );
 }

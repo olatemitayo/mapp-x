@@ -1,6 +1,6 @@
 import React from "react";
 import { Data } from "../farmers/famersdata";
-import FarmerModal from "../feo/feomodal";
+import FarmerModal from "../Admin/feomodal";
 import Image from "next/image";
 import clsx from "clsx";
 
@@ -11,8 +11,8 @@ interface LatestFeoProps {
 export default function Latestfeo({ className }: LatestFeoProps) {
   const lastestAddedFEO = Data.slice(-3);
   return (
-    <section className="flex flex-col gap-6 bg-blue  ">
-      <div className="flex gap-3 items-center justify-between"></div>
+    <section className="flex flex-col gap-2 bg-blue ">
+      <div className="flex items-center justify-between gap-3"></div>
 
       {lastestAddedFEO.map((data) => (
         <div
@@ -24,7 +24,7 @@ export default function Latestfeo({ className }: LatestFeoProps) {
           <div className="flex gap-3">
             <Image width={46} height={46} src={"/musa.png"} alt="img" />
             <div>
-              <h5 className="text-16 font-semibold">{data.name}</h5>
+              <h5 className="font-semibold text-16">{data.name}</h5>
               <p className="text-12 font-[500] text-[#C1C2C6]">
                 {data.location}
               </p>

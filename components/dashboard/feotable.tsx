@@ -2,7 +2,7 @@ import { Progress } from "@mantine/core";
 import Image from "next/image";
 import { Data } from "../farmers/famersdata";
 
-import FarmerModal from "../feo/feomodal";
+import FarmerModal from "../Admin/feomodal";
 import Latestfeo from "../profile/latestfeo";
 
 interface FEOData {
@@ -148,7 +148,7 @@ export default function Feotable() {
           </div>
         </div>
         <div>
-          <Latestfeo />
+          <Latestfeo className="!gap-6" />
         </div>
         <div></div>
         <div></div>

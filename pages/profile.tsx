@@ -3,7 +3,7 @@ import Sidebar from "@/components/dashboard/sidebar";
 import { BackgroundImage } from "@mantine/core";
 import Link from "next/link";
 import Image from "next/image";
-import { profile } from "../components/common/database";
+import { profile } from "@/components/database/profile";
 import Latestfeo from "@/components/profile/latestfeo";
 
 export default function Profile() {
