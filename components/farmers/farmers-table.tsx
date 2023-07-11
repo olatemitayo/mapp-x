@@ -1,11 +1,14 @@
 import { useState } from "react";
 import Image from "next/image";
-import { Drawer, Table, TextInput } from "@mantine/core";
+import { Drawer, Group, Table, TextInput } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 import { FarmersList } from "./famersdata";
+import Link from "next/link";
 
 export default function Farmertable() {
   const [selectedRow, setSelectedRow] = useState(null);
   const [drawerOpened, setDrawerOpened] = useState(false);
+  const [opened, { open, close }] = useDisclosure(false);
 
   const handleRowClick = (index) => {
     setSelectedRow(index);
@@ -102,7 +105,7 @@ export default function Farmertable() {
                   Farmer's Details
                 </h3>
                 {/* farmer details  */}
-                <div className="flex gap-5 mt-6">
+                <div className="flex gap-5 mt-4">
                   <div>
                     <img
                       src={"/drawerpic.png"}
@@ -163,177 +166,332 @@ export default function Farmertable() {
                   </div>
                 </div>
               </div>
-              {/* point  */}
-              <div className="mt-6">
+              <div className="flex flex-col gap-4 mt-6">
                 <h3 className="text-[16px] text-[#8F9198] font-semibold">
-                  Farm Cordinate
+                  Assigned FEO
                 </h3>
-                {/* farm cordinate  */}
-                <div className="flex gap-5 mt-6">
-                  <div className="flex flex-col gap-2">
-                    <p className="text-[#8F9198] text-[12px]">Point 1</p>
-                    <div className="flex gap-20">
-                      <div className="flex items-start gap-2">
-                        <Image
-                          width={18}
-                          height={18}
-                          src={"/long.svg"}
-                          alt="long"
-                          className="mt-1"
-                        />
-                        <div>
-                          <p className="text-[14px] font-[500] text-[#4A4C58]">
-                            Longitude
-                          </p>
-                          <p className="text-[12px] font-[400] text-[#4A4C58]">
-                            78.5222N
-                          </p>
-                        </div>
-                      </div>
-                      <div className="flex items-start gap-2">
-                        <Image
-                          width={18}
-                          height={18}
-                          src={"/lat.svg"}
-                          alt="long"
-                          className="mt-1"
-                        />
-                        <div>
-                          <p className="text-[14px] font-[500] text-[#4A4C58]">
-                            Latitude
-                          </p>
-                          <p className="text-[12px] font-[400] text-[#4A4C58]">
-                            58.5222N
-                          </p>
-                        </div>
-                      </div>
-                    </div>
+                <p className="text-[#bf2018] text-[14px]">
+                  {FarmersList[selectedRow].assigned}
+                </p>
+              </div>
+              <div className="flex flex-col gap-4 mt-6">
+                <h3 className="text-[16px] text-[#8F9198] font-semibold">
+                  Mapped Farmland
+                </h3>
+                {/* Abuja Farm  */}
+                <div>
+                  <div className="flex justify-between">
+                    <h4 className="text-[14px] font-semibold text-[#4a4c58]">
+                      My Abuja Farm
+                    </h4>
+                    {/* mantine  */}
+                    <Drawer
+                      opened={opened}
+                      onClose={close}
+                      size="md"
+                      position="right"
+                      classNames={{
+                        root: "!bg-none ",
+                        overlay: "!bg-none !opacity-0 ",
+                      }}
+                    ></Drawer>
+
+                    <Group>
+                      <p
+                        onClick={open}
+                        className="text-[#bf2018] text-[12px] font-medium cursor-pointer"
+                      >
+                        {" "}
+                        View
+                      </p>
+                    </Group>
+                  </div>
+                  <div className="flex flex-col gap-2 mt-4">
+                    <p className="text-[#8F9198] text-[12px]">
+                      Size:
+                      <span className="font-normal ms-10 text-[#4A4C58] text-[14px]">
+                        2 hectares
+                      </span>
+                    </p>
+                    <p className="text-[#8F9198] text-[12px]">
+                      Area:
+                      <span className="font-normal ms-10 text-[#4A4C58] text-[14px]">
+                        234m<sup>2</sup>
+                      </span>
+                    </p>
                   </div>
                 </div>
-                {/* farm cordinate  */}
-                <div className="flex gap-5 mt-6">
-                  <div className="flex flex-col gap-2">
-                    <p className="text-[#8F9198] text-[12px]">Point 2</p>
-                    <div className="flex gap-20">
-                      <div className="flex items-start gap-2">
-                        <Image
-                          width={18}
-                          height={18}
-                          src={"/long.svg"}
-                          alt="long"
-                          className="mt-1"
-                        />
-                        <div>
-                          <p className="text-[14px] font-[500] text-[#4A4C58]">
-                            Longitude
+                {/* Ibadan Farm  */}
+                <div>
+                  <div className="flex justify-between">
+                    <h4 className="text-[14px] font-semibold text-[#4a4c58]">
+                      My Ibadan Farm
+                    </h4>
+                    {/* mantine  */}
+                    <Drawer
+                      opened={opened}
+                      onClose={close}
+                      position="right"
+                      title={`${FarmersList[selectedRow].name}'s Farm`}
+                      classNames={{
+                        title: "ms-5 font-[700] text-[18px]",
+                        close: "focus:outline-0 w-[2rem]",
+                        header: "border-b",
+
+                        root: "!bg-none ",
+                        overlay: "!bg-none !opacity-0 ",
+                      }}
+                    >
+                      {/* point  */}
+                      <div className="p-5">
+                        <div className="flex justify-between">
+                          <p
+                            onClick={close}
+                            className="text-[12px] text-[#5E606A] flex items-center gap-2 cursor-pointer"
+                          >
+                            <span>
+                              <Image
+                                width={16}
+                                height={16}
+                                src={"/mback.svg"}
+                                alt="back"
+                              />
+                            </span>
+                            back
                           </p>
-                          <p className="text-[12px] font-[400] text-[#4A4C58]">
-                            78.5222N
-                          </p>
+                          <Link
+                            className="text-[#bf2018] text-[12px] font-medium cursor-pointer"
+                            href="#"
+                          >
+                            View Map
+                          </Link>
+                        </div>
+                        <div className="mt-4">
+                          <h3 className="text-[16px] text-[#8F9198] font-semibold">
+                            Farm Cordinate
+                          </h3>
+
+                          <div className="flex gap-5 mt-4">
+                            <div className="flex flex-col gap-2">
+                              <p className="text-[#8F9198] text-[12px]">
+                                Point 1
+                              </p>
+                              <div className="flex gap-20">
+                                <div className="flex items-start gap-2">
+                                  <Image
+                                    width={18}
+                                    height={18}
+                                    src={"/long.svg"}
+                                    alt="long"
+                                    className="mt-1"
+                                  />
+                                  <div>
+                                    <p className="text-[14px] font-[500] text-[#4A4C58]">
+                                      Longitude
+                                    </p>
+                                    <p className="text-[12px] font-[400] text-[#4A4C58]">
+                                      78.5222N
+                                    </p>
+                                  </div>
+                                </div>
+                                <div className="flex items-start gap-2">
+                                  <Image
+                                    width={18}
+                                    height={18}
+                                    src={"/lat.svg"}
+                                    alt="long"
+                                    className="mt-1"
+                                  />
+                                  <div>
+                                    <p className="text-[14px] font-[500] text-[#4A4C58]">
+                                      Latitude
+                                    </p>
+                                    <p className="text-[12px] font-[400] text-[#4A4C58]">
+                                      58.5222N
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="flex gap-5 mt-4">
+                            <div className="flex flex-col gap-2">
+                              <p className="text-[#8F9198] text-[12px]">
+                                Point 2
+                              </p>
+                              <div className="flex gap-20">
+                                <div className="flex items-start gap-2">
+                                  <Image
+                                    width={18}
+                                    height={18}
+                                    src={"/long.svg"}
+                                    alt="long"
+                                    className="mt-1"
+                                  />
+                                  <div>
+                                    <p className="text-[14px] font-[500] text-[#4A4C58]">
+                                      Longitude
+                                    </p>
+                                    <p className="text-[12px] font-[400] text-[#4A4C58]">
+                                      78.5222N
+                                    </p>
+                                  </div>
+                                </div>
+                                <div className="flex items-start gap-2">
+                                  <Image
+                                    width={18}
+                                    height={18}
+                                    src={"/lat.svg"}
+                                    alt="long"
+                                    className="mt-1"
+                                  />
+                                  <div>
+                                    <p className="text-[14px] font-[500] text-[#4A4C58]">
+                                      Latitude
+                                    </p>
+                                    <p className="text-[12px] font-[400] text-[#4A4C58]">
+                                      58.5222N
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="flex gap-5 mt-4">
+                            <div className="flex flex-col gap-2">
+                              <p className="text-[#8F9198] text-[12px]">
+                                Point 3
+                              </p>
+                              <div className="flex gap-20">
+                                <div className="flex items-start gap-2">
+                                  <Image
+                                    width={18}
+                                    height={18}
+                                    src={"/long.svg"}
+                                    alt="long"
+                                    className="mt-1"
+                                  />
+                                  <div>
+                                    <p className="text-[14px] font-[500] text-[#4A4C58]">
+                                      Longitude
+                                    </p>
+                                    <p className="text-[12px] font-[400] text-[#4A4C58]">
+                                      78.5222N
+                                    </p>
+                                  </div>
+                                </div>
+                                <div className="flex items-start gap-2">
+                                  <Image
+                                    width={18}
+                                    height={18}
+                                    src={"/lat.svg"}
+                                    alt="long"
+                                    className="mt-1"
+                                  />
+                                  <div>
+                                    <p className="text-[14px] font-[500] text-[#4A4C58]">
+                                      Latitude
+                                    </p>
+                                    <p className="text-[12px] font-[400] text-[#4A4C58]">
+                                      58.5222N
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="flex gap-5 mt-4">
+                            <div className="flex flex-col gap-2">
+                              <p className="text-[#8F9198] text-[12px]">
+                                Point 4
+                              </p>
+                              <div className="flex gap-20">
+                                <div className="flex items-start gap-2">
+                                  <Image
+                                    width={18}
+                                    height={18}
+                                    src={"/long.svg"}
+                                    alt="long"
+                                    className="mt-1"
+                                  />
+                                  <div>
+                                    <p className="text-[14px] font-[500] text-[#4A4C58]">
+                                      Longitude
+                                    </p>
+                                    <p className="text-[12px] font-[400] text-[#4A4C58]">
+                                      78.5222N
+                                    </p>
+                                  </div>
+                                </div>
+                                <div className="flex items-start gap-2">
+                                  <Image
+                                    width={18}
+                                    height={18}
+                                    src={"/lat.svg"}
+                                    alt="long"
+                                    className="mt-1"
+                                  />
+                                  <div>
+                                    <p className="text-[14px] font-[500] text-[#4A4C58]">
+                                      Latitude
+                                    </p>
+                                    <p className="text-[12px] font-[400] text-[#4A4C58]">
+                                      58.5222N
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="mt-4">
+                          <h3 className="text-[16px] text-[#8F9198] font-semibold">
+                            Farm Size
+                          </h3>
+                          <div className="flex flex-col gap-2">
+                            <p className="text-[#8F9198] text-[12px]">
+                              Size:
+                              <span className="font-normal ms-10 text-[#4A4C58] text-[14px]">
+                                2 hectares
+                              </span>
+                            </p>
+                            <p className="text-[#8F9198] text-[12px]">
+                              Area:
+                              <span className="font-normal ms-10 text-[#4A4C58] text-[14px]">
+                                234m<sup>2</sup>
+                              </span>
+                            </p>
+                          </div>
                         </div>
                       </div>
-                      <div className="flex items-start gap-2">
-                        <Image
-                          width={18}
-                          height={18}
-                          src={"/lat.svg"}
-                          alt="long"
-                          className="mt-1"
-                        />
-                        <div>
-                          <p className="text-[14px] font-[500] text-[#4A4C58]">
-                            Latitude
-                          </p>
-                          <p className="text-[12px] font-[400] text-[#4A4C58]">
-                            58.5222N
-                          </p>
-                        </div>
-                      </div>
-                    </div>
+                    </Drawer>
+
+                    <Group>
+                      <p
+                        onClick={open}
+                        className="text-[#bf2018] text-[12px] font-medium cursor-pointer"
+                      >
+                        {" "}
+                        View
+                      </p>
+                    </Group>
                   </div>
-                </div>
-                {/* farm cordinate  */}
-                <div className="flex gap-5 mt-6">
-                  <div className="flex flex-col gap-2">
-                    <p className="text-[#8F9198] text-[12px]">Point 3</p>
-                    <div className="flex gap-20">
-                      <div className="flex items-start gap-2">
-                        <Image
-                          width={18}
-                          height={18}
-                          src={"/long.svg"}
-                          alt="long"
-                          className="mt-1"
-                        />
-                        <div>
-                          <p className="text-[14px] font-[500] text-[#4A4C58]">
-                            Longitude
-                          </p>
-                          <p className="text-[12px] font-[400] text-[#4A4C58]">
-                            78.5222N
-                          </p>
-                        </div>
-                      </div>
-                      <div className="flex items-start gap-2">
-                        <Image
-                          width={18}
-                          height={18}
-                          src={"/lat.svg"}
-                          alt="long"
-                          className="mt-1"
-                        />
-                        <div>
-                          <p className="text-[14px] font-[500] text-[#4A4C58]">
-                            Latitude
-                          </p>
-                          <p className="text-[12px] font-[400] text-[#4A4C58]">
-                            58.5222N
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                {/* farm cordinate  */}
-                <div className="flex gap-5 mt-6">
-                  <div className="flex flex-col gap-2">
-                    <p className="text-[#8F9198] text-[12px]">Point 4</p>
-                    <div className="flex gap-20">
-                      <div className="flex items-start gap-2">
-                        <Image
-                          width={18}
-                          height={18}
-                          src={"/long.svg"}
-                          alt="long"
-                          className="mt-1"
-                        />
-                        <div>
-                          <p className="text-[14px] font-[500] text-[#4A4C58]">
-                            Longitude
-                          </p>
-                          <p className="text-[12px] font-[400] text-[#4A4C58]">
-                            78.5222N
-                          </p>
-                        </div>
-                      </div>
-                      <div className="flex items-start gap-2">
-                        <Image
-                          width={18}
-                          height={18}
-                          src={"/lat.svg"}
-                          alt="long"
-                          className="mt-1"
-                        />
-                        <div>
-                          <p className="text-[14px] font-[500] text-[#4A4C58]">
-                            Latitude
-                          </p>
-                          <p className="text-[12px] font-[400] text-[#4A4C58]">
-                            58.5222N
-                          </p>
-                        </div>
-                      </div>
-                    </div>
+                  <div className="flex flex-col gap-2 mt-4">
+                    <p className="text-[#8F9198] text-[12px]">
+                      Size:
+                      <span className="font-normal ms-10 text-[#4A4C58] text-[14px]">
+                        2 hectares
+                      </span>
+                    </p>
+                    <p className="text-[#8F9198] text-[12px]">
+                      Area:
+                      <span className="font-normal ms-10 text-[#4A4C58] text-[14px]">
+                        234m<sup>2</sup>
+                      </span>
+                    </p>
                   </div>
                 </div>
               </div>

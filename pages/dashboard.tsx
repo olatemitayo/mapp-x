@@ -1,6 +1,6 @@
 import Feotable from "@/components/dashboard/feotable";
 import Globaldb from "@/components/dashboard/globaldb";
-import ProtectedRoute from "@/components/protected-route";
+import withAuth from "@/components/protected-route";
 import Graph from "@/components/dashboard/graph";
 import Headers from "@/components/dashboard/headers";
 import Pages from "@/components/dashboard/pages";
@@ -99,4 +99,4 @@ function Dashboard() {
   );
 }
 
-export default ProtectedRoute(Dashboard);
+export default Dashboard;

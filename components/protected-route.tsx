@@ -1,23 +1,33 @@
 import { useRouter } from "next/router";
-import { useEffect } from "react";
-import { isAuthenticated } from "../utils/auth";
 
-const ProtectedRoute = <P extends object>(
-  WrappedComponent: React.ComponentType<P>
-) => {
-  const Wrapper: React.FC<P> = (props) => {
+import { useEffect, useState } from "react";
+
+const withAuth = (WrappedComponent) => {
+  const Wrapper = (props) => {
+    const [userObject, setUserObject] = useState({});
+
     const router = useRouter();
 
+    // Perform authentication or authorization check
+
+    const isAuthenticated = true;
+
     useEffect(() => {
-      if (!isAuthenticated()) {
-        router.push("/signin");
-      }
+      setUserObject(JSON.parse(localStorage.getItem("my-user")));
     }, []);
 
-    return isAuthenticated() ? <WrappedComponent {...props} /> : null;
+    useEffect(() => {
+      if (!userObject) {
+        router.push("/signin"); // Redirect to login page if not authenticated
+      }
+    }, [userObject, router]);
+
+    // Render the wrapped component if authenticated
+
+    return userObject ? <WrappedComponent {...props} /> : null;
   };
 
   return Wrapper;
 };
 
-export default ProtectedRoute;
+export default withAuth;

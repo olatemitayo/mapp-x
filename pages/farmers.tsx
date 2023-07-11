@@ -3,7 +3,7 @@ import Sidebar from "@/components/dashboard/sidebar";
 import Farmertable from "@/components/farmers/farmers-table";
 import { FarmersList } from "@/components/farmers/famersdata";
 import Nofarmersdata from "@/components/farmers/nofarmersdata";
-import ProtectedRoute from "@/components/protected-route";
+import withAuth from "@/components/protected-route";
 
 const Farmers: React.FC = () => {
   return (
@@ -23,4 +23,4 @@ const Farmers: React.FC = () => {
   );
 };
 
-export default ProtectedRoute(Farmers);
+export default Farmers;
