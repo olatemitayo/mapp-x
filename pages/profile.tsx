@@ -10,9 +10,9 @@ import Latestfeo from "@/components/profile/latestfeo";
 
 export default function Profile() {
   const [payload, setPayload] = useState<UserDetails>({
-    img: "",
     first_name: "",
     last_name: "",
+    profile_picture: "",
   });
 
   useEffect(() => {
@@ -41,13 +41,18 @@ export default function Profile() {
             <div>
               <div className="flex items-center justify-between px-10 bg-white rounded-b-lg ">
                 <div className="flex gap-3">
-                  <div className="" style={{ marginTop: "-4rem" }}>
-                    <Image
+                  <div className="rounded-[50%]" style={{ marginTop: "-4rem" }}>
+                    <img
+                      src={payload.profile_picture}
+                      alt="profilePic"
+                      className="rounded-[50%] w-[120px] h-[120px]"
+                    />
+                    {/* <Image
                       width={120}
                       height={120}
                       alt="profile picture"
-                      src={"/profilepic.svg"}
-                    />
+                      src={payload.profile_picture}
+                    /> */}
                   </div>
                   <div>
                     <h1 className="text-[#4A4C58] font-semibold">

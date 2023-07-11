@@ -13,7 +13,7 @@ interface PagesProps {
 
 export default function Pages({ text, page, children }: PagesProps) {
   const [payload, setPayload] = useState<UserDetails>({
-    img: "",
+    profile_picture: "",
     first_name: "",
     last_name: "",
   });
@@ -64,7 +64,11 @@ export default function Pages({ text, page, children }: PagesProps) {
           <Image src="/widget.svg" width={24} height={24} alt="widget" />
           {/* <span className=" text-davy-grey">{payload?.img}</span> */}
 
-          <Image src="/dp.svg" width={41} height={41} alt="display picture" />
+          <img
+            src={payload.profile_picture}
+            alt="profile_picture"
+            className="w-[41px] h-[41px] rounded-[50%]"
+          />
         </div>
       </div>
       <div />

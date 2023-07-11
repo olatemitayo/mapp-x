@@ -1,5 +1,6 @@
 import Feotable from "@/components/dashboard/feotable";
 import Globaldb from "@/components/dashboard/globaldb";
+import ProtectedRoute from "@/components/protected-route";
 import Graph from "@/components/dashboard/graph";
 import Headers from "@/components/dashboard/headers";
 import Pages from "@/components/dashboard/pages";
@@ -9,7 +10,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Popover } from "@mantine/core";
 
-export default function Dashboard() {
+function Dashboard() {
   return (
     <>
       <main className=" grid grid-cols-[auto_1fr] ">
@@ -97,3 +98,5 @@ export default function Dashboard() {
     </>
   );
 }
+
+export default ProtectedRoute(Dashboard);

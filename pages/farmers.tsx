@@ -3,8 +3,9 @@ import Sidebar from "@/components/dashboard/sidebar";
 import Farmertable from "@/components/farmers/farmers-table";
 import { FarmersList } from "@/components/farmers/famersdata";
 import Nofarmersdata from "@/components/farmers/nofarmersdata";
+import ProtectedRoute from "@/components/protected-route";
 
-export default function Farmers() {
+const Farmers: React.FC = () => {
   return (
     <main className="grid grid-cols-[auto_1fr]">
       <Sidebar />
@@ -20,4 +21,6 @@ export default function Farmers() {
       </div>
     </main>
   );
-}
+};
+
+export default ProtectedRoute(Farmers);

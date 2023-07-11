@@ -1,18 +1,12 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { MantineProvider } from "@mantine/core";
-import {
-  Dispatch,
-  SetStateAction,
-  useState,
-  createContext,
-  useEffect,
-} from "react";
+import { Dispatch, SetStateAction, useState, createContext } from "react";
 
 export interface UserDetails {
   first_name: string;
   last_name: string;
-  img: string;
+  profile_picture: string;
 }
 
 export interface User {
@@ -23,15 +17,7 @@ export interface User {
   role: string;
   first_name: string;
   last_name: string;
-  photo_url: string;
-  get_cover_image: string;
-  is_online: boolean;
-  bio: string;
-  town: string;
-  country: string;
-  is_private: boolean;
-  is_following: boolean;
-  location: null;
+  profile_picture: string;
 }
 
 export type ContextType = {
