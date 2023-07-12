@@ -19,14 +19,14 @@ const FEOranking: FEOData[] = [
     farmers: "123",
     mapped: "101",
     progress: 100,
-    img: "/usa.svg",
+    img: "/Kenya.svg",
   },
   {
     name: "Musa Abdullahi",
     farmers: "345",
     mapped: "89",
     progress: 78.1,
-    img: "/Uganda.svg",
+    img: "/Kenya.svg",
   },
   {
     name: "Ajayi Daniel",
@@ -40,42 +40,42 @@ const FEOranking: FEOData[] = [
     farmers: "567",
     mapped: "400",
     progress: 55.5,
-    img: "/kenya.svg",
+    img: "/Kenya.svg",
   },
   {
     name: "Abidemi Victoria",
     farmers: "567",
     mapped: "324",
     progress: 54.5,
-    img: "/Flag.svg",
+    img: "/Kenya.svg",
   },
   {
     name: "Temitayo Olatunji",
     farmers: "567",
     mapped: "550",
     progress: 97,
-    img: "/Flag.svg",
+    img: "/Kenya.svg",
   },
   {
     name: "Adeniji Victoria",
     farmers: "455",
     mapped: "444",
     progress: 78.5,
-    img: "/USA.svg",
+    img: "/Kenya.svg",
   },
   {
     name: "Lanre Wale",
     farmers: "367",
     mapped: "299",
     progress: 77.5,
-    img: "/Flag.svg",
+    img: "/Kenya.svg",
   },
   {
     name: "Fabiyi Olubiyi",
     farmers: "567",
     mapped: "99",
     progress: 37.5,
-    img: "/Flag.svg",
+    img: "/Kenya.svg",
   },
 ];
 
@@ -108,7 +108,7 @@ export function Individual(): JSX.Element {
   );
 }
 
-export default function Feotable() {
+export default function KeFeotable() {
   return (
     <div className="flex justify-between mt-[20px]">
       <div className="w-[69.5%] h-[345px] bg-white rounded-[20px] border-[1px] ">

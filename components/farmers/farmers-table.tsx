@@ -237,7 +237,6 @@ export default function Farmertable() {
                         title: "ms-5 font-[700] text-[18px]",
                         close: "focus:outline-0 w-[2rem]",
                         header: "border-b",
-
                         root: "!bg-none ",
                         overlay: "!bg-none !opacity-0 ",
                       }}
@@ -464,6 +463,48 @@ export default function Farmertable() {
                                 234m<sup>2</sup>
                               </span>
                             </p>
+                          </div>
+                        </div>
+                        <div className="mt-4">
+                          <h3 className="text-[16px] text-[#8F9198] font-semibold">
+                            Farm Size
+                          </h3>
+                          <div className="mt-4">
+                            <address className="not-italic text-[#4A4C58] text-[14px] font-medium ">
+                              34T, Sodeinde street, Off Ademola estate, Abuja
+                            </address>
+                          </div>
+                        </div>
+                        {/* popover pictures  */}
+                        <div className="mt-4">
+                          <h3 className="text-[16px] text-[#8F9198] font-semibold">
+                            Farmland Snapshots
+                          </h3>
+                          <div className="flex gap-2 mt-4 overflow-auto no-scrollbar">
+                            <Image
+                              width={100}
+                              height={100}
+                              alt="farm-one"
+                              src={"/farm1.png"}
+                            />
+                            <Image
+                              width={100}
+                              height={100}
+                              alt="farm-one"
+                              src={"/farm2.png"}
+                            />
+                            <Image
+                              width={100}
+                              height={100}
+                              alt="farm-one"
+                              src={"/farm3.png"}
+                            />
+                            <Image
+                              width={100}
+                              height={100}
+                              alt="farm-one"
+                              src={"/farm4.png"}
+                            />
                           </div>
                         </div>
                       </div>

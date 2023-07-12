@@ -13,7 +13,8 @@ const HeaderItems = [
     Image: "/hmapped.svg",
     header: "Mapped Farmlands",
     figure: "574,000",
-    change: "+23% since last month",
+    change: "+23% ",
+    when: "since last month",
     isReversed: false,
   },
   {
@@ -147,7 +148,10 @@ export default function Headers() {
               <h2 className="text-2xl font-[600] text-[#252735]">
                 {item.figure}
               </h2>
-              <p>{item.change}</p>
+              <p className="text-[#C1C2C6] text-[14px]">
+                <span className="text-[#30AD74]">{item.change}</span>{" "}
+                {item.when}
+              </p>
             </div>
           </div>
         )

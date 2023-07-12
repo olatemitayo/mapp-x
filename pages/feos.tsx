@@ -34,7 +34,7 @@ export default function Feos() {
       <div className="py-6 h-[100vh] flex-1 px-5 \ bg-[#F5F5F6] overflow-x-auto">
         <Pages text="FEOs" page="FEO's List" />
         <Feohead />
-        {Data.length !== 0 ? (
+        {Data.length === 0 ? (
           <Nofarmersdata text="FEOs" para="feo" />
         ) : (
           <FEOFarmertable />

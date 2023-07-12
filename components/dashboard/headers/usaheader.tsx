@@ -13,7 +13,8 @@ const HeaderItems = [
     Image: "/hmapped.svg",
     header: "Mapped Farmlands",
     figure: "5400",
-    change: "+23% since last month",
+    change: "+17% ",
+    when: "since last month",
     isReversed: false,
   },
   {
@@ -66,70 +67,6 @@ export default function USHeaders() {
                 src={item.Image}
                 alt={item.header}
               />
-              <Popover width={250} position="bottom" withArrow shadow="md">
-                <Popover.Target>
-                  <Image
-                    width={24}
-                    height={24}
-                    src="/arrowDown.svg"
-                    alt="arrow"
-                    className="cursor-pointer"
-                  />
-                </Popover.Target>
-                <Popover.Dropdown className="rounded-md">
-                  <div className="flex flex-col gap-3">
-                    <Link href="#">
-                      <div className="flex items-center justify-between gap-1">
-                        <h2 className="text-2xl font-[600] text-[#252735]">
-                          10,000
-                          <span className="text-[10px] ms-1 font-normal text-[#8F9198]">
-                            farms
-                          </span>
-                        </h2>
-                        <Image
-                          src="/Kenya.svg"
-                          alt="flag"
-                          width={50}
-                          height={50}
-                        />
-                      </div>
-                    </Link>
-                    <Link href="#">
-                      <div className="flex items-center justify-between gap-1">
-                        <h2 className="text-2xl font-[600] text-[#252735]">
-                          8,503
-                          <span className="text-[10px] ms-1 font-normal text-[#8F9198]">
-                            farms
-                          </span>
-                        </h2>
-                        <Image
-                          src="/Uganda.svg"
-                          alt="flag"
-                          width={50}
-                          height={50}
-                        />
-                      </div>
-                    </Link>
-
-                    <Link href="#">
-                      <div className="flex items-center justify-between gap-1">
-                        <h2 className="text-2xl font-[600] text-[#252735]">
-                          230
-                          <span className="text-[10px] ms-1 font-normal text-[#8F9198]">
-                            farms
-                          </span>
-                        </h2>
-                        <Image
-                          src="/usa.svg"
-                          alt="flag"
-                          width={50}
-                          height={50}
-                        />
-                      </div>
-                    </Link>
-                  </div>
-                </Popover.Dropdown>
-              </Popover>
             </figure>
           </div>
         ) : (
@@ -147,7 +84,10 @@ export default function USHeaders() {
               <h2 className="text-2xl font-[600] text-[#252735]">
                 {item.figure}
               </h2>
-              <p>{item.change}</p>
+              <p className="text-[#C1C2C6] text-[14px]">
+                <span className="text-[#30AD74]">{item.change}</span>{" "}
+                {item.when}
+              </p>
             </div>
           </div>
         )
