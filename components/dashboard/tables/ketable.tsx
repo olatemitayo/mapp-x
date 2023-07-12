@@ -1,9 +1,9 @@
 import { Progress } from "@mantine/core";
 import Image from "next/image";
-import { Data } from "../farmers/famersdata";
+import { Data } from "@/components/farmers/famersdata";
 
-import FarmerModal from "../Admin/feomodal";
-import Latestfeo from "../profile/latestfeo";
+// import FarmerModal from "../Admin/feomodal";
+import Latestfeo from "@/components/profile/latestfeo";
 
 interface FEOData {
   name: string;
@@ -137,7 +137,6 @@ export default function Feotable() {
             </span>
           </div>
           <div className="relative">
-            <FarmerModal />
             <Image
               width={24}
               height={24}

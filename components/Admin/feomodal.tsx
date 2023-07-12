@@ -11,6 +11,8 @@ import {
 } from "@mantine/core";
 import Image from "next/image";
 import Link from "next/link";
+import { data } from "autoprefixer";
+import axios from "axios";
 
 const countries = [
   {
@@ -31,13 +33,57 @@ const countries = [
   },
 ];
 
+interface DetailsProps {
+  img?: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone: string;
+  country: string;
+  state: string;
+  city: string;
+}
+
 export default function FarmerModal() {
   const [opened, { open, close }] = useDisclosure(false);
-  const [active, setActive] = useState(1);
+  const [active, setActive] = useState(0);
   const nextStep = () =>
     setActive((current) => (current < 3 ? current + 1 : current));
   const prevStep = () =>
     setActive((current) => (current > 0 ? current - 1 : current));
+
+  const [details, setDetails] = useState<DetailsProps>({
+    img: "",
+    first_name: "",
+    last_name: "",
+    email: "",
+    phone: "",
+    country: "",
+    state: "",
+    city: "",
+  });
+
+  const SubmitDetails = () => {
+    const token = JSON.parse(localStorage.getItem("my-user") as string);
+    const formData = new FormData();
+    Object.entries(details).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
+    axios({
+      url: "",
+      data: formData,
+      headers: {
+        Authorization: `Bearer ${token.token}`,
+      },
+      method: "post",
+    })
+      .then(function (res) {
+        close();
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
   const [country, setCountry] = useState([]);
   const [selected, setSelected] = useState([]);
@@ -89,6 +135,13 @@ export default function FarmerModal() {
                   size="md"
                   withAsterisk
                   required
+                  value={details.first_name}
+                  onChange={(e) => {
+                    setDetails({
+                      ...details,
+                      first_name: e.target.value,
+                    });
+                  }}
                   classNames={{
                     label: "text-[16px] mb-2",
                     input: " focus:border-[#C1C2C6] ",
@@ -100,6 +153,13 @@ export default function FarmerModal() {
                   size="md"
                   withAsterisk
                   required
+                  value={details.last_name}
+                  onChange={(e) => {
+                    setDetails({
+                      ...details,
+                      last_name: e.target.value,
+                    });
+                  }}
                   classNames={{
                     label: "text-[16px] mb-2",
                     input: " focus:border-[#C1C2C6] ",
@@ -111,6 +171,13 @@ export default function FarmerModal() {
                   size="md"
                   withAsterisk
                   required
+                  value={details.email}
+                  onChange={(e) => {
+                    setDetails({
+                      ...details,
+                      email: e.target.value,
+                    });
+                  }}
                   classNames={{
                     label: "text-[16px] mb-2",
                     input: " focus:border-[#C1C2C6] ",
@@ -155,6 +222,13 @@ export default function FarmerModal() {
                     size="md"
                     withAsterisk
                     required
+                    value={details.phone}
+                    onChange={(e) => {
+                      setDetails({
+                        ...details,
+                        phone: e.target.value,
+                      });
+                    }}
                     classNames={{
                       label: "text-[16px] mb-2",
                       root: "flex-1",
@@ -188,7 +262,14 @@ export default function FarmerModal() {
                   placeholder="Select Country"
                   searchable
                   nothingFound="No options"
+                  value={details.country}
                   data={["Nigeria", "Kenya", "Uganda", "USA"]}
+                  onChange={(value) => {
+                    setDetails({
+                      ...details,
+                      country: value as string,
+                    });
+                  }}
                   classNames={{
                     label: "text-[16px] mb-2",
                     input: " focus:border-[#C1C2C6] ",
@@ -199,7 +280,14 @@ export default function FarmerModal() {
                   placeholder="Select State"
                   searchable
                   nothingFound="No options"
+                  value={details.state}
                   data={["Nigeria", "Kenya", "Uganda", "USA"]}
+                  onChange={(value) => {
+                    setDetails({
+                      ...details,
+                      state: value as string,
+                    });
+                  }}
                   classNames={{
                     label: "text-[16px] mb-2",
                     input:
@@ -212,6 +300,13 @@ export default function FarmerModal() {
                   searchable
                   nothingFound="No options"
                   data={["Nigeria", "Kenya", "Uganda", "USA"]}
+                  value={details.city}
+                  onChange={(value) => {
+                    setDetails({
+                      ...details,
+                      city: value as string,
+                    });
+                  }}
                   classNames={{
                     label: "text-[16px] mb-2",
                     input: "bg-[#F5F5F6]  focus:border-[#C1C2C6]",
@@ -233,7 +328,7 @@ export default function FarmerModal() {
                   onClick={nextStep}
                   className="bg-[#bf2018] text-[#fff] hover:bg-[#bf2018]"
                 >
-                  Assign Location
+                  Confirm Entries
                   <span className="ms-2">
                     <Image
                       width={16}
@@ -250,31 +345,31 @@ export default function FarmerModal() {
               <div className="flex flex-col gap-5 my-7">
                 <div className="flex justify-between">
                   <h5>First Name</h5>
-                  <h5>{"lateef"}</h5>
+                  <h5>{details.first_name}</h5>
                 </div>
                 <div className="flex justify-between">
                   <h5>Last Name</h5>
-                  <h5>{"Abiodun"}</h5>
+                  <h5>{details.last_name}</h5>
                 </div>
                 <div className="flex justify-between">
                   <h5>Email Address</h5>
-                  <h5>{"alateef@africaexchange.com"}</h5>
+                  <h5>{details.email}</h5>
                 </div>
                 <div className="flex justify-between">
                   <h5>Phone Number</h5>
-                  <h5>{"+234 (8) 10-6545-067"}</h5>
+                  <h5>{details.phone}</h5>
                 </div>
                 <div className="flex justify-between">
                   <h5>Country</h5>
-                  <h5>{"Nigeria"}</h5>
+                  <h5>{details.country}</h5>
                 </div>
                 <div className="flex justify-between">
                   <h5>State</h5>
-                  <h5>{"Oyo"}</h5>
+                  <h5>{details.state}</h5>
                 </div>
                 <div className="flex justify-between">
                   <h5>City</h5>
-                  <h5>{"Ibadan"}</h5>
+                  <h5>{details.city}</h5>
                 </div>
               </div>
               <div className="flex justify-between mt-6">
@@ -289,7 +384,7 @@ export default function FarmerModal() {
                   Assign Location
                 </Button>
                 <Button
-                  onClick={nextStep}
+                  onClick={SubmitDetails}
                   className="bg-[#bf2018] text-[#fff] hover:bg-[#bf2018]"
                 >
                   Save Entries

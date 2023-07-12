@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { AuthContext, ContextType, UserDetails } from "@/pages/_app";
 import Pages from "@/components/dashboard/pages";
-import Sidebar from "@/components/dashboard/sidebar";
+import Sidebar from "@/components/dashboard/areacharts/sidebar";
 import { BackgroundImage } from "@mantine/core";
 import Link from "next/link";
 import Image from "next/image";
@@ -148,68 +148,8 @@ export default function Profile() {
                     FEOs you created
                   </h2>
                 </div>
-                {/* FEO CONTENT  */}
-                {/* <div className="flex flex-col gap-6 px-7 ">
-                <div className="flex items-center justify-between gap-3"></div>
-                <div className="flex items-center justify-between gap-3">
-                  <div className="flex gap-3">
-                    <Image width={46} height={46} src={"/musa.png"} alt="img" />
-                    <div>
-                      <h5 className="font-semibold text-16">Musa Abdulahi</h5>
-                      <p className="text-12 font-[500] text-[#C1C2C6]">
-                        Katsina, Nigeria
-                      </p>
-                    </div>
-                  </div>
-                  <div>
-                    <Image
-                      width={24}
-                      alt="edit"
-                      height={24}
-                      src={"/edit.svg"}
-                    />
-                  </div>
-                </div>
-                <div className="flex items-center justify-between gap-3">
-                  <div className="flex gap-3">
-                    <Image width={46} height={46} src={"/musa.png"} alt="img" />
-                    <div>
-                      <h5 className="font-semibold text-16">Musa Abdulahi</h5>
-                      <p className="text-12 font-[500] text-[#C1C2C6]">
-                        Katsina, Nigeria
-                      </p>
-                    </div>
-                  </div>
-                  <div>
-                    <Image
-                      width={24}
-                      alt="edit"
-                      height={24}
-                      src={"/edit.svg"}
-                    />
-                  </div>
-                </div>
-                <div className="flex items-center justify-between gap-3">
-                  <div className="flex gap-3">
-                    <Image width={46} height={46} src={"/musa.png"} alt="img" />
-                    <div>
-                      <h5 className="font-semibold text-16">Musa Abdulahi</h5>
-                      <p className="text-12 font-[500] text-[#C1C2C6]">
-                        Katsina, Nigeria
-                      </p>
-                    </div>
-                  </div>
-                  <div>
-                    <Image
-                      width={24}
-                      alt="edit"
-                      height={24}
-                      src={"/edit.svg"}
-                    />
-                  </div>
-                </div>
-              </div> */}
-                <Latestfeo className="noshadow" />
+
+                <Latestfeo className="noshadow !gap-[10px]" />
                 <Link
                   href="/feos"
                   className="text-end px-7 pb-3 text-[#bf2018]"

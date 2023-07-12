@@ -11,7 +11,7 @@ interface LatestFeoProps {
 export default function Latestfeo({ className }: LatestFeoProps) {
   const lastestAddedFEO = Data.slice(-3);
   return (
-    <section className="flex flex-col gap-2 bg-blue ">
+    <section className={clsx("flex flex-col gap-6 bg-blue ", className)}>
       <div className="flex items-center justify-between gap-3"></div>
 
       {lastestAddedFEO.map((data) => (

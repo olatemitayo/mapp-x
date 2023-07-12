@@ -1,9 +1,9 @@
 import { Progress } from "@mantine/core";
 import Image from "next/image";
-import { Data } from "../farmers/famersdata";
+import { Data } from "@/components/farmers/famersdata";
 
-import FarmerModal from "../Admin/feomodal";
-import Latestfeo from "../profile/latestfeo";
+// import FarmerModal from "../Admin/feomodal";
+import Latestfeo from "@/components/profile/latestfeo";
 
 interface FEOData {
   name: string;
@@ -26,35 +26,35 @@ const FEOranking: FEOData[] = [
     farmers: "345",
     mapped: "89",
     progress: 78.1,
-    img: "/Uganda.svg",
+    img: "/USA.svg",
   },
   {
     name: "Ajayi Daniel",
     farmers: "231",
     mapped: "200",
     progress: 45.6,
-    img: "/Kenya.svg",
+    img: "/USA.svg",
   },
   {
     name: "Fabiyi Victoria",
     farmers: "567",
     mapped: "400",
     progress: 55.5,
-    img: "/kenya.svg",
+    img: "/USA.svg",
   },
   {
     name: "Abidemi Victoria",
     farmers: "567",
     mapped: "324",
     progress: 54.5,
-    img: "/Flag.svg",
+    img: "/USA.svg",
   },
   {
     name: "Temitayo Olatunji",
     farmers: "567",
     mapped: "550",
     progress: 97,
-    img: "/Flag.svg",
+    img: "/USA.svg",
   },
   {
     name: "Adeniji Victoria",
@@ -68,14 +68,14 @@ const FEOranking: FEOData[] = [
     farmers: "367",
     mapped: "299",
     progress: 77.5,
-    img: "/Flag.svg",
+    img: "/USA.svg",
   },
   {
     name: "Fabiyi Olubiyi",
     farmers: "567",
     mapped: "99",
     progress: 37.5,
-    img: "/Flag.svg",
+    img: "/USA.svg",
   },
 ];
 
@@ -108,7 +108,7 @@ export function Individual(): JSX.Element {
   );
 }
 
-export default function Feotable() {
+export default function USFeotable() {
   return (
     <div className="flex justify-between mt-[20px]">
       <div className="w-[69.5%] h-[345px] bg-white rounded-[20px] border-[1px] ">
@@ -137,7 +137,6 @@ export default function Feotable() {
             </span>
           </div>
           <div className="relative">
-            <FarmerModal />
             <Image
               width={24}
               height={24}
