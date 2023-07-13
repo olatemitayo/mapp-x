@@ -1,5 +1,5 @@
 import Pages from "@/components/dashboard/pages";
-import Sidebar from "@/components/dashboard/areacharts/sidebar";
+import Sidebar from "@/components/sidebar";
 import React from "react";
 
 export default function ActivityLog() {

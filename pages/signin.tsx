@@ -9,6 +9,8 @@ import "react-toastify/dist/ReactToastify.css";
 import Button from "@/components/auth/button";
 import AuthText from "@/components/auth/auth-text";
 import { PasswordInput, TextInput } from "@mantine/core";
+import { IconDatabase } from "@tabler/icons-react";
+// import { Button } from "@mantine/core";
 import { User } from "./_app";
 
 interface UserProps {
@@ -16,21 +18,23 @@ interface UserProps {
   password: string;
 }
 export default function SignIn() {
+  const [isLoading, setIsLoading] = useState(false);
   const Login = (value: UserProps) => {
     axios
-      .post("https://web-production-5804.up.railway.app/api/account/login/", {
+      .post("https://web-production-9c5b.up.railway.app/api/account/login/", {
         email: value.email,
         password: value.password,
       })
       .then(function (res) {
+        setIsLoading(true);
         if (res.data?.token) {
           localStorage.setItem("my-user", JSON.stringify(res.data));
-          toast("You have successfully logged in");
           router.push("/dashboard");
         }
       })
       .catch(function (error) {
         console.log(error);
+
         toast.error("Invalid login details");
       });
   };
@@ -124,7 +128,11 @@ export default function SignIn() {
                 </Link>
               </div>
               <div>
-                <Button text="Sign In" className="!w-full" />
+                <Button text="Sign In" className="!w-full">
+                  {isLoading ? (
+                    <img src="/loading.svg" width={24} height={24} alt="" />
+                  ) : null}
+                </Button>
               </div>
             </form>
           </div>

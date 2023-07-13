@@ -4,7 +4,7 @@ import withAuth from "@/components/protected-route";
 import Graph from "@/components/dashboard/graph";
 import Headers from "@/components/dashboard/headers";
 import Pages from "@/components/dashboard/pages";
-import Sidebar from "@/components/dashboard/areacharts/sidebar";
+import Sidebar from "@/components/sidebar";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -99,4 +99,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default withAuth(Dashboard);

@@ -6,13 +6,18 @@ import {
   Group,
   Stepper,
   TextInput,
+  Text,
+  useMantineTheme,
+  rem,
   Popover,
   Select,
 } from "@mantine/core";
 import Image from "next/image";
 import Link from "next/link";
-import { data } from "autoprefixer";
 import axios from "axios";
+import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE } from "@mantine/dropzone";
+import { IconUpload, IconPhoto, IconX } from "@tabler/icons-react";
+import { FileWithPath } from "react-dropzone";
 
 const countries = [
   {
@@ -34,7 +39,7 @@ const countries = [
 ];
 
 interface DetailsProps {
-  img?: string;
+  img?: null | FileWithPath;
   first_name: string;
   last_name: string;
   email: string;
@@ -51,9 +56,12 @@ export default function FarmerModal() {
     setActive((current) => (current < 3 ? current + 1 : current));
   const prevStep = () =>
     setActive((current) => (current > 0 ? current - 1 : current));
+  const [imgPreview, setImgPreview] = useState("");
+  const [imgSize, setImgSize] = useState(0);
+  const [fileName, setFileName] = useState("");
 
-  const [details, setDetails] = useState<DetailsProps>({
-    img: "",
+  const initialDetails = {
+    img: null,
     first_name: "",
     last_name: "",
     email: "",
@@ -61,7 +69,8 @@ export default function FarmerModal() {
     country: "",
     state: "",
     city: "",
-  });
+  };
+  const [details, setDetails] = useState<DetailsProps>(initialDetails);
 
   const SubmitDetails = () => {
     const token = JSON.parse(localStorage.getItem("my-user") as string);
@@ -78,6 +87,10 @@ export default function FarmerModal() {
       method: "post",
     })
       .then(function (res) {
+        setDetails(initialDetails);
+        setImgPreview(""); // Clear the image preview
+        setImgSize(0); // Reset the image size
+        setFileName("");
         close();
       })
       .catch(function (error) {
@@ -85,8 +98,6 @@ export default function FarmerModal() {
       });
   };
 
-  const [country, setCountry] = useState([]);
-  const [selected, setSelected] = useState([]);
   return (
     <>
       <Modal
@@ -129,6 +140,102 @@ export default function FarmerModal() {
             {/* DETAILS  */}
             <Stepper.Step label="Details" completedIcon={1}>
               <div className="flex flex-col gap-4 ">
+                {/* DROPZONE  */}
+                <div>
+                  <Dropzone
+                    onDrop={(files) => {
+                      const reader = new FileReader();
+                      setDetails({
+                        ...details,
+                        img: files[0],
+                      });
+                      setFileName(files[0].name);
+                      setImgSize(files[0].size);
+                      const data = files[0].size;
+                      console.log(data / 1024);
+                      reader.readAsDataURL(files[0]);
+
+                      reader.onload = () => {
+                        setImgPreview(reader.result as string);
+                      };
+                    }}
+                    // onReject={(files) => console.log("rejected files", files)}
+                    maxSize={3 * 1024 ** 2}
+                    accept={IMAGE_MIME_TYPE}
+                    styles={{
+                      root: {
+                        border: "1px dashed #F2A29D",
+                        "&:hover": {
+                          border: "1px dashed #F2A29D",
+                        },
+                      },
+                    }}
+                  >
+                    <Group
+                      className="flex flex-col"
+                      position="center"
+                      spacing="xl"
+                      style={{ minHeight: rem(220), pointerEvents: "none" }}
+                    >
+                      <Dropzone.Accept>
+                        <IconUpload size="3.2rem" stroke={1.5} />
+                      </Dropzone.Accept>
+                      <Dropzone.Reject>
+                        <IconX size="3.2rem" stroke={1.5} />
+                      </Dropzone.Reject>
+                      {imgPreview ? (
+                        <div className="flex flex-col items-center justify-center gap-2 ">
+                          <div className="rounded-[11px] p-[1px] border border-[#7C827D]">
+                            <Image
+                              src={imgPreview}
+                              alt=""
+                              width={150}
+                              height={150}
+                            />
+                          </div>
+                          <div className="flex items-center justify-between gap-4">
+                            <span className=" text-davy-grey text-14">
+                              {fileName}
+                            </span>
+                            <span className=" text-phillipine-silver text-[10px]">
+                              {imgSize}MB Image
+                            </span>
+                          </div>
+                        </div>
+                      ) : (
+                        <>
+                          <Dropzone.Idle>
+                            <div className="flex flex-col items-center justify-center gap-1">
+                              <Image
+                                src={"/add_photo.svg"}
+                                alt={"add_photo.svg"}
+                                width={47.73}
+                                height={47.73}
+                              />
+                            </div>
+                          </Dropzone.Idle>
+
+                          <Link href={"/"}>
+                            <Button
+                              className="w-full mt-2 rounded-lg text-engineering"
+                              styles={{
+                                root: {
+                                  background: "#F8E7E7 !important",
+                                  height: "50px",
+                                  "&:hover": {
+                                    background: " !important ",
+                                  },
+                                },
+                              }}
+                            >
+                              Choose File
+                            </Button>
+                          </Link>
+                        </>
+                      )}
+                    </Group>
+                  </Dropzone>
+                </div>
                 <TextInput
                   placeholder="Enter Name"
                   label="First Name"
@@ -343,6 +450,118 @@ export default function FarmerModal() {
             {/* CONFIRM ENTRIES  */}
             <Stepper.Step label="Confirm Entries" completedIcon={3}>
               <div className="flex flex-col gap-5 my-7">
+                <div className="flex flex-col justify-between">
+                  <div>
+                    {/* image preview  */}
+                    <Dropzone
+                      onDrop={(files) => {
+                        const reader = new FileReader();
+                        setDetails({
+                          ...details,
+                          img: files[0],
+                        });
+                        setFileName(files[0].name);
+                        setImgSize(files[0].size);
+                        const data = files[0].size;
+                        console.log(data / 1024);
+                        reader.readAsDataURL(files[0]);
+
+                        reader.onload = () => {
+                          setImgPreview(reader.result as string);
+                        };
+                      }}
+                      // onReject={(files) => console.log("rejected files", files)}
+                      maxSize={3 * 1024 ** 2}
+                      accept={IMAGE_MIME_TYPE}
+                      styles={{
+                        root: {
+                          border: "1px dashed #C81107",
+                          "&:hover": {
+                            border: "1px dashed #6D0802",
+                          },
+                        },
+                      }}
+                    >
+                      <Group
+                        className="flex flex-col"
+                        position="center"
+                        spacing="xl"
+                        style={{ minHeight: rem(220), pointerEvents: "none" }}
+                      >
+                        <Dropzone.Accept>
+                          <IconUpload size="3.2rem" stroke={1.5} />
+                        </Dropzone.Accept>
+                        <Dropzone.Reject>
+                          <IconX size="3.2rem" stroke={1.5} />
+                        </Dropzone.Reject>
+                        {imgPreview ? (
+                          <div className="flex flex-col items-center justify-center gap-2 ">
+                            <div className="rounded-[11px] p-[1px] border border-[#7C827D]">
+                              <Image
+                                src={imgPreview}
+                                alt=""
+                                width={150}
+                                height={150}
+                              />
+                            </div>
+                            <div className="flex items-center justify-between gap-4">
+                              <span className=" text-davy-grey text-14">
+                                {fileName}
+                              </span>
+                              <span className=" text-phillipine-silver text-[10px]">
+                                {imgSize}MB Image
+                              </span>
+                            </div>
+                          </div>
+                        ) : (
+                          <>
+                            <Dropzone.Idle>
+                              <div className="flex flex-col items-center justify-center gap-1">
+                                <Image
+                                  src={"/create-card/upload.png"}
+                                  alt={"upload"}
+                                  width={47.73}
+                                  height={47.73}
+                                />
+                                <p className=" text-phillipine-silver text-[8.37px] ">
+                                  image, smaller than 10MB
+                                </p>
+                              </div>
+                            </Dropzone.Idle>
+
+                            <div className="flex flex-col items-center justify-center gap-2">
+                              <Text
+                                size="xl"
+                                inline
+                                className=" text-[10.05px] text-dim "
+                              >
+                                Drag and drop your file here or
+                              </Text>
+                            </div>
+
+                            <Link href={"/"}>
+                              <Button
+                                className="w-full mt-2 rounded-lg text-engineering"
+                                styles={{
+                                  root: {
+                                    background: "#F8E7E7 !important",
+                                    height: "50px",
+                                    "&:hover": {
+                                      background: " !important ",
+                                    },
+                                  },
+                                }}
+                              >
+                                Choose File
+                              </Button>
+                            </Link>
+                          </>
+                        )}
+                      </Group>
+                    </Dropzone>
+                  </div>
+                  <h5>{details?.img?.name}</h5>
+                </div>
                 <div className="flex justify-between">
                   <h5>First Name</h5>
                   <h5>{details.first_name}</h5>

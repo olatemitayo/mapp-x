@@ -1,10 +1,17 @@
 import React from "react";
 import Image from "next/image";
 import { TextInput } from "@mantine/core";
+import FarmerModal from "./feomodal";
 
 export default function Feohead() {
   return (
     <>
+      <div className="flex items-center justify-between">
+        <div className="font-semibold">Overview</div>
+        <div>
+          <FarmerModal />
+        </div>
+      </div>
       <div className="flex justify-between mt-4">
         <div className="flex p-6 bg-white gap-44 rounded-xl ">
           <div className="flex flex-col gap-2">
@@ -62,32 +69,6 @@ export default function Feohead() {
           </div>
         </div>
       </div>
-
-      {/* section  */}
-      {/* <div className="flex items-center justify-between gap-1 p-6 mt-4 bg-white rounded-xl">
-        <div className="flex gap-2">
-          <h2 className="text-2xl font-semibold">All FEO</h2>
-        </div>
-        <div>
-          <div className="flex gap-3">
-            <TextInput
-              className="border-2  w-[284px] rounded-[8px] px-4 "
-              placeholder="search"
-              withAsterisk
-              classNames={{
-                input: "border-none",
-              }}
-            />
-            <div className="flex gap-2 items-center px-4 border rounded-[8px]">
-              <Image width={24} height={24} alt="columns" src="/columns.svg" />
-              <p>Colum Visibility</p>
-            </div>
-            <div>
-              <Image width={40} height={40} alt="columns" src="/filter.svg" />
-            </div>
-          </div>
-        </div>
-      </div> */}
     </>
   );
 }

@@ -1,5 +1,5 @@
 import Pages from "@/components/dashboard/pages";
-import Sidebar from "@/components/dashboard/areacharts/sidebar";
+import Sidebar from "@/components/sidebar";
 import Farmertable from "@/components/farmers/farmers-table";
 import { FarmersList } from "@/components/farmers/famersdata";
 import Nofarmersdata from "@/components/farmers/nofarmersdata";

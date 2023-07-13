@@ -1,223 +1,182 @@
 import React, { useState } from "react";
-import { Pagination, Input, Select, Button } from "@mantine/core";
 
-const data = [
-  {
-    name: "John Doe",
-    phoneNumber: "1234567890",
-    status: "Active",
-    age: 25,
-    country: "USA",
-    gender: "Male",
-  },
-  {
-    name: "Bose Doe",
-    phoneNumber: "1234567890",
-    status: "Active",
-    age: 25,
-    country: "USA",
-    gender: "Male",
-  },
-  {
-    name: "Alex Felix",
-    phoneNumber: "1234567890",
-    status: "Active",
-    age: 26,
-    country: "USA",
-    gender: "Female",
-  },
-  {
-    name: "Akin Wale",
-    phoneNumber: "1234567890",
-    status: "Active",
-    age: 26,
-    country: "USA",
-    gender: "Female",
-  },
-  {
-    name: "John Doe",
-    phoneNumber: "1234567890",
-    status: "Active",
-    age: 25,
-    country: "USA",
-    gender: "Male",
-  },
-  {
-    name: "Bose Doe",
-    phoneNumber: "1234567890",
-    status: "Active",
-    age: 25,
-    country: "USA",
-    gender: "Male",
-  },
-  {
-    name: "Alex Felix",
-    phoneNumber: "1234567890",
-    status: "Active",
-    age: 26,
-    country: "USA",
-    gender: "Female",
-  },
-  {
-    name: "Akin Wale",
-    phoneNumber: "1234567890",
-    status: "Active",
-    age: 26,
-    country: "USA",
-    gender: "Female",
-  },
-  {
-    name: "John Doe",
-    phoneNumber: "1234567890",
-    status: "Active",
-    age: 25,
-    country: "USA",
-    gender: "Male",
-  },
-  {
-    name: "Bose Doe",
-    phoneNumber: "1234567890",
-    status: "Active",
-    age: 25,
-    country: "USA",
-    gender: "Male",
-  },
-  {
-    name: "Alex Felix",
-    phoneNumber: "1234567890",
-    status: "Active",
-    age: 26,
-    country: "USA",
-    gender: "Female",
-  },
-  {
-    name: "Akin Wale",
-    phoneNumber: "1234567890",
-    status: "Active",
-    age: 26,
-    country: "USA",
-    gender: "Female",
-  },
-  // Add more data entries...
-];
-
-const Table = () => {
-  const [activePage, setActivePage] = useState(1);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [genderFilter, setGenderFilter] = useState("");
-  const [ageFilter, setAgeFilter] = useState("");
-
-  // Handle page change in pagination
-  const handlePageChange = (newPage) => {
-    setActivePage(newPage);
-  };
-
-  // Handle search input change
-  const handleSearchChange = (event) => {
-    setSearchQuery(event.target.value);
-  };
-
-  // Handle gender filter change
-  const handleGenderFilterChange = (value) => {
-    setGenderFilter(value);
-  };
-  // Handle age filter change
-  const handleAgeFilterChange = (value) => {
-    setAgeFilter(value === "" ? "" : parseInt(value, 10));
-  };
-
-  // Filtering the data
-  const filteredData = data
-    .filter((item) => {
-      const searchFields = [
-        "name",
-        "phoneNumber",
-        "status",
-        "age",
-        "country",
-        "gender",
-      ];
-      return searchFields.some((field) =>
-        String(item[field]).toLowerCase().includes(searchQuery.toLowerCase())
-      );
-    })
-    .filter((item) => {
-      if (genderFilter === "") return true;
-      return item.gender === genderFilter;
-    })
-    .filter((item) => {
-      if (ageFilter === "") return true;
-      return item.age === parseInt(ageFilter, 10);
-    });
-  const itemsPerPage = 4;
-  const startIndex = (activePage - 1) * itemsPerPage;
-  const endIndex = activePage * itemsPerPage;
-  const paginatedData = filteredData.slice(startIndex, endIndex);
-
+export default function Table() {
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    page,
+    nextPage,
+    previousPage,
+    canNextPage,
+    canPreviousPage,
+    pageOptions,
+    setPageSize,
+    gotoPage,
+    pageCount,
+    state,
+    prepareRow,
+    selectedFlatRows,
+  }: any = useTable(
+    {
+      columns: CategoryColumn as any,
+      data: CategoryData ?? [],
+    },
+    usePagination,
+    useRowSelect,
+    (hooks) => {
+      hooks.visibleColumns.push((columns: any) => {
+        return [
+          {
+            Header: ({ getToggleAllRowsSelectedProps }: any) => (
+              <Checkbox {...getToggleAllRowsSelectedProps()} />
+            ),
+            Cell: ({ row }: any) => (
+              <Checkbox {...row.getToggleRowSelectedProps()} />
+            ),
+          },
+          ...columns,
+        ];
+      });
+    }
+  );
   return (
-    <div>
-      {/* Search Input */}
-      <Input
-        value={searchQuery}
-        onChange={handleSearchChange}
-        placeholder="Search..."
-        style={{ marginBottom: "10px" }}
-      />
-
-      {/* Filter Selects */}
-      <Select
-        data={["", "Male", "Female"]}
-        value={genderFilter}
-        onChange={(value) => handleGenderFilterChange(value)}
-        placeholder="Filter by Gender"
-        style={{ marginBottom: "10px" }}
-      />
-
-      <Select
-        data={["", "18", "25", "30", "40"]}
-        value={ageFilter}
-        onChange={(value) => handleAgeFilterChange(value)}
-        placeholder="Filter by Age"
-        style={{ marginBottom: "10px" }}
-      />
-
-      {/* Filter Button */}
-      <Button onClick={() => console.log(filteredData)}>Apply Filters</Button>
-
-      {/* Table */}
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Phone Number</th>
-            <th>Status</th>
-            <th>Age</th>
-            <th>Country</th>
-            <th>Gender</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredData.map((item) => (
-            <tr key={item.phoneNumber}>
-              <td>{item.name}</td>
-              <td>{item.phoneNumber}</td>
-              <td>{item.status}</td>
-              <td>{item.age}</td>
-              <td>{item.country}</td>
-              <td>{item.gender}</td>
+    <>
+      <table
+        {...getTableProps()}
+        className="bg-[white] dark:bg-[#161C27] text-sm font-normal dark:text-white w-full"
+      >
+        <thead className="">
+          {headerGroups.map((headerGroups, idx) => (
+            <tr
+              className="dark:text-white"
+              key={idx}
+              {...headerGroups.getHeaderGroupProps()}
+            >
+              {headerGroups.headers.map((columns, index) => (
+                <th
+                  key={index}
+                  {...columns.getHeaderProps()}
+                  className="font-medium bg-[#F9FAFB] text-left dark:bg-[#232A37] dark:text-white text-[14px] text-xds-eneutral-9 py-4"
+                >
+                  {/* {columns.render("Header")} */}
+                  {sortHeadings.includes(columns.Header) ? (
+                    <span className="flex items-center gap-2">
+                      {columns.Header}
+                      <span
+                        onClick={() => {
+                          setCurrentFilter(columns.Header);
+                          sortData(columns.id);
+                        }}
+                        className="flex cursor-pointer"
+                      >
+                        <ArrowDown
+                          size="14"
+                          color={
+                            currentFilter === columns.Header &&
+                            descending === "No"
+                              ? "#BF2018"
+                              : "#5D5B60"
+                          }
+                        />
+                        <ArrowUp
+                          size="14"
+                          className="ml-[-8px]"
+                          color={
+                            currentFilter === columns.Header &&
+                            descending === "Default"
+                              ? "#BF2018"
+                              : "#5D5B60"
+                          }
+                        />
+                      </span>
+                    </span>
+                  ) : (
+                    columns.render("Header")
+                  )}
+                </th>
+              ))}
             </tr>
           ))}
+        </thead>
+        <tbody {...getTableBodyProps()}>
+          {page.map((row, id) => {
+            prepareRow(row);
+            return (
+              <tr key={id} {...row.getRowProps()} className="text-left">
+                {row.cells.map((cell) => {
+                  return cell.column.Header === "Status" ? (
+                    <td {...cell.getCellProps()} className="py-3 text-left">
+                      {cell.value === true ? (
+                        <span className="flex items-center gap-3">
+                          <span className="rounded-2xl w-fit flex px-2 py-1 bg-[#E7F9F0] dark:bg-[#1C331E] items-center gap-1">
+                            <Icon
+                              icon="carbon:dot-mark"
+                              color={
+                                resolvedTheme === "dark" ? "#0BA257" : "#0DBF66"
+                              }
+                              height={10}
+                              width={10}
+                            />
+                            <p className="text-[#0DBF66] text-sm leading-[160%]">
+                              Active
+                            </p>
+                          </span>
+                          {cell.row.original?.is_pending_deactivation && (
+                            <Tooltip
+                              label={`Staff scheduled for deactivation by ${moment(
+                                cell.row.original?.deactivation_schedule
+                              ).format("LL")}`}
+                              color="dark"
+                              withArrow
+                              arrowSize={6}
+                              width={200}
+                              multiline
+                            >
+                              <Clock
+                                size="24"
+                                className="cursor-pointer"
+                                color="#FF8A65"
+                              />
+                            </Tooltip>
+                          )}
+                        </span>
+                      ) : (
+                        <span className="rounded-2xl w-fit flex px-2 py-1 bg-[#FDEEEE] dark:bg-[#331C1C] items-center gap-1">
+                          <Icon
+                            icon="carbon:dot-mark"
+                            color={
+                              resolvedTheme === "dark" ? "#ED5556" : "#873031"
+                            }
+                            width={10}
+                            height={10}
+                          />
+                          <p className="text-[#873031] dark:text-[#ED5556] text-sm leading-[160%]">
+                            Inactive
+                          </p>
+                        </span>
+                      )}
+                    </td>
+                  ) : cell.column.Header === "" ? (
+                    <td {...cell.getCellProps()} className="py-3 text-left">
+                      <ActiveButtonMenu
+                        handleOpenModal={handleOpenModal}
+                        id={cell.row.original.id}
+                        status={cell.row.original.modifiedStatus}
+                      />
+                    </td>
+                  ) : (
+                    <td {...cell.getCellProps()} className="py-3 text-left">
+                      {cell.render("Cell")}
+                    </td>
+                  );
+                })}
+              </tr>
+            );
+          })}
         </tbody>
       </table>
-
-      {/* Pagination */}
-      <Pagination
-        value={activePage}
-        onChange={handlePageChange}
-        total={Math.ceil(filteredData.length / itemsPerPage)}
-      />
-    </div>
+      ;
+    </>
   );
-};
-
-export default Table;
+}

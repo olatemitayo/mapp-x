@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { AuthContext, ContextType, UserDetails } from "@/pages/_app";
 import Pages from "@/components/dashboard/pages";
-import Sidebar from "@/components/dashboard/areacharts/sidebar";
+import Sidebar from "@/components/sidebar";
 import { BackgroundImage } from "@mantine/core";
 import Link from "next/link";
 import Image from "next/image";

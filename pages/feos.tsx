@@ -1,13 +1,14 @@
 import Pages from "@/components/dashboard/pages";
-import Sidebar from "@/components/dashboard/areacharts/sidebar";
+import Sidebar from "@/components/sidebar";
 import Nofarmersdata from "@/components/farmers/nofarmersdata";
 import Feohead from "@/components/Admin/feohead";
 import FEOFarmertable from "@/components/Admin/feotable";
 import React, { useState, useEffect } from "react";
 import { Data } from "@/components/farmers/famersdata";
 import axios from "axios";
+import withAuth from "@/components/protected-route";
 
-export default function Feos() {
+function Feos() {
   const [list, setList] = useState([]);
 
   const feolist = () => {
@@ -43,3 +44,5 @@ export default function Feos() {
     </main>
   );
 }
+
+export default withAuth(Feos);
