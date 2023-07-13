@@ -29,6 +29,12 @@ interface DetailsProps {
   country: string;
   state: string;
   city: string;
+  latOne: string;
+  longOne: string;
+  latTwo: string;
+  longTwo: string;
+  latThree: string;
+  longThree: string;
 }
 
 export default function FarmerModal() {
@@ -54,6 +60,12 @@ export default function FarmerModal() {
     country: "",
     state: "",
     city: "",
+    latOne: "",
+    longOne: "",
+    latTwo: "",
+    longTwo: "",
+    latThree: "",
+    longThree: "",
   };
   const [details, setDetails] = useState<DetailsProps>(initialDetails);
 
@@ -71,6 +83,7 @@ export default function FarmerModal() {
 
       setDetails(initialDetails);
       console.log(data);
+      close();
     } catch (error) {
       console.log(error);
     }
@@ -282,9 +295,9 @@ export default function FarmerModal() {
                   </Dropzone>
                 </div>
 
-                {/* ENTER NAME  */}
+                {/* ENTER FIRST NAME  */}
                 <TextInput
-                  placeholder="Enter Name"
+                  placeholder="Enter First Name"
                   label="First Name"
                   size="md"
                   withAsterisk
@@ -301,8 +314,9 @@ export default function FarmerModal() {
                     input: " focus:border-[#C1C2C6] ",
                   }}
                 />
+                {/* ENTER LAST NAME  */}
                 <TextInput
-                  placeholder="Enter Name"
+                  placeholder="Enter Last Name"
                   label="Last Name"
                   size="md"
                   withAsterisk
@@ -319,8 +333,9 @@ export default function FarmerModal() {
                     input: " focus:border-[#C1C2C6] ",
                   }}
                 />
+                {/* ENTER EMAIL ADDRESS  */}
                 <TextInput
-                  placeholder="Enter address"
+                  placeholder="Enter Email address"
                   label="Email Address"
                   size="md"
                   withAsterisk
@@ -339,7 +354,7 @@ export default function FarmerModal() {
                 />
                 <div className="relative flex">
                   <div className="absolute z-30 top-10 left-10">
-                    <Popover width={75} position="bottom" withArrow shadow="md">
+                    {/* <Popover width={75} position="bottom" withArrow shadow="md">
                       <Popover.Target>
                         <Image
                           width={24}
@@ -368,8 +383,9 @@ export default function FarmerModal() {
                           </div>
                         </div>
                       </Popover.Dropdown>
-                    </Popover>
+                    </Popover> */}
                   </div>
+                  {/* ENTER PHONE NUMBER  */}
                   <TextInput
                     placeholder="Phone number"
                     label="Phone number"
@@ -386,73 +402,73 @@ export default function FarmerModal() {
                     classNames={{
                       label: "text-[16px] mb-2",
                       root: "flex-1",
-                      input: "px-16 focus:border-[#C1C2C6]",
+                      input: " focus:border-[#C1C2C6]",
                     }}
                   />
-                  <div className="flex flex-col gap-6">
-                    <Select
-                      label="Country"
-                      placeholder="Select Country"
-                      searchable
-                      nothingFound="No options"
-                      value={details.country}
-                      data={country}
-                      onChange={(value) => {
-                        setDetails({
-                          ...details,
-                          country: value as string,
-                        });
-                      }}
-                      classNames={{
-                        label: "text-[16px] mb-2",
-                        input: " focus:border-[#C1C2C6] ",
-                      }}
-                    />
-                    <Select
-                      label="State"
-                      placeholder="Select State"
-                      searchable
-                      nothingFound="No options"
-                      value={details.state}
-                      data={state}
-                      onChange={(value) => {
-                        setDetails({
-                          ...details,
-                          state: value as string,
-                        });
-                      }}
-                      classNames={{
-                        label: "text-[16px] mb-2",
-                        input:
-                          "bg-[#F5F5F6] border-[#C1C2C6] focus:border-[#C1C2C6]",
-                      }}
-                    />
-                    <Select
-                      label="City"
-                      placeholder="Select City"
-                      searchable
-                      nothingFound="No options"
-                      value={details.city}
-                      data={city}
-                      onChange={(value) => {
-                        setDetails({
-                          ...details,
-                          city: value as string,
-                        });
-                      }}
-                      classNames={{
-                        label: "text-[16px] mb-2",
-                        input: "bg-[#F5F5F6]  focus:border-[#C1C2C6]",
-                      }}
-                    />
-                  </div>
+                </div>
+                <div className="flex flex-col gap-6">
+                  <Select
+                    label="Country"
+                    placeholder="Select Country"
+                    searchable
+                    nothingFound="No options"
+                    value={details.country}
+                    data={country}
+                    onChange={(value) => {
+                      setDetails({
+                        ...details,
+                        country: value as string,
+                      });
+                    }}
+                    classNames={{
+                      label: "text-[16px] mb-2",
+                      input: " focus:border-[#C1C2C6] ",
+                    }}
+                  />
+                  <Select
+                    label="State"
+                    placeholder="Select State"
+                    searchable
+                    nothingFound="No options"
+                    value={details.state}
+                    data={state}
+                    onChange={(value) => {
+                      setDetails({
+                        ...details,
+                        state: value as string,
+                      });
+                    }}
+                    classNames={{
+                      label: "text-[16px] mb-2",
+                      input:
+                        "bg-[#F5F5F6] border-[#C1C2C6] focus:border-[#C1C2C6]",
+                    }}
+                  />
+                  <Select
+                    label="City"
+                    placeholder="Select City"
+                    searchable
+                    nothingFound="No options"
+                    value={details.city}
+                    data={city}
+                    onChange={(value) => {
+                      setDetails({
+                        ...details,
+                        city: value as string,
+                      });
+                    }}
+                    classNames={{
+                      label: "text-[16px] mb-2",
+                      input: "bg-[#F5F5F6]  focus:border-[#C1C2C6]",
+                    }}
+                  />
                 </div>
                 <div className="flex justify-end">
                   <Button
                     onClick={nextStep}
                     className="bg-[#bf2018] text-[#fff] hover:bg-[#bf2018]"
                   >
-                    Assign Location
+                    Map Farmland
                     <span className="ms-2">
                       <Image
                         width={16}
@@ -465,64 +481,130 @@ export default function FarmerModal() {
                 </div>
               </div>
             </Stepper.Step>
-            {/* ASSIGN LOCATION  */}
+            {/* MAP FARMLAND  */}
             <Stepper.Step label="Assign Location" completedIcon={2}>
-              <div className="flex flex-col gap-6">
-                <Select
-                  label="Country"
-                  placeholder="Select Country"
-                  searchable
-                  nothingFound="No options"
-                  value={details.country}
-                  data={country}
-                  onChange={(value) => {
-                    setDetails({
-                      ...details,
-                      country: value as string,
-                    });
-                  }}
-                  classNames={{
-                    label: "text-[16px] mb-2",
-                    input: " focus:border-[#C1C2C6] ",
-                  }}
-                />
-                <Select
-                  label="State"
-                  placeholder="Select State"
-                  searchable
-                  nothingFound="No options"
-                  value={details.state}
-                  data={state}
-                  onChange={(value) => {
-                    setDetails({
-                      ...details,
-                      state: value as string,
-                    });
-                  }}
-                  classNames={{
-                    label: "text-[16px] mb-2",
-                    input:
-                      "bg-[#F5F5F6] border-[#C1C2C6] focus:border-[#C1C2C6]",
-                  }}
-                />
-                <Select
-                  label="City"
-                  placeholder="Select City"
-                  searchable
-                  nothingFound="No options"
-                  value={details.city}
-                  data={city}
-                  onChange={(value) => {
-                    setDetails({
-                      ...details,
-                      city: value as string,
-                    });
-                  }}
-                  classNames={{
-                    label: "text-[16px] mb-2",
-                    input: "bg-[#F5F5F6]  focus:border-[#C1C2C6]",
-                  }}
-                />
+              {/* POINT 1  */}
+              <div className="flex flex-col gap-6 mt-2">
+                <div className="flex justify-between gap-5">
+                  <TextInput
+                    placeholder="Lat"
+                    label="Point 1"
+                    size="md"
+                    required
+                    value={details.latOne}
+                    onChange={(e) => {
+                      setDetails({
+                        ...details,
+                        latOne: e.target.value,
+                      });
+                    }}
+                    classNames={{
+                      label: "text-[16px] mb-2",
+                      root: "flex-1",
+                      input: " focus:border-[#C1C2C6]",
+                    }}
+                  />
+                  <TextInput
+                    placeholder="Long"
+                    label="Point 1"
+                    size="md"
+                    required
+                    value={details.longOne}
+                    onChange={(e) => {
+                      setDetails({
+                        ...details,
+                        longOne: e.target.value,
+                      });
+                    }}
+                    classNames={{
+                      label: "text-[16px] mb-2",
+                      root: "flex-1",
+                      input: " focus:border-[#C1C2C6]",
+                    }}
+                  />
+                </div>
+              </div>
+              {/* POINT 2  */}
+              <div className="flex flex-col gap-6 mt-2">
+                <div className="flex justify-between gap-5">
+                  <TextInput
+                    placeholder="Lat"
+                    label="Point 2"
+                    size="md"
+                    required
+                    value={details.latTwo}
+                    onChange={(e) => {
+                      setDetails({
+                        ...details,
+                        latTwo: e.target.value,
+                      });
+                    }}
+                    classNames={{
+                      label: "text-[16px] mb-2",
+                      root: "flex-1",
+                      input: " focus:border-[#C1C2C6]",
+                    }}
+                  />
+                  <TextInput
+                    placeholder="Long"
+                    label="Point 2"
+                    size="md"
+                    required
+                    value={details.longTwo}
+                    onChange={(e) => {
+                      setDetails({
+                        ...details,
+                        longTwo: e.target.value,
+                      });
+                    }}
+                    classNames={{
+                      label: "text-[16px] mb-2",
+                      root: "flex-1",
+                      input: " focus:border-[#C1C2C6]",
+                    }}
+                  />
+                </div>
+              </div>
+              {/* POINT 3  */}
+              <div className="flex flex-col gap-6 mt-2">
+                <div className="flex justify-between gap-5">
+                  <TextInput
+                    placeholder="Lat"
+                    label="Point 3"
+                    size="md"
+                    required
+                    value={details.latThree}
+                    onChange={(e) => {
+                      setDetails({
+                        ...details,
+                        latThree: e.target.value,
+                      });
+                    }}
+                    classNames={{
+                      label: "text-[16px] mb-2",
+                      root: "flex-1",
+                      input: " focus:border-[#C1C2C6]",
+                    }}
+                  />
+                  <TextInput
+                    placeholder="Long"
+                    label="Point 2"
+                    size="md"
+                    required
+                    value={details.longThree}
+                    onChange={(e) => {
+                      setDetails({
+                        ...details,
+                        longThree: e.target.value,
+                      });
+                    }}
+                    classNames={{
+                      label: "text-[16px] mb-2",
+                      root: "flex-1",
+                      input: " focus:border-[#C1C2C6]",
+                    }}
+                  />
+                </div>
               </div>
               <div className="flex justify-between mt-6">
                 <Button
@@ -693,6 +775,18 @@ export default function FarmerModal() {
                 <div className="flex justify-between">
                   <h5>City</h5>
                   <h5>{details.city}</h5>
+                </div>
+                <div className="flex justify-between">
+                  <h5>Point 1</h5>
+                  <h5>{`${details.latOne} ${details.longOne}`}</h5>
+                </div>
+                <div className="flex justify-between">
+                  <h5>Point 2</h5>
+                  <h5>{`${details.latTwo} ${details.longTwo}`}</h5>
+                </div>
+                <div className="flex justify-between">
+                  <h5>Point 3</h5>
+                  <h5>{`${details.latThree} ${details.longThree}`}</h5>
                 </div>
               </div>
               <div className="flex justify-between mt-6">

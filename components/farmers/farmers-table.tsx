@@ -7,10 +7,21 @@ import Link from "next/link";
 import FeoModal from "../Admin/feomodal";
 import FarmerModal from "./farmermodal";
 
+import { AuthContext, ContextType, UserDetails } from "@/pages/_app";
+
+interface PagesProps {
+  role: string;
+  children?: React.ReactNode;
+}
+
 export default function Farmertable() {
   const [selectedRow, setSelectedRow] = useState(null);
   const [drawerOpened, setDrawerOpened] = useState(false);
   const [opened, { open, close }] = useDisclosure(false);
+
+  const [payload, setPayload] = useState<UserDetails>({
+    role: "",
+  });
 
   const handleRowClick = (index) => {
     setSelectedRow(index);
@@ -54,9 +65,7 @@ export default function Farmertable() {
     <>
       <div className="flex items-center justify-between">
         <div className="font-semibold">Overview</div>
-        <div>
-          <FarmerModal />
-        </div>
+        <div>{(payload.role = "Admin") ? <div></div> : <FarmerModal />}</div>
       </div>
       <div className="flex flex-col h-full gap-5 p-6 mt-4 rounded-[20px] bg-white">
         <div className="flex flex-col overflow-auto">
