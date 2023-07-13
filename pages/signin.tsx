@@ -21,15 +21,15 @@ export default function SignIn() {
   // const [isLoading, setIsLoading] = useState(false);
   const Login = (value: UserProps) => {
     axios
-      .post("https://mapx.onrender.com/api/login/", {
+      .post("https://mapx.onrender.com/accounts/api/loginapi/", {
         email: value.email,
         password: value.password,
       })
       .then(function (res) {
         // setIsLoading(true)
         console.log(res);
-        if (res.data?.access) {
-          localStorage.setItem("my-user", JSON.stringify(res.data.access));
+        if (res.data) {
+          localStorage.setItem("my-user", JSON.stringify(res.data));
           router.push("/dashboard");
         }
       })

@@ -14,6 +14,10 @@ export default function Profile() {
     last_name: "",
     profile_picture: "",
     role: "",
+    designation: "",
+    email: "",
+    location: "",
+    phone_number: "",
   });
 
   useEffect(() => {
@@ -81,7 +85,7 @@ export default function Profile() {
                     <p className="#4A4C58">
                       Designation:
                       <span className="#4A4C58 font-[600] ms-1">
-                        {profile[0].designation}
+                        {payload.designation}
                       </span>
                     </p>
                   </div>
@@ -97,7 +101,7 @@ export default function Profile() {
                     <p className="#4A4C58">
                       Location:
                       <span className="#4A4C58 font-[600] ms-1">
-                        {profile[0].location}
+                        {payload.location}
                       </span>
                     </p>
                   </div>
@@ -113,7 +117,7 @@ export default function Profile() {
                     <p className="#4A4C58">
                       Email:
                       <span className="#4A4C58 font-[600] ms-1">
-                        {profile[0].email}
+                        {payload.email}
                       </span>
                     </p>
                   </div>
@@ -127,9 +131,9 @@ export default function Profile() {
                       />
                     </span>
                     <p className="#4A4C58">
-                      Designation:
+                      Phone:
                       <span className="#4A4C58 font-[600] ms-1">
-                        {profile[0].designation}
+                        {payload.phone_number}
                       </span>
                     </p>
                   </div>

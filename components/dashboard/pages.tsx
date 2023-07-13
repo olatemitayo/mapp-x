@@ -15,7 +15,6 @@ export default function Pages({ text, page, children }: PagesProps) {
   const [payload, setPayload] = useState<UserDetails>({
     profile_picture: "",
     first_name: "",
-    last_name: "",
   });
 
   useEffect(() => {
@@ -62,13 +61,7 @@ export default function Pages({ text, page, children }: PagesProps) {
             alt="notifications"
           />
           <Image src="/widget.svg" width={24} height={24} alt="widget" />
-          {/* <span className=" text-davy-grey">{payload?.img}</span> */}
-
-          <img
-            src={payload.profile_picture}
-            alt="profile_picture"
-            className="w-[41px] h-[41px] rounded-[50%]"
-          />
+          <span className=" text-davy-grey">{payload?.first_name}</span>
         </div>
       </div>
       <div />

@@ -4,10 +4,14 @@ import { MantineProvider } from "@mantine/core";
 import { Dispatch, SetStateAction, useState, createContext } from "react";
 
 export interface UserDetails {
-  first_name: string;
-  last_name: string;
-  profile_picture: string;
-  role: string;
+  first_name?: string;
+  last_name?: string;
+  profile_picture?: string;
+  role?: string;
+  designation?: string;
+  email?: string;
+  location?: string;
+  phone_number?: string;
 }
 
 export interface User {
@@ -15,10 +19,12 @@ export interface User {
   username: string;
   password: string;
   email: string;
-  role: string;
+  role?: string;
   first_name: string;
   last_name: string;
   profile_picture: string;
+  designation: string;
+  location: string;
 }
 
 export type ContextType = {

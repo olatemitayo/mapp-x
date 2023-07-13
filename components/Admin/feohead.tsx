@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { TextInput } from "@mantine/core";
-import FarmerModal from "./feomodal";
+import FeoModal from "./feomodal";
 
 export default function Feohead() {
   return (
@@ -9,7 +9,7 @@ export default function Feohead() {
       <div className="flex items-center justify-between">
         <div className="font-semibold">Overview</div>
         <div>
-          <FarmerModal />
+          <FeoModal />
         </div>
       </div>
       <div className="flex justify-between mt-4">

@@ -31,7 +31,7 @@ interface DetailsProps {
   city: string;
 }
 
-export default function FeoModal() {
+export default function FarmerModal() {
   const [opened, { open, close }] = useDisclosure(false);
   const [active, setActive] = useState(0);
   const nextStep = () =>
@@ -281,7 +281,8 @@ export default function FeoModal() {
                     </Group>
                   </Dropzone>
                 </div>
-                {/* FIRST NAME  */}
+
+                {/* ENTER NAME  */}
                 <TextInput
                   placeholder="Enter Name"
                   label="First Name"
@@ -300,7 +301,6 @@ export default function FeoModal() {
                     input: " focus:border-[#C1C2C6] ",
                   }}
                 />
-                {/* LAST NAME  */}
                 <TextInput
                   placeholder="Enter Name"
                   label="Last Name"
@@ -319,7 +319,6 @@ export default function FeoModal() {
                     input: " focus:border-[#C1C2C6] ",
                   }}
                 />
-                {/* EMAIL ADDRESS  */}
                 <TextInput
                   placeholder="Enter address"
                   label="Email Address"
@@ -340,7 +339,7 @@ export default function FeoModal() {
                 />
                 <div className="relative flex">
                   <div className="absolute z-30 top-10 left-10">
-                    {/* <Popover width={75} position="bottom" withArrow shadow="md">
+                    <Popover width={75} position="bottom" withArrow shadow="md">
                       <Popover.Target>
                         <Image
                           width={24}
@@ -369,7 +368,7 @@ export default function FeoModal() {
                           </div>
                         </div>
                       </Popover.Dropdown>
-                    </Popover> */}
+                    </Popover>
                   </div>
                   <TextInput
                     placeholder="Phone number"
@@ -387,9 +386,66 @@ export default function FeoModal() {
                     classNames={{
                       label: "text-[16px] mb-2",
                       root: "flex-1",
-                      input: "focus:border-[#C1C2C6]",
+                      input: "px-16 focus:border-[#C1C2C6]",
                     }}
                   />
+                  <div className="flex flex-col gap-6">
+                    <Select
+                      label="Country"
+                      placeholder="Select Country"
+                      searchable
+                      nothingFound="No options"
+                      value={details.country}
+                      data={country}
+                      onChange={(value) => {
+                        setDetails({
+                          ...details,
+                          country: value as string,
+                        });
+                      }}
+                      classNames={{
+                        label: "text-[16px] mb-2",
+                        input: " focus:border-[#C1C2C6] ",
+                      }}
+                    />
+                    <Select
+                      label="State"
+                      placeholder="Select State"
+                      searchable
+                      nothingFound="No options"
+                      value={details.state}
+                      data={state}
+                      onChange={(value) => {
+                        setDetails({
+                          ...details,
+                          state: value as string,
+                        });
+                      }}
+                      classNames={{
+                        label: "text-[16px] mb-2",
+                        input:
+                          "bg-[#F5F5F6] border-[#C1C2C6] focus:border-[#C1C2C6]",
+                      }}
+                    />
+                    <Select
+                      label="City"
+                      placeholder="Select City"
+                      searchable
+                      nothingFound="No options"
+                      value={details.city}
+                      data={city}
+                      onChange={(value) => {
+                        setDetails({
+                          ...details,
+                          city: value as string,
+                        });
+                      }}
+                      classNames={{
+                        label: "text-[16px] mb-2",
+                        input: "bg-[#F5F5F6]  focus:border-[#C1C2C6]",
+                      }}
+                    />
+                  </div>
                 </div>
                 <div className="flex justify-end">
                   <Button
