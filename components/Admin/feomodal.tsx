@@ -7,17 +7,18 @@ import {
   Stepper,
   TextInput,
   Text,
-  useMantineTheme,
   rem,
   Popover,
   Select,
 } from "@mantine/core";
 import Image from "next/image";
 import Link from "next/link";
-import axios from "axios";
 import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { IconUpload, IconPhoto, IconX } from "@tabler/icons-react";
 import { FileWithPath } from "react-dropzone";
+const countryUrl = "";
+const stateUrl = "";
+const cityUrl = "";
 
 const countries = [
   {
@@ -59,6 +60,9 @@ export default function FarmerModal() {
   const [imgPreview, setImgPreview] = useState("");
   const [imgSize, setImgSize] = useState(0);
   const [fileName, setFileName] = useState("");
+  const [country, setCountry] = useState(null);
+  const [state, setState] = useState(null);
+  const [city, setCity] = useState(null);
 
   const initialDetails = {
     img: null,
@@ -72,30 +76,90 @@ export default function FarmerModal() {
   };
   const [details, setDetails] = useState<DetailsProps>(initialDetails);
 
-  const SubmitDetails = () => {
-    const token = JSON.parse(localStorage.getItem("my-user") as string);
-    const formData = new FormData();
-    Object.entries(details).forEach(([key, value]) => {
-      formData.append(key, value);
-    });
-    axios({
-      url: "",
-      data: formData,
-      headers: {
-        Authorization: `Bearer ${token.token}`,
-      },
-      method: "post",
-    })
-      .then(function (res) {
-        setDetails(initialDetails);
-        setImgPreview(""); // Clear the image preview
-        setImgSize(0); // Reset the image size
-        setFileName("");
-        close();
-      })
-      .catch(function (error) {
-        console.log(error);
+  const handleSubmitDetails = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await fetch("/api/admin/fieldofficers/create/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(details),
       });
+      const data = await res.json();
+
+      setDetails(initialDetails);
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //to get data for the country
+  const countryFetch = async () => {
+    const token = JSON.parse(localStorage.getItem("my-user"))?.tokens?.access;
+    try {
+      const res = await fetch(countryUrl, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = await res.json();
+      setCountry(
+        data.reduce((acc, curr) => {
+          acc.push({ label: curr.name, value: curr.id });
+          return acc;
+        }, [])
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  //to get data for the state
+  const stateFetch = async () => {
+    const token = JSON.parse(localStorage.getItem("my-user"))?.tokens?.access;
+    try {
+      const res = await fetch(stateUrl, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = await res.json();
+      setState(
+        data.reduce((acc, curr) => {
+          acc.push({ label: curr.name, value: curr.id });
+          return acc;
+        }, [])
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  //to get data for the city
+  const cityFetch = async () => {
+    const token = JSON.parse(localStorage.getItem("my-user"))?.tokens?.access;
+    try {
+      const res = await fetch(cityUrl, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = await res.json();
+      setCity(
+        data.reduce((acc, curr) => {
+          acc.push({ label: curr.name, value: curr.id });
+          return acc;
+        }, [])
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -370,7 +434,7 @@ export default function FarmerModal() {
                   searchable
                   nothingFound="No options"
                   value={details.country}
-                  data={["Nigeria", "Kenya", "Uganda", "USA"]}
+                  data={country}
                   onChange={(value) => {
                     setDetails({
                       ...details,
@@ -388,7 +452,7 @@ export default function FarmerModal() {
                   searchable
                   nothingFound="No options"
                   value={details.state}
-                  data={["Nigeria", "Kenya", "Uganda", "USA"]}
+                  data={state}
                   onChange={(value) => {
                     setDetails({
                       ...details,
@@ -406,8 +470,8 @@ export default function FarmerModal() {
                   placeholder="Select City"
                   searchable
                   nothingFound="No options"
-                  data={["Nigeria", "Kenya", "Uganda", "USA"]}
                   value={details.city}
+                  data={city}
                   onChange={(value) => {
                     setDetails({
                       ...details,
@@ -603,7 +667,7 @@ export default function FarmerModal() {
                   Assign Location
                 </Button>
                 <Button
-                  onClick={SubmitDetails}
+                  onClick={handleSubmitDetails}
                   className="bg-[#bf2018] text-[#fff] hover:bg-[#bf2018]"
                 >
                   Save Entries

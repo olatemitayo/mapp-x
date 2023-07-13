@@ -13,6 +13,7 @@ export default function Profile() {
     first_name: "",
     last_name: "",
     profile_picture: "",
+    role: "",
   });
 
   useEffect(() => {
@@ -47,18 +48,12 @@ export default function Profile() {
                       alt="profilePic"
                       className="rounded-[50%] w-[120px] h-[120px]"
                     />
-                    {/* <Image
-                      width={120}
-                      height={120}
-                      alt="profile picture"
-                      src={payload.profile_picture}
-                    /> */}
                   </div>
                   <div>
                     <h1 className="text-[#4A4C58] font-semibold">
                       {`${payload.last_name} ${payload.first_name}`}
                     </h1>
-                    <p className="text-[#8F9198] ">{profile[0].role}</p>
+                    <p className="text-[#8F9198] ">{payload.role}</p>
                   </div>
                 </div>
                 <div className="text-[#bf2018]"> last login: 12h ago</div>

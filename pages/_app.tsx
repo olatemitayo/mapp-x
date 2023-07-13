@@ -7,6 +7,7 @@ export interface UserDetails {
   first_name: string;
   last_name: string;
   profile_picture: string;
+  role: string;
 }
 
 export interface User {

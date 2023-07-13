@@ -7,7 +7,6 @@ export default function Graph() {
     <div className="flex justify-between mt-5">
       <div className="sm:w-[90%]  md:w-[49.5%] min-h-[345px] border-[1px] bg-white rounded-[20px] p-2">
         <div>
-          <div></div>
           <div>
             <h1>12.4k</h1>
             <p>
@@ -15,7 +14,7 @@ export default function Graph() {
             </p>
           </div>
         </div>
-        <Globalchart />
+        {/* <Globalchart /> */}
       </div>
       <div className="sm:w-[90%]  md:w-[49.5%] min-h-[345px] border-[1px] bg-white rounded-[20px] p-2">
         <GlobalBarChart />

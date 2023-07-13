@@ -59,7 +59,9 @@ export default function GlobalBarChart() {
     datasets: [
       {
         label: "NG",
-        data: labels.map(() => Math.floor(Math.random() * (1000 - 0 + 1)) + 0),
+        data: labels.map(
+          () => Math.floor(Math.random() * (1000 - 0 + 1)) + 300
+        ),
         backgroundColor: "#E1261C",
         // borderWidth: 1,
         borderRadius: 50,
@@ -80,11 +82,13 @@ export default function GlobalBarChart() {
       },
       {
         label: "USA",
-        data: labels.map(() => Math.floor(Math.random() * (1000 - 0 + 1)) + 0),
+        data: labels.map(
+          () => Math.floor(Math.random() * (1000 - 0 + 1)) + 200
+        ),
         backgroundColor: "#F1B9B6",
 
         // borderSkipped: false,
-        borderRadius: 15,
+        borderRadius: 50,
       },
     ],
   };

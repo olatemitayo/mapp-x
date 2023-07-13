@@ -18,23 +18,23 @@ interface UserProps {
   password: string;
 }
 export default function SignIn() {
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const Login = (value: UserProps) => {
     axios
-      .post("https://web-production-9c5b.up.railway.app/api/account/login/", {
+      .post("https://mapx.onrender.com/api/login/", {
         email: value.email,
         password: value.password,
       })
       .then(function (res) {
-        setIsLoading(true);
-        if (res.data?.token) {
-          localStorage.setItem("my-user", JSON.stringify(res.data));
+        // setIsLoading(true)
+        console.log(res);
+        if (res.data?.access) {
+          localStorage.setItem("my-user", JSON.stringify(res.data.access));
           router.push("/dashboard");
         }
       })
       .catch(function (error) {
         console.log(error);
-
         toast.error("Invalid login details");
       });
   };
@@ -129,9 +129,9 @@ export default function SignIn() {
               </div>
               <div>
                 <Button text="Sign In" className="!w-full">
-                  {isLoading ? (
-                    <img src="/loading.svg" width={24} height={24} alt="" />
-                  ) : null}
+                  {/* {isLoading ? ( */}
+                  <img src="/loading.svg" width={24} height={24} alt="" />
+                  {/* ) : null} */}
                 </Button>
               </div>
             </form>
