@@ -64,7 +64,7 @@ export default function Profile() {
               </div>
             </div>
             {/* profile footer  */}
-            <div className="mt-5 flex  justify-between text-[14px]">
+            <div className="mt-5 flex flex-wrap  justify-between text-[14px]">
               {/* ABOUT  */}
               <div className="bg-white w-[32%] flex flex-col  rounded-xl">
                 <div className="border-b">

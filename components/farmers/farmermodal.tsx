@@ -199,7 +199,7 @@ export default function FarmerModal() {
             <Stepper.Step label="Details" completedIcon={1}>
               <div className="flex flex-col gap-4 ">
                 {/* DROPZONE  */}
-                <div>
+                <div className="w-[40%] h-[30%] ">
                   <Dropzone
                     onDrop={(files) => {
                       const reader = new FileReader();
@@ -210,7 +210,7 @@ export default function FarmerModal() {
                       setFileName(files[0].name);
                       setImgSize(files[0].size);
                       const data = files[0].size;
-                      console.log(data / 1024);
+                      // console.log(data / 1024);
                       reader.readAsDataURL(files[0]);
 
                       reader.onload = () => {
@@ -252,12 +252,12 @@ export default function FarmerModal() {
                             />
                           </div>
                           <div className="flex items-center justify-between gap-4">
-                            <span className=" text-davy-grey text-14">
+                            {/* <span className=" text-davy-grey text-14">
                               {fileName}
-                            </span>
-                            <span className=" text-phillipine-silver text-[10px]">
+                            </span> */}
+                            {/* <span className=" text-phillipine-silver text-[10px]">
                               {imgSize}MB Image
-                            </span>
+                            </span> */}
                           </div>
                         </div>
                       ) : (

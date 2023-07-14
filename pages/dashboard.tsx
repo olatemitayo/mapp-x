@@ -10,7 +10,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Popover } from "@mantine/core";
 
-function Dashboard() {
+function Dashboard({ id }) {
   return (
     <>
       <main className=" grid grid-cols-[auto_1fr] ">
@@ -90,7 +90,7 @@ function Dashboard() {
               <Headers />
             </div>
             <Graph />
-            <Feotable />
+            <Feotable id={id} />
           </div>
           {/* headers */}
         </div>

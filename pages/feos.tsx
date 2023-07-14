@@ -16,7 +16,7 @@ function Feos() {
     axios({
       url: "",
       headers: {
-        Authorization: `Bearer ${token.token}`,
+        Authorization: `Bearer ${token?.token}`,
       },
     })
       .then(function ({ data }) {
@@ -45,4 +45,4 @@ function Feos() {
   );
 }
 
-export default withAuth(Feos);
+export default Feos;

@@ -2,7 +2,7 @@ import { Progress } from "@mantine/core";
 import Image from "next/image";
 import { Data } from "../farmers/famersdata";
 
-import FarmerModal from "../Admin/feomodal";
+import FeoModal from "../Admin/feomodal";
 import Latestfeo from "../profile/latestfeo";
 
 interface FEOData {
@@ -108,7 +108,7 @@ export function Individual(): JSX.Element {
   );
 }
 
-export default function Feotable() {
+export default function Feotable({ id }) {
   return (
     <div className="flex justify-between mt-[20px]">
       <div className="w-[69.5%] h-[345px] bg-white rounded-[20px] border-[1px] ">
@@ -137,7 +137,7 @@ export default function Feotable() {
             </span>
           </div>
           <div className="relative">
-            <FarmerModal />
+            <FeoModal />
             <Image
               width={24}
               height={24}

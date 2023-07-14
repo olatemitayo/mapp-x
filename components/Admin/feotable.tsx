@@ -14,6 +14,7 @@ export default function FEOFarmertable() {
       <th>Mapped Farmlands</th>
       <th>Progress</th>
       <th>Location</th>
+      <th>Options</th>
     </tr>
   );
 
@@ -28,6 +29,11 @@ export default function FEOFarmertable() {
         <Progress color="#BF2018" value={item.progress} />
       </td>
       <td>{item.location}</td>
+      <td>
+        <div>
+          <span>edit</span> <span>delete</span>
+        </div>
+      </td>
     </tr>
   ));
 

@@ -46,16 +46,6 @@ const FEOItems = [
     text: "Mapping",
     link: "#",
   },
-  {
-    img: "/feo.png",
-    text: "FEOs",
-    link: "/feos",
-  },
-  {
-    img: "/activity.png",
-    text: "Activity Log",
-    link: "/activity-log",
-  },
 ];
 
 const groups = [
@@ -102,7 +92,7 @@ export default function Sidebar() {
         </figure>
         <div className="flex flex-col justify-between h-full">
           <ul className="flex flex-col gap-10">
-            {(payload.role = "Admin")
+            {payload.role === "Admin"
               ? AdminItems.map((item) => (
                   <Link href={item.link} className="flex items-center gap-3">
                     <Image

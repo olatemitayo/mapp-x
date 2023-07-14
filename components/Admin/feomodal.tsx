@@ -60,15 +60,17 @@ export default function FeoModal() {
   const handleSubmitDetails = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("/api/admin/fieldofficers/create/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(details),
-      });
+      const res = await fetch(
+        "https://mapx.onrender.com/api/admin/fieldofficers/create/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(details),
+        }
+      );
       const data = await res.json();
-
       setDetails(initialDetails);
       console.log(data);
     } catch (error) {

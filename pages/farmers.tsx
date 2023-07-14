@@ -5,12 +5,28 @@ import { FarmersList } from "@/components/farmers/famersdata";
 import Nofarmersdata from "@/components/farmers/nofarmersdata";
 import withAuth from "@/components/protected-route";
 
+import { AuthContext, ContextType, UserDetails } from "@/pages/_app";
+import FarmerModal from "@/components/farmers/farmermodal";
+import { useState } from "react";
+
+interface PagesProps {
+  role: string;
+  children?: React.ReactNode;
+}
+
 const Farmers: React.FC = () => {
+  const [payload, setPayload] = useState<UserDetails>({
+    role: "",
+  });
   return (
     <main className="grid grid-cols-[auto_1fr]">
       <Sidebar />
       <div className="py-6 h-[100vh] flex flex-col px-5  bg-[#F5F5F6] overflow-x-auto">
         <Pages text="Farmers" page="Farmer's List" />
+        <div className="flex items-center justify-between">
+          <div className="font-semibold">Overview</div>
+          <div>{payload.role === "Admin" ? <div></div> : <FarmerModal />}</div>
+        </div>
         <div className="flex-1 overflow-auto no-scrollbar">
           {FarmersList.length == 0 ? (
             <Nofarmersdata text="Farmers" para="farmer" />
@@ -23,4 +39,4 @@ const Farmers: React.FC = () => {
   );
 };
 
-export default Farmers;
+export default withAuth(Farmers);

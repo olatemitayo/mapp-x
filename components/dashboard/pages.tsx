@@ -61,7 +61,7 @@ export default function Pages({ text, page, children }: PagesProps) {
             alt="notifications"
           />
           <Image src="/widget.svg" width={24} height={24} alt="widget" />
-          <span className=" text-davy-grey">{payload?.first_name}</span>
+          <span className=" text-davy-grey">{payload?.profile_picture}</span>
         </div>
       </div>
       <div />

@@ -65,7 +65,7 @@ export default function SignIn() {
         <ToastContainer toastClassName="customToast" />
 
         <div className="w-[53%] h-[100vh] flex flex-col justify-center items-center text-start ">
-          <div className="w-[60%]">
+          <div className="sm:w-[90%] lg:w-[60%]">
             <AuthText
               header="Sign In"
               para="Enter your email and password to sign in!"
@@ -90,7 +90,7 @@ export default function SignIn() {
                   autoComplete="off"
                   classNames={{
                     input: "text-[#2C2F3C] rounded-[0.75rem]  py-7 text-[14px]",
-                    label: "text-[16px] mb-4",
+                    label: "text-[clamp(12px, 1vw, 16px)] mb-4",
                   }}
                 />
 
@@ -104,7 +104,7 @@ export default function SignIn() {
                   classNames={{
                     input:
                       "text-[#2C2F3C] rounded-[0.75rem] py-7 text-[14px] flex items-center self-center ",
-                    label: "text-[16px] mb-4",
+                    label: "text-[clamp(12px, 1vw, 16px)] mb-4",
                     innerInput: "py-7",
                     visibilityToggle: "hover:bg-white",
                   }}
@@ -119,16 +119,19 @@ export default function SignIn() {
                     id=""
                     className="text-red-500 form-checkbox checked:text-red-500"
                   />
-                  <p>keep me logged in</p>
+                  <p className="text-[12px]">keep me logged in</p>
                 </div>
                 <Link href="/forgot-password">
-                  <p className="text-[#BF2018] font-[500] text-[14px]">
+                  <p className="text-[#BF2018] font-[500] text-[12px]">
                     Forgot password?
                   </p>
                 </Link>
               </div>
               <div>
-                <Button text="Sign In" className="!w-full">
+                <Button
+                  text="Sign In"
+                  className="!w-full text-[clamp(12px, 1vw, 16px)]"
+                >
                   {/* {isLoading ? ( */}
                   <img src="/loading.svg" width={24} height={24} alt="" />
                   {/* ) : null} */}
