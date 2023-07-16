@@ -12,12 +12,12 @@ export default function CreateNewPasword() {
         <div className="w-[53%] h-[100vh] flex flex-col justify-center items-center text-start relative">
           <Link
             href="/signin"
-            className="flex  items-center absolute top-[20px] text-start w-[60%]"
+            className="flex  items-center absolute top-[20px] text-start sm:w-[85%] lg:w-[60%]"
           >
             <Image height={24} width={24} alt="goback" src="/arrowBack.svg" />
             <p className="text-base text-[#8F9198]  ">Back to sign in</p>
           </Link>
-          <div className="w-[60%]">
+          <div className="sm:w-[85%] lg:w-[60%]">
             <div>
               <AuthText
                 header="Create Password"

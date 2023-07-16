@@ -64,7 +64,7 @@ const logout = {
 
 const handleLogout = () => {
   localStorage.clear();
-  window.location.href = "/signin";
+  window.location.href = "/";
 };
 
 import { AuthContext, ContextType, UserDetails } from "@/pages/_app";

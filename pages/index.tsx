@@ -7,8 +7,8 @@ import Button from "@/components/auth/button";
 export default function Index() {
   return (
     <main>
-      <div className="flex px-[100px] py-[50px] justify-between">
-        <div className="flex justify-center items-center gap-2">
+      <div className="flex px-[clamp(12px,7vw,100px)] py-[clamp(10px,5vw,50px)] justify-between">
+        <div className="flex items-center justify-center gap-2">
           <Image height={50} width={41} alt="mapX" src="/xIcon.svg" />
           <h2 className="logoClamp font-[700] text-[#515055] text-h2">MapX</h2>
         </div>

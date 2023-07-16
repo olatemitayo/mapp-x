@@ -38,20 +38,27 @@ export default function Pages({ text, page, children }: PagesProps) {
         <div className="flex w-[485px] justify-between p-3 rounded-[30px] bg-white">
           <div className="relative flex">
             <Image
-              width={11}
-              height={11}
+              width={13}
+              height={13}
               src={"/search.svg"}
               alt="search"
-              className="absolute top-3.5 left-4 "
+              className="absolute top-3 left-4 "
             />
-            <TextInput
-              className="border-2  w-[284px] rounded-[30px] ps-8 "
+            <input
+              type="search"
+              name=""
+              placeholder="search"
+              id=""
+              className="border-2 p-2 w-[300px] rounded-[30px] ps-10 "
+            />
+            {/* <TextInput
+              className="border-2   rounded-[30px] ps-8 "
               placeholder="search"
               withAsterisk
               classNames={{
                 input: "border-none",
               }}
-            />
+            /> */}
           </div>
 
           <Image

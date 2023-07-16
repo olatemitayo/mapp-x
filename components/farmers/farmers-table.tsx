@@ -58,7 +58,7 @@ export default function Farmertable() {
             <div className="flex gap-2">
               <h2 className="text-2xl font-semibold">All Farmers</h2>
               <span className="bg-[#FCE9E8] text-[#BF2018] px-3 py-1 rounded-[32px]">
-                {totalItems}
+                {FarmersList.length}
               </span>
             </div>
 

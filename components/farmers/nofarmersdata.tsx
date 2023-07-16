@@ -1,7 +1,7 @@
 import React from "react";
-import { Data } from "../database/adminfeodata";
 import { TextInput } from "@mantine/core";
 import Image from "next/image";
+import { FarmersList } from "./famersdata";
 
 interface DataProp {
   text: string;
@@ -15,7 +15,7 @@ export default function Nofarmersdata({ text, para }: DataProp) {
         <div className="flex gap-2">
           <h2 className="text-2xl font-semibold">All {text}</h2>
           <span className="bg-[#FCE9E8] text-[#BF2018] px-3 py-1 rounded-[32px]">
-            {Data.length}
+            {FarmersList.length}
           </span>
         </div>
         <div>
