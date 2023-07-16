@@ -46,6 +46,11 @@ const FEOItems = [
     text: "Mapping",
     link: "#",
   },
+  {
+    img: "/activity.png",
+    text: "Activity Log",
+    link: "/activity-log",
+  },
 ];
 
 const groups = [
@@ -64,7 +69,7 @@ const logout = {
 
 const handleLogout = () => {
   localStorage.clear();
-  window.location.href = "/";
+  window.location.href = "/signin";
 };
 
 import { AuthContext, ContextType, UserDetails } from "@/pages/_app";

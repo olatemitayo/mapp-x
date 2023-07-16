@@ -6,7 +6,7 @@ import { useState } from "react";
 
 interface PagesProps {
   role: string;
-  children?: React.ReactNode;
+  // children?: React.ReactNode;
 }
 
 const HeaderItems = [
@@ -318,7 +318,11 @@ export default function Headers() {
   });
   return (
     <div className="flex items-center gap-6 mt-6 overflow-x-scroll no-scrollbar ">
-      {payload.role === "Admin" ? <Adminheader /> : <FEOHeader />}
+      {payload.role === "admin" ? <Adminheader /> : <FEOHeader />}
+      {/* <Adminheader /> */}
+      {
+        // if(payload.role === 'ADmin')
+      }
     </div>
   );
 }

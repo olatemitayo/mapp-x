@@ -199,7 +199,7 @@ export default function FarmerModal() {
             <Stepper.Step label="Details" completedIcon={1}>
               <div className="flex flex-col gap-4 ">
                 {/* DROPZONE  */}
-                <div className="w-[40%] h-[30%] ">
+                <div className="w-[40%]  ">
                   <Dropzone
                     onDrop={(files) => {
                       const reader = new FileReader();
@@ -252,9 +252,9 @@ export default function FarmerModal() {
                             />
                           </div>
                           <div className="flex items-center justify-between gap-4">
-                            {/* <span className=" text-davy-grey text-14">
+                            <span className=" text-davy-grey text-[8px]">
                               {fileName}
-                            </span> */}
+                            </span>
                             {/* <span className=" text-phillipine-silver text-[10px]">
                               {imgSize}MB Image
                             </span> */}
@@ -352,60 +352,28 @@ export default function FarmerModal() {
                     input: " focus:border-[#C1C2C6] ",
                   }}
                 />
-                <div className="relative flex">
-                  <div className="absolute z-30 top-10 left-10">
-                    {/* <Popover width={75} position="bottom" withArrow shadow="md">
-                      <Popover.Target>
-                        <Image
-                          width={24}
-                          height={24}
-                          src="/arrowDown.svg"
-                          alt="arrow"
-                          className="cursor-pointer"
-                        />
-                      </Popover.Target>
-                      <Popover.Dropdown className="rounded-md">
-                        <div className="flex flex-col gap-3">
-                          <div className="flex gap-1">
-                            <h4>KE</h4>
-                          </div>
 
-                          <div className="flex gap-1">
-                            <h4>UG</h4>
-                          </div>
+                {/* ENTER PHONE NUMBER  */}
+                <TextInput
+                  placeholder="Phone number"
+                  label="Phone number"
+                  size="md"
+                  withAsterisk
+                  required
+                  value={details.phone}
+                  onChange={(e) => {
+                    setDetails({
+                      ...details,
+                      phone: e.target.value,
+                    });
+                  }}
+                  classNames={{
+                    label: "text-[16px] mb-2",
+                    root: "flex-1",
+                    input: " focus:border-[#C1C2C6]",
+                  }}
+                />
 
-                          <div className="flex gap-1">
-                            <h4>NG</h4>
-                          </div>
-
-                          <div className="flex gap-1 ">
-                            <h4>US</h4>
-                          </div>
-                        </div>
-                      </Popover.Dropdown>
-                    </Popover> */}
-                  </div>
-                  {/* ENTER PHONE NUMBER  */}
-                  <TextInput
-                    placeholder="Phone number"
-                    label="Phone number"
-                    size="md"
-                    withAsterisk
-                    required
-                    value={details.phone}
-                    onChange={(e) => {
-                      setDetails({
-                        ...details,
-                        phone: e.target.value,
-                      });
-                    }}
-                    classNames={{
-                      label: "text-[16px] mb-2",
-                      root: "flex-1",
-                      input: " focus:border-[#C1C2C6]",
-                    }}
-                  />
-                </div>
                 <div className="flex flex-col gap-6">
                   <Select
                     label="Country"
@@ -639,94 +607,89 @@ export default function FarmerModal() {
                 <div className="flex flex-col justify-between">
                   <div>
                     {/* image preview  */}
-                    <Dropzone
-                      onDrop={(files) => {
-                        const reader = new FileReader();
-                        setDetails({
-                          ...details,
-                          img: files[0],
-                        });
-                        setFileName(files[0].name);
-                        setImgSize(files[0].size);
-                        const data = files[0].size;
-                        console.log(data / 1024);
-                        reader.readAsDataURL(files[0]);
+                    <div className="w-[40%] ">
+                      <Dropzone
+                        onDrop={(files) => {
+                          const reader = new FileReader();
+                          setDetails({
+                            ...details,
+                            img: files[0],
+                          });
+                          setFileName(files[0].name);
+                          setImgSize(files[0].size);
+                          const data = files[0].size;
+                          // console.log(data / 1024);
+                          reader.readAsDataURL(files[0]);
 
-                        reader.onload = () => {
-                          setImgPreview(reader.result as string);
-                        };
-                      }}
-                      // onReject={(files) => console.log("rejected files", files)}
-                      maxSize={3 * 1024 ** 2}
-                      accept={IMAGE_MIME_TYPE}
-                      styles={{
-                        root: {
-                          border: "1px dashed #C81107",
-                          "&:hover": {
-                            border: "1px dashed #6D0802",
+                          reader.onload = () => {
+                            setImgPreview(reader.result as string);
+                          };
+                        }}
+                        // onReject={(files) => console.log("rejected files", files)}
+                        maxSize={3 * 1024 ** 2}
+                        accept={IMAGE_MIME_TYPE}
+                        styles={{
+                          root: {
+                            border: "1px dashed #C81107",
+                            "&:hover": {
+                              border: "1px dashed #6D0802",
+                            },
                           },
-                        },
-                      }}
-                    >
-                      <Group
-                        className="flex flex-col"
-                        position="center"
-                        spacing="xl"
-                        style={{ minHeight: rem(220), pointerEvents: "none" }}
+                        }}
                       >
-                        <Dropzone.Accept>
-                          <IconUpload size="3.2rem" stroke={1.5} />
-                        </Dropzone.Accept>
-                        <Dropzone.Reject>
-                          <IconX size="3.2rem" stroke={1.5} />
-                        </Dropzone.Reject>
-                        {imgPreview ? (
-                          <div className="flex flex-col items-center justify-center gap-2 ">
-                            <div className="rounded-[11px] p-[1px] border border-[#7C827D]">
-                              <Image
-                                src={imgPreview}
-                                alt=""
-                                width={150}
-                                height={150}
-                              />
-                            </div>
-                            <div className="flex items-center justify-between gap-4">
-                              <span className=" text-davy-grey text-14">
-                                {fileName}
-                              </span>
-                              <span className=" text-phillipine-silver text-[10px]">
-                                {imgSize}MB Image
-                              </span>
-                            </div>
-                          </div>
-                        ) : (
-                          <>
-                            <Dropzone.Idle>
-                              <div className="flex flex-col items-center justify-center gap-1">
+                        <Group
+                          className="flex flex-col"
+                          position="center"
+                          spacing="xl"
+                          style={{ minHeight: rem(220), pointerEvents: "none" }}
+                        >
+                          <Dropzone.Accept>
+                            <IconUpload size="3.2rem" stroke={1.5} />
+                          </Dropzone.Accept>
+                          <Dropzone.Reject>
+                            <IconX size="3.2rem" stroke={1.5} />
+                          </Dropzone.Reject>
+                          {imgPreview ? (
+                            <div className="flex flex-col items-center justify-center gap-2 ">
+                              <div className="rounded-[11px] p-[1px] border border-[#7C827D]">
                                 <Image
-                                  src={"/create-card/upload.png"}
-                                  alt={"upload"}
-                                  width={47.73}
-                                  height={47.73}
+                                  src={imgPreview}
+                                  alt=""
+                                  width={150}
+                                  height={150}
                                 />
-                                <p className=" text-phillipine-silver text-[8.37px] ">
-                                  image, smaller than 10MB
-                                </p>
                               </div>
-                            </Dropzone.Idle>
-
-                            <div className="flex flex-col items-center justify-center gap-2">
-                              <Text
-                                size="xl"
-                                inline
-                                className=" text-[10.05px] text-dim "
-                              >
-                                Drag and drop your file here or
-                              </Text>
+                              <div className="flex items-center justify-between gap-4">
+                                <span className=" text-davy-grey text-[8px]">
+                                  {fileName}
+                                </span>
+                                {/* <span className=" text-phillipine-silver text-[10px]">
+                                  {imgSize}MB Image
+                                </span> */}
+                              </div>
                             </div>
+                          ) : (
+                            <>
+                              <Dropzone.Idle>
+                                <div className="flex flex-col items-center justify-center gap-1">
+                                  <p className=" text-phillipine-silver text-[8.37px] ">
+                                    {/* image, smaller than 10MB */}
+                                  </p>
+                                </div>
+                              </Dropzone.Idle>
 
-                            <Link href={"/"}>
-                              <Button
+                              <div className="flex flex-col items-center justify-center gap-2">
+                                <Text
+                                  size="xl"
+                                  inline
+                                  className=" text-[10.05px] text-dim "
+                                >
+                                  {/* Drag and drop your file here or */}
+                                </Text>
+                              </div>
+
+                              <Link href={"/"}>
+                                {/* <Button
                                 className="w-full mt-2 rounded-lg text-engineering"
                                 styles={{
                                   root: {
@@ -737,14 +700,13 @@ export default function FarmerModal() {
                                     },
                                   },
                                 }}
-                              >
-                                Choose File
-                              </Button>
-                            </Link>
-                          </>
-                        )}
-                      </Group>
-                    </Dropzone>
+                              ></Button> */}
+                              </Link>
+                            </>
+                          )}
+                        </Group>
+                      </Dropzone>
+                    </div>
                   </div>
                   <h5>{details?.img?.name}</h5>
                 </div>

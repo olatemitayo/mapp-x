@@ -14,7 +14,7 @@ interface PagesProps {
   children?: React.ReactNode;
 }
 
-const Farmers: React.FC = () => {
+const Farmers: React.FC<PagesProps> = () => {
   const [payload, setPayload] = useState<UserDetails>({
     role: "",
   });

@@ -29,10 +29,7 @@ export default function Globalchart() {
     plugins: {
       legend: {
         position: "top" as const,
-      },
-      title: {
-        display: true,
-        text: "Chart.js Line Chart",
+        display: false,
       },
     },
   };
@@ -45,40 +42,48 @@ export default function Globalchart() {
       {
         fill: true,
         label: "Dataset 2",
-        data: labels.map(() => Math.floor(Math.random() * (1000 - 0 + 1)) + 0),
+
+        data: labels.map(
+          () => Math.floor(Math.random() * (1000 - 0 + 200)) + 1000
+        ),
+        // data: [102, 230, 50, 100, 200, 240, 410, 300, 150, 30],
         borderColor: "#E1261C",
         backgroundColor: "rgba(254, 240, 239, 4) ",
-        pointWidth: "200",
+        pointHoverWidth: 5,
+        // borderWidth: 3,
         pointHoverRadius: 4,
         pointBorderColor: "rgba(0, 0, 0, 0)",
         pointBackgroundColor: "rgba(0, 0, 0, 0)",
         pointHoverBackgroundColor: "#fff",
         pointHoverBorderColor: "#bf2018",
+        lineTension: 0.3,
       },
     ],
   };
 
   return (
-    <Line
-      options={{
-        ...options,
-        scales: {
-          x: {
-            stacked: true,
-            grid: {
+    <div>
+      <Line
+        options={{
+          ...options,
+          scales: {
+            x: {
+              stacked: true,
+              grid: {
+                display: false,
+              },
+            },
+            y: {
               display: false,
+              stacked: true,
+              grid: {
+                display: false,
+              },
             },
           },
-          y: {
-            display: false,
-            stacked: true,
-            grid: {
-              display: false,
-            },
-          },
-        },
-      }}
-      data={data}
-    />
+        }}
+        data={data}
+      />
+    </div>
   );
 }
