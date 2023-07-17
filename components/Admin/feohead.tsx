@@ -1,15 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
-import { TextInput } from "@mantine/core";
+import { Button, Group, TextInput } from "@mantine/core";
+
+import { useDisclosure } from "@mantine/hooks";
 import FeoModal from "./feomodal";
 
 export default function Feohead() {
+  const [opened, { open, close }] = useDisclosure(false);
+
   return (
     <>
       <div className="flex items-center justify-between">
         <div className="font-semibold">Overview</div>
         <div>
-          <FeoModal />
+          <Group
+            position="center"
+            classNames={{
+              Group: "flex justify-between border-0 ",
+            }}
+          >
+            <Button
+              onClick={open}
+              className="px-2 py-1 rounded-[10px] bg-[#BF2018] hover:bg-[#BF2018]"
+            >
+              <span style={{ display: "inline-block", marginInlineEnd: "4px" }}>
+                <Image width={24} height={24} src="/add_circle.svg" alt="add" />
+              </span>
+              Add new
+            </Button>
+          </Group>
         </div>
       </div>
       <div className="flex justify-between mt-4">
@@ -69,6 +88,7 @@ export default function Feohead() {
           </div>
         </div>
       </div>
+      <FeoModal opened={opened} close={close} />
     </>
   );
 }

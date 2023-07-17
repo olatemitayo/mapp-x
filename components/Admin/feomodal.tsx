@@ -31,8 +31,13 @@ interface DetailsProps {
   city: string;
 }
 
-export default function FeoModal() {
-  const [opened, { open, close }] = useDisclosure(false);
+interface IFeoModal {
+  opened: boolean;
+  close: () => void;
+  URL?: string;
+}
+
+export default function FeoModal({ opened, close, URL }: IFeoModal) {
   const [active, setActive] = useState(0);
   const nextStep = () =>
     setActive((current) => (current < 3 ? current + 1 : current));
@@ -56,22 +61,31 @@ export default function FeoModal() {
     city: "",
   };
   const [details, setDetails] = useState<DetailsProps>(initialDetails);
+  const [fetched, setFetched] = useState(false);
 
-  const handleSubmitDetails = async (e) => {
+  const handleSubmitDetails = async (e, method, url) => {
     e.preventDefault();
+    const token = JSON.parse(localStorage.getItem("my-user"))?.access;
     try {
-      const res = await fetch(
-        "https://mapx.onrender.com/api/admin/fieldofficers/create/",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
+      const res = await fetch(url, {
+        method,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          user: {
+            email: details.email,
+            first_name: details.first_name,
+            last_name: details.last_name,
+            phone_number: details.phone,
           },
-          body: JSON.stringify(details),
-        }
-      );
+          location: details.city,
+        }),
+      });
       const data = await res.json();
       setDetails(initialDetails);
+      close();
       console.log(data);
     } catch (error) {
       console.log(error);
@@ -109,7 +123,7 @@ export default function FeoModal() {
     const token = JSON.parse(localStorage.getItem("my-user"))?.access;
     try {
       const res = await fetch(
-        `https://mapx.onrender.com//api/countries/${id}/state`,
+        `https://mapx.onrender.com/api/countries/${details.country}/state`,
         {
           method: "GET",
           headers: {
@@ -130,23 +144,31 @@ export default function FeoModal() {
     }
   };
   useEffect(() => {
-    stateFetch();
-  }, []);
+    if (details.country) stateFetch();
+  }, [details.country]);
+
+  useEffect(() => {
+    if (details.state) cityFetch();
+  }, [details.state]);
+
   //to get data for the city
   const cityFetch = async () => {
-    const token = JSON.parse(localStorage.getItem("my-user"))?.tokens?.access;
+    const token = JSON.parse(localStorage.getItem("my-user"))?.access;
     try {
-      const res = await fetch(cityUrl, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await fetch(
+        `https://mapx.onrender.com/api/state/${details.state}/cities`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       const data = await res.json();
       setCity(
-        data.reduce((acc, curr) => {
-          acc.push({ label: curr.name, value: curr.id });
+        data.results.reduce((acc, curr) => {
+          acc.push({ label: curr.city, value: curr.id });
           return acc;
         }, [])
       );
@@ -154,6 +176,41 @@ export default function FeoModal() {
       console.log(error);
     }
   };
+
+  const fetchDetails = async () => {
+    const token = JSON.parse(localStorage.getItem("my-user"))?.access;
+    try {
+      const res = await fetch(URL, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = await res.json();
+      setDetails({
+        first_name: data?.user?.first_name,
+        last_name: data?.user?.last_name,
+        email: data?.user?.email,
+        phone: data?.user?.phone_number,
+        country: country.find((item) => item.label === data?.country)?.value,
+        state: state?.find(
+          (item) => item.label === data?.location_detail?.split(", ")[1]
+        ).value,
+        city: data?.location,
+      } as any);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (URL) {
+      fetchDetails();
+    }
+  }, [URL]);
+
+  const createUrl = "https://mapx.onrender.com/api/admin/fieldofficers/create/";
 
   return (
     <>
@@ -430,7 +487,7 @@ export default function FeoModal() {
                   searchable
                   nothingFound="No options"
                   value={details.country}
-                  data={country}
+                  data={country || []}
                   onChange={(value) => {
                     setDetails({
                       ...details,
@@ -448,7 +505,7 @@ export default function FeoModal() {
                   searchable
                   nothingFound="No options"
                   value={details.state}
-                  data={state}
+                  data={state || []}
                   onChange={(value) => {
                     setDetails({
                       ...details,
@@ -467,7 +524,7 @@ export default function FeoModal() {
                   searchable
                   nothingFound="No options"
                   value={details.city}
-                  data={city}
+                  data={city || []}
                   onChange={(value) => {
                     setDetails({
                       ...details,
@@ -663,7 +720,14 @@ export default function FeoModal() {
                   Assign Location
                 </Button>
                 <Button
-                  onClick={handleSubmitDetails}
+                  onClick={(e) => {
+                    if (URL) {
+                      console.log("hellooooo");
+                      handleSubmitDetails(e, "PATCH", URL);
+                      return;
+                    }
+                    handleSubmitDetails(e, "POST", createUrl);
+                  }}
                   className="bg-[#bf2018] text-[#fff] hover:bg-[#bf2018]"
                 >
                   Save Entries
@@ -682,23 +746,6 @@ export default function FeoModal() {
           </Stepper>
         </div>
       </Modal>
-
-      <Group
-        position="center"
-        classNames={{
-          Group: "flex justify-between border-0 ",
-        }}
-      >
-        <Button
-          onClick={open}
-          className="px-2 py-1 rounded-[10px] bg-[#BF2018] hover:bg-[#BF2018]"
-        >
-          <span style={{ display: "inline-block", marginInlineEnd: "4px" }}>
-            <Image width={24} height={24} src="/add_circle.svg" alt="add" />
-          </span>
-          Add new
-        </Button>
-      </Group>
     </>
   );
 }

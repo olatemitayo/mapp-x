@@ -1,9 +1,70 @@
 import Image from "next/image";
-import { Table, Progress, TextInput } from "@mantine/core";
+import {
+  Table,
+  Progress,
+  TextInput,
+  Text,
+  Loader,
+  LoadingOverlay,
+} from "@mantine/core";
 import { Data } from "../database/adminfeodata";
+import { toast } from "react-toastify";
+import { useEffect, useState } from "react";
+import FeoModal from "./feomodal";
+import { useDisclosure } from "@mantine/hooks";
+import { modals } from "@mantine/modals";
 
 export default function FEOFarmertable() {
-  const totalItems = Data.length;
+  const [tableData, setTableData] = useState([]);
+  const [opened, { open, close }] = useDisclosure(false);
+  const [deleteLoading, setDeleteLoading] = useState(false);
+  const [URL, setURL] = useState(null);
+  const feoList = async () => {
+    const token = JSON.parse(localStorage.getItem("my-user"))?.access;
+    try {
+      const res = await fetch(
+        "https://mapx.onrender.com/api/admin/fieldofficers/list/",
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const data = await res.json();
+      console.log(data);
+      setTableData(data.results);
+    } catch (error) {
+      console.log(error);
+      toast.error("Unable to fetch");
+    }
+  };
+  const deleteFEO = async (url) => {
+    setDeleteLoading(true);
+    const token = JSON.parse(localStorage.getItem("my-user"))?.access;
+    try {
+      const res = await fetch(url, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (res.ok) {
+        setDeleteLoading(false);
+        feoList();
+        toast.success("FEO deleted successfully");
+      }
+    } catch (error) {
+      console.log(error);
+      setDeleteLoading(false);
+      toast.error("Unable to delete!");
+    }
+  };
+
+  useEffect(() => {
+    feoList();
+  }, []);
+  const totalItems = tableData.length;
 
   const ths = (
     <tr>
@@ -64,33 +125,65 @@ export default function FEOFarmertable() {
     </tr>
   );
 
-  const rows = Data.map((item) => (
+  const openDeleteModal = (url) => {
+    modals.openConfirmModal({
+      title: "Delete FEO",
+      // closeOnConfirm: false,
+      centered: true,
+      children: (
+        <Text size="sm">Are you sure you want to delete your FEO?</Text>
+      ),
+      labels: {
+        confirm: deleteLoading ? (
+          <p className="flex items-center gap-2">
+            <Loader size="sm" />
+            Please wait...
+          </p>
+        ) : (
+          "Delete"
+        ),
+        cancel: "No don't delete",
+      },
+      confirmProps: {
+        disabled: deleteLoading,
+        color: "red",
+        className: "bg-[#BF2018] hover:bg-[#BF2018]",
+      },
+      onCancel: () => console.log("Cancel"),
+      onConfirm: () => {
+        deleteFEO(url);
+      },
+    });
+  };
+
+  const rows = tableData.map((item) => (
     <tr
       key={item.name}
       className="cursor-pointer hover:bg-[#f0f0f0] hover:cursor-pointer"
     >
-      <td className="!border-0">{item.name}</td>
-      <td className="!border-0">{item.phone}</td>
-      <td className="!border-0">{item.email}</td>
-      <td className="!border-0">{item.farmers}</td>
-      <td className="!border-0">{item.mapped}</td>
+      <td className="!border-0">{item.full_name}</td>
+      <td className="!border-0">{item.user.phone_number}</td>
+      <td className="!border-0">{item.user.email}</td>
+      <td className="!border-0">{item.num_farmers_assigned}</td>
+      <td className="!border-0">{item.num_farms_mapped}</td>
       <td className="!border-0">
-        <div>
-          <span>{item.progress}%</span>
-          <Progress color="#BF2018" value={item.progress} />
-        </div>
+        <span>
+          <span>{+item.progress_level.toFixed(2)}%</span>
+          <Progress color="#BF2018" value={item.progress_level} />
+        </span>
       </td>
-      <td className="!border-0">{item.location}</td>
+      <td className="!border-0">{item.location_detail}</td>
       <td className="!border-0">
-        <div className="flex gap-2">
+        <span className="flex gap-2">
           <Image src={"/Flag.svg"} width={20} height={20} alt="flag" />
-          <div>{item.country}</div>
-        </div>
+          <span>{item.country}</span>
+        </span>
       </td>
 
       <td className="!border-0">
         <div className="flex gap-4">
           <Image
+            onClick={() => openDeleteModal(item?.delete_url)}
             width={20}
             height={20}
             alt=""
@@ -98,6 +191,10 @@ export default function FEOFarmertable() {
             className="cursor-pointer"
           />
           <Image
+            onClick={() => {
+              setURL(item.update_url);
+              open();
+            }}
             width={20}
             height={20}
             alt=""
@@ -148,6 +245,8 @@ export default function FEOFarmertable() {
           <tbody className="overflow-x-scroll">{rows}</tbody>
         </Table>
       </div>
+      <FeoModal URL={URL} opened={opened} close={close} />
+      <LoadingOverlay visible={deleteLoading} />
     </div>
   );
 }

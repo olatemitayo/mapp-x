@@ -37,7 +37,6 @@ export default function ForgotPassword() {
   const handlesubmit = (e: FormEvent) => {
     e.preventDefault();
     forgetpassword();
-    console.log(password);
   };
 
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {

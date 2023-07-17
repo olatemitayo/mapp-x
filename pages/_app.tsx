@@ -2,6 +2,7 @@ import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { MantineProvider } from "@mantine/core";
 import { Dispatch, SetStateAction, useState, createContext } from "react";
+import { ModalsProvider } from "@mantine/modals";
 
 export interface UserDetails {
   first_name?: string;
@@ -43,9 +44,11 @@ export default function App({ Component, pageProps }: AppProps) {
   };
   return (
     <MantineProvider withGlobalStyles withNormalizeCSS>
-      <AuthContext.Provider value={storeData}>
-        <Component {...pageProps} />
-      </AuthContext.Provider>
+      <ModalsProvider>
+        <AuthContext.Provider value={storeData}>
+          <Component {...pageProps} />
+        </AuthContext.Provider>
+      </ModalsProvider>
     </MantineProvider>
   );
 }
