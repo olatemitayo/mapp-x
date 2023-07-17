@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDisclosure } from "@mantine/hooks";
 import {
   Modal,
@@ -80,9 +80,9 @@ export default function FeoModal() {
 
   //to get data for the country
   const countryFetch = async () => {
-    const token = JSON.parse(localStorage.getItem("my-user"))?.tokens?.access;
+    const token = JSON.parse(localStorage.getItem("my-user"))?.access;
     try {
-      const res = await fetch(countryUrl, {
+      const res = await fetch("https://mapx.onrender.com/api/countries/", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -91,7 +91,7 @@ export default function FeoModal() {
       });
       const data = await res.json();
       setCountry(
-        data.reduce((acc, curr) => {
+        data.results.reduce((acc, curr) => {
           acc.push({ label: curr.name, value: curr.id });
           return acc;
         }, [])
@@ -100,20 +100,27 @@ export default function FeoModal() {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    countryFetch();
+  }, []);
   //to get data for the state
   const stateFetch = async () => {
-    const token = JSON.parse(localStorage.getItem("my-user"))?.tokens?.access;
+    const token = JSON.parse(localStorage.getItem("my-user"))?.access;
     try {
-      const res = await fetch(stateUrl, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await fetch(
+        `https://mapx.onrender.com//api/countries/${id}/state`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       const data = await res.json();
       setState(
-        data.reduce((acc, curr) => {
+        data.results.reduce((acc, curr) => {
           acc.push({ label: curr.name, value: curr.id });
           return acc;
         }, [])
@@ -122,6 +129,9 @@ export default function FeoModal() {
       console.log(error);
     }
   };
+  useEffect(() => {
+    stateFetch();
+  }, []);
   //to get data for the city
   const cityFetch = async () => {
     const token = JSON.parse(localStorage.getItem("my-user"))?.tokens?.access;

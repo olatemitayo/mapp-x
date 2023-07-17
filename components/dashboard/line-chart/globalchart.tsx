@@ -46,11 +46,9 @@ export default function Globalchart() {
         data: labels.map(
           () => Math.floor(Math.random() * (1000 - 0 + 200)) + 1000
         ),
-        // data: [102, 230, 50, 100, 200, 240, 410, 300, 150, 30],
         borderColor: "#E1261C",
         backgroundColor: "rgba(254, 240, 239, 4) ",
         pointHoverWidth: 5,
-        // borderWidth: 3,
         pointHoverRadius: 4,
         pointBorderColor: "rgba(0, 0, 0, 0)",
         pointBackgroundColor: "rgba(0, 0, 0, 0)",
