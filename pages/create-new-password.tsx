@@ -1,11 +1,44 @@
-import React from "react";
+import React, { FormEvent, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import AuthText from "@/components/auth/auth-text";
 import Button from "@/components/auth/button";
 import AuthImg from "@/components/auth/auth-img";
+import { useRouter } from "next/router";
 
 export default function CreateNewPasword() {
+  const [first, setFirst] = useState("");
+  const [second, setSecond] = useState("");
+
+  const router = useRouter();
+  const resetpassword = async () => {
+    try {
+      const res = await fetch(
+        "https://mapx.onrender.com/accounts/api/reset_password/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: router.query.email,
+            new_password: first,
+            confirm_password: second,
+          }),
+        }
+      );
+      if (res.ok) router.push("/signin");
+      const data = await res.json();
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handlesubmit = (e: FormEvent) => {
+    e.preventDefault();
+    resetpassword();
+  };
   return (
     <>
       <main className="flex">
@@ -23,7 +56,11 @@ export default function CreateNewPasword() {
                 header="Create Password"
                 para="Create your new password to login"
               />
-              <form action="" className="mt-[40px] flex flex-col gap-6">
+              <form
+                action=""
+                className="mt-[40px] flex flex-col gap-6"
+                onSubmit={handlesubmit}
+              >
                 <div className="grid gap-3">
                   <label
                     htmlFor="password"
@@ -32,11 +69,13 @@ export default function CreateNewPasword() {
                     Password <span className="text-[#BF2018]">*</span>
                   </label>
                   <input
-                    className="border p-4 rounded-xl"
+                    className="p-4 border rounded-xl"
                     type="password"
                     name="password"
                     placeholder="min. 8 characters"
                     required
+                    value={first}
+                    onChange={(event) => setFirst(event.currentTarget.value)}
                   />
                 </div>
                 <div className="grid gap-3">
@@ -47,11 +86,13 @@ export default function CreateNewPasword() {
                     Re-type Password <span className="text-[#BF2018]">*</span>
                   </label>
                   <input
-                    className="border p-4 rounded-xl"
+                    className="p-4 border rounded-xl"
                     type="text"
                     name="Re-type Password"
                     placeholder="min. 8 characters"
                     required
+                    value={second}
+                    onChange={(event) => setSecond(event.currentTarget.value)}
                   />
                 </div>
 

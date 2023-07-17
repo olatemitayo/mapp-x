@@ -7,31 +7,103 @@ export default function FEOFarmertable() {
 
   const ths = (
     <tr>
-      <th>Full name</th>
-      <th>Phone</th>
-      <th>Email</th>
-      <th>Farmers</th>
-      <th>Mapped Farmlands</th>
-      <th>Progress</th>
-      <th>Location</th>
-      <th>Options</th>
+      <th className="!text-[#8F9198] !font-medium !text-[14px]">
+        <div className="flex gap-1">
+          Full name{" "}
+          <Image width={24} height={24} src={"/sort.svg"} alt="sort" />
+        </div>
+      </th>
+      <th className="!text-[#8F9198] !font-medium !text-[14px]">
+        <div className="flex gap-1">
+          Phone <Image width={24} height={24} src={"/sort.svg"} alt="sort" />
+        </div>
+      </th>
+      <th className="!text-[#8F9198] !font-medium !text-[14px]">
+        {" "}
+        <div className="flex gap-1">
+          Email <Image width={24} height={24} src={"/sort.svg"} alt="sort" />
+        </div>
+      </th>
+      <th className="!text-[#8F9198] !font-medium !text-[14px]">
+        {" "}
+        <div className="flex gap-1">
+          Farmers <Image width={24} height={24} src={"/sort.svg"} alt="sort" />
+        </div>
+      </th>
+      <th className="!text-[#8F9198] !font-medium !text-[14px]">
+        {" "}
+        <div className="flex gap-1">
+          Mapped Farmlands{" "}
+          <Image width={24} height={24} src={"/sort.svg"} alt="sort" />
+        </div>
+      </th>
+      <th className="!text-[#8F9198] !font-medium !text-[14px]">
+        {" "}
+        <div className="flex gap-1">
+          Progress <Image width={24} height={24} src={"/sort.svg"} alt="sort" />
+        </div>
+      </th>
+      <th className="!text-[#8F9198] !font-medium !text-[14px]">
+        {" "}
+        <div className="flex gap-1">
+          Location <Image width={24} height={24} src={"/sort.svg"} alt="sort" />
+        </div>
+      </th>
+      <th className="!text-[#8F9198] !font-medium !text-[14px]">
+        {" "}
+        <div className="flex gap-1">
+          Country <Image width={24} height={24} src={"/sort.svg"} alt="sort" />
+        </div>
+      </th>
+      <th className="!text-[#8F9198] !font-medium !text-[14px]">
+        {" "}
+        <div className="flex gap-1">
+          Options <Image width={24} height={24} src={"/sort.svg"} alt="sort" />
+        </div>
+      </th>
     </tr>
   );
 
   const rows = Data.map((item) => (
-    <tr key={item.name}>
-      <td>{item.name}</td>
-      <td>{item.phone}</td>
-      <td>{item.email}</td>
-      <td>{item.farmers}</td>
-      <td>{item.mapped}</td>
-      <td>
-        <Progress color="#BF2018" value={item.progress} />
-      </td>
-      <td>{item.location}</td>
-      <td>
+    <tr
+      key={item.name}
+      className="cursor-pointer hover:bg-[#f0f0f0] hover:cursor-pointer"
+    >
+      <td className="!border-0">{item.name}</td>
+      <td className="!border-0">{item.phone}</td>
+      <td className="!border-0">{item.email}</td>
+      <td className="!border-0">{item.farmers}</td>
+      <td className="!border-0">{item.mapped}</td>
+      <td className="!border-0">
         <div>
-          <span>edit</span> <span>delete</span>
+          <span>{item.progress}%</span>
+          <Progress color="#BF2018" value={item.progress} />
+        </div>
+      </td>
+      <td className="!border-0">{item.location}</td>
+      <td className="!border-0">
+        <div className="flex gap-2">
+          <Image src={"/Flag.svg"} width={20} height={20} alt="flag" />
+          <div>{item.country}</div>
+        </div>
+      </td>
+
+      <td className="!border-0">
+        <div className="flex gap-4">
+          <Image
+            width={20}
+            height={20}
+            alt=""
+            src={"/delete.svg"}
+            className="cursor-pointer"
+          />
+          <Image
+            width={20}
+            height={20}
+            alt=""
+            src={"/editt.svg"}
+            className="cursor-pointer"
+          />
         </div>
       </td>
     </tr>
@@ -67,10 +139,15 @@ export default function FEOFarmertable() {
         </div>
       </div>
 
-      <Table captionSide="bottom" className="h-[100vh]">
-        <thead>{ths}</thead>
-        <tbody className="">{rows}</tbody>
-      </Table>
+      <div className="flex-1 mt-2 overflow-auto no-scrollbar ">
+        <Table
+          captionSide="bottom"
+          className="h-[100vh] w-[107vw] overflow-auto"
+        >
+          <thead className="flex-1 overflow-auto overflow-x-auto">{ths}</thead>
+          <tbody className="overflow-x-scroll">{rows}</tbody>
+        </Table>
+      </div>
     </div>
   );
 }

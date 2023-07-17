@@ -2,7 +2,7 @@ import { Progress } from "@mantine/core";
 import Image from "next/image";
 import { Data } from "../farmers/famersdata";
 
-import FeoModal from "../Admin/feomodal";
+import FeoModal from "../admin/feomodal";
 import Latestfeo from "../profile/latestfeo";
 
 interface FEOData {

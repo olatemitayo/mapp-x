@@ -1,6 +1,6 @@
 import React from "react";
 import { Data } from "../farmers/famersdata";
-import FarmerModal from "../Admin/feomodal";
+import FarmerModal from "../admin/feomodal";
 import Image from "next/image";
 import clsx from "clsx";
 

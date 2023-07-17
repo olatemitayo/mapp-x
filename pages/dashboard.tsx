@@ -5,10 +5,11 @@ import Graph from "@/components/dashboard/graph";
 import Headers from "@/components/dashboard/headers";
 import Pages from "@/components/dashboard/pages";
 import Sidebar from "@/components/sidebar";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Popover } from "@mantine/core";
+import { UserDetails } from "./_app";
 
 function Dashboard({ id }) {
   return (
@@ -92,7 +93,6 @@ function Dashboard({ id }) {
             <Graph />
             <Feotable id={id} />
           </div>
-          {/* headers */}
         </div>
       </main>
     </>

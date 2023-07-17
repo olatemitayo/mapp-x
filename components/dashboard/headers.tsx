@@ -1,13 +1,8 @@
+import { UserDetails } from "@/pages/_app";
 import { Popover } from "@mantine/core";
 import Image from "next/image";
 import Link from "next/link";
-import { AuthContext, ContextType, UserDetails } from "@/pages/_app";
-import { useState } from "react";
-
-interface PagesProps {
-  role: string;
-  // children?: React.ReactNode;
-}
+import { useEffect, useState } from "react";
 
 const HeaderItems = [
   {
@@ -316,13 +311,18 @@ export default function Headers() {
   const [payload, setPayload] = useState<UserDetails>({
     role: "",
   });
+
+  useEffect(() => {
+    if (localStorage.getItem("my-user")) {
+      setPayload(JSON.parse(localStorage.getItem("my-user") as string));
+    }
+
+    return () => {};
+  }, []);
+
   return (
     <div className="flex items-center gap-6 mt-6 overflow-x-scroll no-scrollbar ">
-      {payload.role === "admin" ? <Adminheader /> : <FEOHeader />}
-      {/* <Adminheader /> */}
-      {
-        // if(payload.role === 'ADmin')
-      }
+      {payload.role === "Admin" ? <Adminheader /> : <FEOHeader />}
     </div>
   );
 }

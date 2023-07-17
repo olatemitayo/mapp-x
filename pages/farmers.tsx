@@ -4,10 +4,9 @@ import Farmertable from "@/components/farmers/farmers-table";
 import { FarmersList } from "@/components/farmers/famersdata";
 import Nofarmersdata from "@/components/farmers/nofarmersdata";
 import withAuth from "@/components/protected-route";
-
 import { AuthContext, ContextType, UserDetails } from "@/pages/_app";
 import FarmerModal from "@/components/farmers/farmermodal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface PagesProps {
   role: string;
@@ -16,8 +15,23 @@ interface PagesProps {
 
 const Farmers: React.FC<PagesProps> = () => {
   const [payload, setPayload] = useState<UserDetails>({
+    first_name: "",
+    last_name: "",
+    profile_picture: "",
     role: "",
+    designation: "",
+    email: "",
+    location: "",
+    phone_number: "",
   });
+
+  useEffect(() => {
+    if (localStorage.getItem("my-user")) {
+      setPayload(JSON.parse(localStorage.getItem("my-user") as string));
+    }
+
+    return () => {};
+  }, []);
   return (
     <main className="grid grid-cols-[auto_1fr]">
       <Sidebar />

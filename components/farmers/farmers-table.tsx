@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Image from "next/image";
-import { Drawer, Group, Table, TextInput } from "@mantine/core";
+import { Divider, Drawer, Group, Table, TextInput } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { FarmersList } from "./famersdata";
 import Link from "next/link";
@@ -26,12 +26,54 @@ export default function Farmertable() {
 
   const ths = (
     <tr>
-      <th>Full name</th>
-      <th>Follo ID</th>
-      <th>Phone</th>
-      <th>Assigned FEO</th>
-      <th>Address</th>
-      <th>Country</th>
+      <th className="!text-[#8F9198] !font-medium !text-[14px]">
+        {" "}
+        <div className="flex gap-1">
+          Full name{" "}
+          <Image
+            width={24}
+            height={24}
+            src={"/sort.svg"}
+            alt="sort"
+            className="cursor-pointer"
+          />
+        </div>
+      </th>
+      <th className="!text-[#8F9198] !font-medium !text-[14px]">
+        {" "}
+        <div className="flex gap-1">
+          Follo ID{" "}
+          <Image
+            width={24}
+            height={24}
+            src={"/sort.svg"}
+            alt="sort"
+            className="cursor-pointer"
+          />
+        </div>
+      </th>
+      <th className="!text-[#8F9198] !font-medium !text-[14px]">
+        {" "}
+        <div className="flex gap-1">
+          Phone{" "}
+          <Image
+            width={24}
+            height={24}
+            src={"/sort.svg"}
+            alt="sort"
+            className="cursor-pointer"
+          />
+        </div>
+      </th>
+      <th className="!text-[#8F9198] !font-medium !text-[14px]">Email</th>
+      <th className="!text-[#8F9198] !font-medium !text-[14px]">
+        Assigned FEO
+      </th>
+      <th className="!text-[#8F9198] !font-medium !text-[14px]">Address</th>
+      <th className="!text-[#8F9198] !font-medium !text-[14px]">Country</th>
+      <th className="whitespace-nowrap !text-[#8F9198] !font-medium !text-[14px]">
+        Mapped Status
+      </th>
     </tr>
   );
 
@@ -39,14 +81,40 @@ export default function Farmertable() {
     <tr
       key={item.name}
       onClick={() => handleRowClick(index)}
-      className="hover:bg-[#fcfbfb] hover:cursor-pointer"
+      className="hover:bg-[#f0f0f0] hover:cursor-pointer"
     >
-      <td>{item.name}</td>
-      <td>{item.id}</td>
-      <td>{item.phone}</td>
-      <td>{item.assigned}</td>
-      <td>{item.address}</td>
-      <td>{item.country}</td>
+      <td className="!border-0">{item.name}</td>
+      <td className="!border-0">{item.id}</td>
+      <td className="!border-0">{item.phone}</td>
+      <td className="!border-0">{item.email}</td>
+      <td className="!border-0">{item.assigned}</td>
+      <td className="!border-0">{item.address}</td>
+      <td className="!border-0">{item.country}</td>
+      <td className="flex !border-0">
+        {item.mapped ? (
+          <div className="bg-[#FFF1F3] px-2">
+            <div className="flex items-center gap-1">
+              <Image width={16} height={16} src={"/redpoint.svg"} alt="point" />
+              <div className=" text-[#C01048]   flex justify-center py-1">
+                {" "}
+                Unmapped
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className=" bg-[#ECFDF3] px-2 ">
+            <div className="flex items-center gap-1">
+              <Image
+                width={16}
+                height={16}
+                src={"/greenpoint.svg"}
+                alt="point"
+              />
+              <div className="flex   text-[#027A48] py-1">Mapped</div>
+            </div>
+          </div>
+        )}
+      </td>
     </tr>
   ));
 
@@ -85,10 +153,15 @@ export default function Farmertable() {
               </div>
             </div>
           </div>
-          <div className="flex-1 overflow-auto no-scrollbar">
-            <Table captionSide="bottom" className="h-[100vh]">
-              <thead className="flex-1 overflow-auto">{ths}</thead>
-              <tbody>{rows}</tbody>
+          <div className="flex-1 mt-2 overflow-auto no-scrollbar ">
+            <Table
+              captionSide="bottom"
+              className="h-[100vh] w-[100vw] overflow-auto"
+            >
+              <thead className="flex-1 overflow-auto overflow-x-auto">
+                {ths}
+              </thead>
+              <tbody className="overflow-x-scroll">{rows}</tbody>
             </Table>
           </div>
         </div>

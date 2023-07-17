@@ -1,12 +1,13 @@
 export const Data = [
   {
-    Id: "1",
     name: "Adesola Saga",
     phone: "08018634652",
     email: "saga@gmail.com",
     farmers: "Tayo Aina",
     mapped: "123,455",
     progress: 95,
+    country: "Nigeria",
+    flag: "/activity.png",
     location: "Iwo road, Ibadan",
   },
   {
@@ -16,6 +17,8 @@ export const Data = [
     email: "saga@gmail.com",
     farmers: "Tayo Aina",
     mapped: "123,455",
+    country: "Nigeria",
+    flag: "/activity.png",
     progress: 99,
     location: "Iwo road, Ibadan",
   },
@@ -28,6 +31,8 @@ export const Data = [
     mapped: "123,455",
     progress: 75,
     location: "Iwo road, Ibadan",
+    country: "Nigeria",
+    flag: "/activity.png",
   },
   {
     Id: "4",
@@ -38,6 +43,8 @@ export const Data = [
     mapped: "123,455",
     progress: 51,
     location: "Iwo road, Ibadan",
+    country: "Nigeria",
+    flag: "/activity.png",
   },
   {
     Id: "5",
@@ -48,6 +55,8 @@ export const Data = [
     mapped: "123,455",
     progress: 80,
     location: "Iwo road, Ibadan",
+    country: "Nigeria",
+    flag: "/activity.png",
   },
   {
     Id: "6",
@@ -58,6 +67,8 @@ export const Data = [
     mapped: "123,455",
     progress: 95,
     location: "Iwo road, Ibadan",
+    country: "Nigeria",
+    flag: "/activity.png",
   },
   {
     Id: "7",
@@ -68,6 +79,8 @@ export const Data = [
     mapped: "123,455",
     progress: 45,
     location: "Iwo road, Ibadan",
+    country: "Nigeria",
+    flag: "/activity.png",
   },
   {
     Id: "8",
@@ -78,6 +91,8 @@ export const Data = [
     mapped: "123,455",
     progress: 65,
     location: "Iwo road, Ibadan",
+    country: "Nigeria",
+    flag: "/activity.png",
   },
   {
     Id: "9",
@@ -88,6 +103,8 @@ export const Data = [
     mapped: "123,455",
     progress: 52,
     location: "Iwo road, Ibadan",
+    country: "Nigeria",
+    flag: "/activity.png",
   },
   {
     name: "Adesola Saga",
@@ -97,5 +114,7 @@ export const Data = [
     mapped: "123,455",
     progress: 52,
     location: "Iwo road, Ibadan",
+    country: "Nigeria",
+    flag: "/activity.png",
   },
 ];

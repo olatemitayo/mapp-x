@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -46,11 +46,6 @@ const FEOItems = [
     text: "Mapping",
     link: "#",
   },
-  {
-    img: "/activity.png",
-    text: "Activity Log",
-    link: "/activity-log",
-  },
 ];
 
 const groups = [
@@ -72,17 +67,20 @@ const handleLogout = () => {
   window.location.href = "/signin";
 };
 
-import { AuthContext, ContextType, UserDetails } from "@/pages/_app";
-
-interface PagesProps {
-  role: string;
-  children?: React.ReactNode;
-}
+import { UserDetails } from "@/pages/_app";
 
 export default function Sidebar() {
   const [payload, setPayload] = useState<UserDetails>({
     role: "",
   });
+
+  useEffect(() => {
+    if (localStorage.getItem("my-user")) {
+      setPayload(JSON.parse(localStorage.getItem("my-user") as string));
+    }
+
+    return () => {};
+  }, []);
   return (
     <>
       <div className="w-[200px] h-[100vh]  py-6   bg-[#65110D] flex flex-col items-center ">
@@ -97,7 +95,7 @@ export default function Sidebar() {
         </figure>
         <div className="flex flex-col justify-between h-full">
           <ul className="flex flex-col gap-10">
-            {payload.role === "Admin"
+            {payload?.role === "Admin"
               ? AdminItems.map((item) => (
                   <Link href={item.link} className="flex items-center gap-3">
                     <Image

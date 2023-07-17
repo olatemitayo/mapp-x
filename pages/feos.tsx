@@ -1,8 +1,8 @@
 import Pages from "@/components/dashboard/pages";
 import Sidebar from "@/components/sidebar";
 import Nofarmersdata from "@/components/farmers/nofarmersdata";
-import Feohead from "@/components/Admin/feohead";
-import FEOFarmertable from "@/components/Admin/feotable";
+import Feohead from "@/components/admin/feohead";
+import FEOFarmertable from "@/components/admin/feotable";
 import React, { useState, useEffect } from "react";
 import { Data } from "@/components/farmers/famersdata";
 import axios from "axios";
