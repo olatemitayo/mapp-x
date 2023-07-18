@@ -1,9 +1,10 @@
 import ActivityTable from "@/components/activity-log/activity-table";
 import Pages from "@/components/dashboard/pages";
+import withAuth from "@/components/protected-route";
 import Sidebar from "@/components/sidebar";
 import React from "react";
 
-export default function ActivityLog() {
+function ActivityLog() {
   return (
     <main className="grid grid-cols-[auto_1fr]">
       <Sidebar />
@@ -15,3 +16,5 @@ export default function ActivityLog() {
     </main>
   );
 }
+
+export default withAuth(ActivityLog);

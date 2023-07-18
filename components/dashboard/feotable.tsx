@@ -4,6 +4,7 @@ import { Data } from "../farmers/famersdata";
 
 import FeoModal from "../admin/feomodal";
 import Latestfeo from "../profile/latestfeo";
+import { useEffect, useState } from "react";
 
 interface FEOData {
   name: string;
@@ -85,6 +86,7 @@ export function Individual(): JSX.Element {
     (a, b) => parseInt(b.mapped) - parseInt(a.mapped)
   );
   const highestMapped: FEOData[] = Data.slice(0, 4);
+
   return (
     <div className="flex flex-col ">
       {highestMapped.map((feo) => (
@@ -107,10 +109,8 @@ export function Individual(): JSX.Element {
     </div>
   );
 }
-interface feoIDprops {
-  id: any
-}
-export default function Feotable({ id }: feoIDprops) {
+
+export default function Feotable({ id }) {
   return (
     <div className="flex justify-between mt-[20px]">
       <div className="w-[69.5%] h-[345px] bg-white rounded-[20px] border-[1px] ">
@@ -133,10 +133,7 @@ export default function Feotable({ id }: feoIDprops) {
       <div className="w-[29.5%] h-[345px] bg-white rounded-[20px] border-[1px] px-8 py-5">
         <div className="flex justify-between">
           <div className="flex items-center gap-1">
-            <h2 className="text-2xl font-semibold">FEOs</h2>
-            <span className="bg-[#FCE9E8] text-[#BF2018] px-3 py-1 rounded-[32px]">
-              {Data.length}
-            </span>
+            <h2 className="text-2xl font-semibold">Latest FEOs</h2>
           </div>
           <div className="relative">
             <FeoModal />

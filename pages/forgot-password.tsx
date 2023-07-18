@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import AuthImg from "@/components/auth/auth-img";
 import Button from "@/components/auth/button";
 import AuthText from "@/components/auth/auth-text";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function ForgotPassword() {
   const [password, setPassword] = useState("");
@@ -27,11 +28,9 @@ export default function ForgotPassword() {
 
       if (res.ok) router.push(`/verify?email=${password}`);
 
+      toast.success("OTP sent, please check your email");
       const data = await res.json();
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   const handlesubmit = (e: FormEvent) => {
@@ -46,6 +45,7 @@ export default function ForgotPassword() {
   return (
     <>
       <main className="flex">
+        <ToastContainer toastClassName="customToast" />
         <div className="w-[53%] h-[100vh] flex flex-col justify-center items-center text-start relative">
           <Link
             href="/signin"

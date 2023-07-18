@@ -161,8 +161,8 @@ export default function FarmerModal() {
       <Modal
         opened={opened}
         onClose={close}
-        title="Add new FEO"
-        size="40%"
+        title="Add new Farmer"
+        size="50%"
         styles={{
           title: {
             fontWeight: "bold",

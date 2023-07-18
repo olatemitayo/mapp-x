@@ -321,9 +321,6 @@ export default function FeoModal({ opened, close, URL }: IFeoModal) {
                             <span className=" text-davy-grey text-14">
                               {fileName}
                             </span>
-                            <span className=" text-phillipine-silver text-[10px]">
-                              {imgSize}MB Image
-                            </span>
                           </div>
                         </div>
                       ) : (

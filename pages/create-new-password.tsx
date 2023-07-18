@@ -87,7 +87,7 @@ export default function CreateNewPasword() {
                   </label>
                   <input
                     className="p-4 border rounded-xl"
-                    type="text"
+                    type="password"
                     name="Re-type Password"
                     placeholder="min. 8 characters"
                     required

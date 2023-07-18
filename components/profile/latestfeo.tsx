@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Data } from "../farmers/famersdata";
 import FarmerModal from "../admin/feomodal";
 import Image from "next/image";
@@ -9,12 +9,33 @@ interface LatestFeoProps {
 }
 
 export default function Latestfeo({ className }: LatestFeoProps) {
-  const lastestAddedFEO = Data.slice(-3);
+  // const lastestAddedFEO = Data.slice(-3);
+  const [header, setHeader] = useState<any>([]);
+  //get dashboard data
+  //to get data for the country
+  const recentFetch = async () => {
+    const token = JSON.parse(localStorage.getItem("my-user"))?.access;
+    try {
+      const res = await fetch("https://mapx.onrender.com/api/recent/feo/", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = await res.json();
+
+      setHeader(data);
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    recentFetch();
+  }, []);
   return (
     <section className={clsx("flex flex-col gap-6 bg-blue ", className)}>
       <div className="flex items-center justify-between gap-3"></div>
 
-      {lastestAddedFEO.map((data) => (
+      {header.map((data) => (
         <div
           className={clsx(
             "flex  gap-3 items-center justify-between rounded-md w-[100%] p-2 mx-auto bg-white feoshadow",

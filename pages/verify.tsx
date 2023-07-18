@@ -6,6 +6,7 @@ import AuthImg from "@/components/auth/auth-img";
 import Button from "@/components/auth/button";
 import { Group, PinInput } from "@mantine/core";
 import { useRouter } from "next/router";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function Verify() {
   const [otp, setOtp] = useState("");
@@ -28,10 +29,10 @@ export default function Verify() {
       );
       if (res.ok)
         router.push(`/create-new-password?email=${router.query.email}`);
+      toast.success("Enter a new password");
       const data = await res.json();
-      console.log(data);
     } catch (error) {
-      console.log(error);
+      toast.error("an error occured, please try again");
     }
   };
 
@@ -43,6 +44,7 @@ export default function Verify() {
   return (
     <>
       <main className="flex">
+        <ToastContainer toastClassName="customToast" />
         <div className="w-[53%] h-[100vh] flex flex-col justify-center items-center text-start relative">
           <Link
             href="/signin"

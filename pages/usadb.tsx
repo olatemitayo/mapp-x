@@ -1,8 +1,6 @@
-import Feotable from "@/components/dashboard/feotable";
-import Globaldb from "@/components/dashboard/globaldb";
 import withAuth from "@/components/protected-route";
 import Graph from "@/components/dashboard/graph";
-import Headers from "@/components/dashboard/headers";
+
 import Pages from "@/components/dashboard/pages";
 import Sidebar from "@/components/sidebar";
 import React from "react";
@@ -96,4 +94,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default withAuth(Dashboard);

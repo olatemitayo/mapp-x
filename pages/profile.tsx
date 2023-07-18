@@ -6,8 +6,9 @@ import { BackgroundImage } from "@mantine/core";
 import Link from "next/link";
 import Image from "next/image";
 import Latestfeo from "@/components/profile/latestfeo";
+import withAuth from "@/components/protected-route";
 
-export default function Profile() {
+function Profile() {
   const [payload, setPayload] = useState<UserDetails>({
     first_name: "",
     last_name: "",
@@ -147,7 +148,7 @@ export default function Profile() {
                   </h2>
                 </div>
 
-                <Latestfeo className="noshadow !gap-[10px]" />
+                <Latestfeo className="noshadow !gap-[10px] " />
                 <Link
                   href="/feos"
                   className="text-end px-7 pb-3 text-[#bf2018]"
@@ -253,3 +254,5 @@ export default function Profile() {
     </>
   );
 }
+
+export default withAuth(Profile);
