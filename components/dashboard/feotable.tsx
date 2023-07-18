@@ -83,27 +83,46 @@ const FEOranking: FEOData[] = [
 
 export function Individual(): JSX.Element {
   //to get the top 4 FEOs with highest number of mapping
-  const Data: FEOData[] = FEOranking.sort(
-    (a, b) => parseInt(b.mapped) - parseInt(a.mapped)
-  );
-  const highestMapped: FEOData[] = Data.slice(0, 4);
+  // const Data: FEOData[] = FEOranking.sort(
+  //   (a, b) => parseInt(b.mapped) - parseInt(a.mapped)
+  // );
+  // const highestMapped: FEOData[] = Data.slice(0, 4);
+  const [rank, setRank] = useState([]);
+  const rankFetch = async () => {
+    const token = JSON.parse(localStorage.getItem("my-user"))?.access;
+    try {
+      const res = await fetch("https://mapx.onrender.com/api/feo/ranking/", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = await res.json();
+      setRank(data);
+    } catch (error) {}
+  };
 
+  useEffect(() => {
+    rankFetch();
+  }, []);
+
+  const [slice, setSlice] = useState("");
   return (
     <div className="flex flex-col ">
-      {highestMapped.map((feo) => (
+      {rank.map((feo) => (
         <div
           key={feo.name}
           className="flex items-center justify-between font-semibold mb-7"
         >
           <div className="flex w-[20%] gap-2">
-            <Image width={16} height={16} src={feo.img} alt={feo.name} />
+            <Image width={16} height={16} src={"Flag.svg"} alt={feo.name} />
             <h3 className="">{feo.name}</h3>
           </div>
-          <div className="w-[20%] ">{feo.farmers}</div>
-          <div className="w-[20%] ">{feo.mapped}</div>
+          <div className="w-[20%] ">{feo.registered_farmers}</div>
+          <div className="w-[20%] ">{feo.mapped_farmlands}</div>
           <div className="w-[20%]  flex flex-col">
-            <h5 className="text-[10px]">{`${feo.progress}%`}</h5>
-            <Progress color="red" value={feo.progress} />
+            <h5 className="text-[10px]">{`${feo.progress_level}%`}</h5>
+            <Progress color="red" value={feo.progress_level} />
           </div>
         </div>
       ))}
@@ -129,6 +148,7 @@ export default function Feotable({ id }: FEOtableProp) {
 
     return () => {};
   }, []);
+
   return (
     <>
       {payload.role === "Admin" ? (

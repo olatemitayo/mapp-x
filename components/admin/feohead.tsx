@@ -1,12 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { Button, Group, TextInput } from "@mantine/core";
 
 import { useDisclosure } from "@mantine/hooks";
 import FeoModal from "./feomodal";
+import { toast } from "react-toastify";
 
 export default function Feohead() {
   const [opened, { open, close }] = useDisclosure(false);
+  const [tableData, setTableData] = useState([]);
+  //get feo list
+  const feoList = async () => {
+    const token = JSON.parse(localStorage.getItem("my-user"))?.access;
+    try {
+      const res = await fetch(
+        "https://mapx.onrender.com/api/admin/fieldofficers/list/",
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const data = await res.json();
+
+      setTableData(data.results);
+    } catch (error) {}
+  };
+  useEffect(() => {
+    feoList();
+  }, []);
+  const totalItems = tableData.length;
 
   return (
     <>
@@ -35,10 +59,12 @@ export default function Feohead() {
         <div className="flex p-6 bg-white gap-44 rounded-xl ">
           <div className="flex flex-col gap-2">
             <p className="text-[#8F9198] text-[14px]">TOTAL FEO</p>
-            <h2 className="text-[#252735] font-semibold text-2xl">3502</h2>
+            <h2 className="text-[#252735] font-semibold text-2xl">
+              {totalItems}
+            </h2>
             <p className="text-[12px] text-[#8F9198]">
               <span className="text-[12px] font-medium text-[#30AD74]">
-                +23%{" "}
+                +3%{" "}
               </span>
               since last month
             </p>
@@ -55,10 +81,12 @@ export default function Feohead() {
         <div className="flex p-6 bg-white gap-44 rounded-xl ">
           <div className="flex flex-col gap-2">
             <p className="text-[#8F9198] text-[14px]">REGISTERED THIS MONTH</p>
-            <h2 className="text-[#252735] font-semibold text-2xl">3502</h2>
+            <h2 className="text-[#252735] font-semibold text-2xl">
+              {totalItems}
+            </h2>
             <p className="text-[12px] text-[#8F9198]">
               <span className="text-[12px] font-medium text-[#30AD74]">
-                +23%{" "}
+                +3%{" "}
               </span>
               since last month
             </p>
@@ -75,10 +103,12 @@ export default function Feohead() {
         <div className="flex p-6 bg-white 52-white gap-44 rounded-xl ">
           <div className="flex flex-col gap-2">
             <p className="text-[#8F9198] text-[14px]">REGISTERED BY YOU</p>
-            <h2 className="text-[#252735] font-semibold text-2xl">3502</h2>
+            <h2 className="text-[#252735] font-semibold text-2xl">
+              {totalItems}
+            </h2>
             <p className="text-[12px] text-[#8F9198]">
               <span className="text-[12px] font-medium text-[#30AD74]">
-                +23%{" "}
+                +3%{" "}
               </span>
               since last month
             </p>

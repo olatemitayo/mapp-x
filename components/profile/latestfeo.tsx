@@ -23,7 +23,6 @@ export default function Latestfeo({ className }: LatestFeoProps) {
         },
       });
       const data = await res.json();
-      console.log(data);
       setHeader(data);
     } catch (error) {}
   };
