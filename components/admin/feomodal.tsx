@@ -160,7 +160,7 @@ export default function FeoModal({ opened, close, URL }: IFeoModal) {
   };
   useEffect(() => {
     if (details.country) stateFetch();
-  }, [details.country, stateFetch]);
+  }, [details.country]);
 
   //to get data for the city
   const cityFetch = async () => {
@@ -188,7 +188,7 @@ export default function FeoModal({ opened, close, URL }: IFeoModal) {
 
   useEffect(() => {
     if (details.state) cityFetch();
-  }, [details.state, cityFetch]);
+  }, [details.state]);
 
   const fetchDetails = async () => {
     const token = JSON.parse(localStorage.getItem("my-user"))?.access;
@@ -219,7 +219,7 @@ export default function FeoModal({ opened, close, URL }: IFeoModal) {
     if (URL) {
       fetchDetails();
     }
-  }, [URL, fetchDetails]);
+  }, [URL]);
 
   const createUrl = "https://mapx.onrender.com/api/admin/fieldofficers/create/";
 
