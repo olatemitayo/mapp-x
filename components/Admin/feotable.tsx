@@ -19,6 +19,8 @@ export default function FEOFarmertable() {
   const [opened, { open, close }] = useDisclosure(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [URL, setURL] = useState(null);
+
+  //get feo list
   const feoList = async () => {
     const token = JSON.parse(localStorage.getItem("my-user"))?.access;
     try {
@@ -39,6 +41,8 @@ export default function FEOFarmertable() {
       toast.error("Unable to fetch");
     }
   };
+
+  //delete feo
   const deleteFEO = async (url) => {
     setDeleteLoading(true);
     const token = JSON.parse(localStorage.getItem("my-user"))?.access;
@@ -173,12 +177,7 @@ export default function FEOFarmertable() {
         </span>
       </td>
       <td className="!border-0">{item.location_detail}</td>
-      <td className="!border-0">
-        <span className="flex gap-2">
-          <Image src={"/Flag.svg"} width={20} height={20} alt="flag" />
-          <span>{item.country}</span>
-        </span>
-      </td>
+      <td className="!border-0">{item.country}</td>
 
       <td className="!border-0">
         <div className="flex gap-4">

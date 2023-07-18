@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect, FormEvent } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import axios from "axios";
 import router from "next/router";
@@ -8,17 +8,14 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Button from "@/components/auth/button";
 import AuthText from "@/components/auth/auth-text";
-import { PasswordInput, TextInput } from "@mantine/core";
-import { IconDatabase } from "@tabler/icons-react";
-// import { Button } from "@mantine/core";
-import { User } from "./_app";
+import { LoadingOverlay, PasswordInput, TextInput } from "@mantine/core";
 
 interface UserProps {
   email: string;
   password: string;
 }
 export default function SignIn() {
-  // const [isLoading, setIsLoading] = useState(false);
+  const [visible, setVisible] = useState(false);
   const Login = (value: UserProps) => {
     axios
       .post("https://mapx.onrender.com/accounts/api/loginapi/", {
@@ -26,15 +23,14 @@ export default function SignIn() {
         password: value.password,
       })
       .then(function (res) {
-        // setIsLoading(true)
-        console.log(res);
         if (res.data) {
           localStorage.setItem("my-user", JSON.stringify(res.data));
+          setVisible(true);
           router.push("/dashboard");
         }
       })
       .catch(function (error) {
-        console.log(error);
+        setVisible(false);
         toast.error("Invalid login details");
       });
   };
@@ -132,9 +128,7 @@ export default function SignIn() {
                   text="Sign In"
                   className="!w-full text-[clamp(12px, 1vw, 16px)]"
                 >
-                  {/* {isLoading ? ( */}
                   <img src="/loading.svg" width={24} height={24} alt="" />
-                  {/* ) : null} */}
                 </Button>
               </div>
             </form>
@@ -144,6 +138,7 @@ export default function SignIn() {
           <AuthImg />
         </div>
       </main>
+      <LoadingOverlay visible={visible} overlayBlur={2} />
     </>
   );
 }

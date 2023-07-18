@@ -107,8 +107,10 @@ export function Individual(): JSX.Element {
     </div>
   );
 }
-
-export default function Feotable({ id }) {
+interface feoIDprops {
+  id: any
+}
+export default function Feotable({ id }: feoIDprops) {
   return (
     <div className="flex justify-between mt-[20px]">
       <div className="w-[69.5%] h-[345px] bg-white rounded-[20px] border-[1px] ">

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useDisclosure } from "@mantine/hooks";
 import {
   Modal,
   Button,
@@ -13,12 +12,9 @@ import {
 } from "@mantine/core";
 import Image from "next/image";
 import Link from "next/link";
-import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE } from "@mantine/dropzone";
-import { IconUpload, IconPhoto, IconX } from "@tabler/icons-react";
+import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
+import { IconUpload, IconX } from "@tabler/icons-react";
 import { FileWithPath } from "react-dropzone";
-const countryUrl = "";
-const stateUrl = "";
-const cityUrl = "";
 
 interface DetailsProps {
   img?: null | FileWithPath;
@@ -32,8 +28,8 @@ interface DetailsProps {
 }
 
 interface IFeoModal {
-  opened: boolean;
-  close: () => void;
+  opened?: boolean;
+  close?: () => void;
   URL?: string;
 }
 
@@ -62,7 +58,7 @@ export default function FeoModal({ opened, close, URL }: IFeoModal) {
   };
   const [details, setDetails] = useState<DetailsProps>(initialDetails);
   const [fetched, setFetched] = useState(false);
-
+  //hanlde submit details
   const handleSubmitDetails = async (e, method, url) => {
     e.preventDefault();
     const token = JSON.parse(localStorage.getItem("my-user"))?.access;
@@ -86,10 +82,33 @@ export default function FeoModal({ opened, close, URL }: IFeoModal) {
       const data = await res.json();
       setDetails(initialDetails);
       close();
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
+  };
+
+  //hanlde edit details
+  const handleEditDetails = async (e, method, url) => {
+    e.preventDefault();
+    const token = JSON.parse(localStorage.getItem("my-user"))?.access;
+    try {
+      const res = await fetch(url, {
+        method,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          user: {
+            first_name: details.first_name,
+            last_name: details.last_name,
+            phone_number: details.phone,
+          },
+          location: details.city,
+        }),
+      });
+      const data = await res.json();
+      setDetails(initialDetails);
+      close();
+    } catch (error) {}
   };
 
   //to get data for the country
@@ -110,9 +129,7 @@ export default function FeoModal({ opened, close, URL }: IFeoModal) {
           return acc;
         }, [])
       );
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   useEffect(() => {
@@ -139,9 +156,7 @@ export default function FeoModal({ opened, close, URL }: IFeoModal) {
           return acc;
         }, [])
       );
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
   useEffect(() => {
     if (details.country) stateFetch();
@@ -172,9 +187,7 @@ export default function FeoModal({ opened, close, URL }: IFeoModal) {
           return acc;
         }, [])
       );
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   const fetchDetails = async () => {
@@ -196,12 +209,10 @@ export default function FeoModal({ opened, close, URL }: IFeoModal) {
         country: country.find((item) => item.label === data?.country)?.value,
         state: state?.find(
           (item) => item.label === data?.location_detail?.split(", ")[1]
-        ).value,
+        )?.value,
         city: data?.location,
       } as any);
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   useEffect(() => {
@@ -273,7 +284,6 @@ export default function FeoModal({ opened, close, URL }: IFeoModal) {
                         setImgPreview(reader.result as string);
                       };
                     }}
-                    // onReject={(files) => console.log("rejected files", files)}
                     maxSize={3 * 1024 ** 2}
                     accept={IMAGE_MIME_TYPE}
                     styles={{
@@ -394,6 +404,7 @@ export default function FeoModal({ opened, close, URL }: IFeoModal) {
                   label="Email Address"
                   size="md"
                   withAsterisk
+                  disabled={URL ? true : false}
                   required
                   value={details.email}
                   onChange={(e) => {
@@ -408,43 +419,12 @@ export default function FeoModal({ opened, close, URL }: IFeoModal) {
                   }}
                 />
                 <div className="relative flex">
-                  <div className="absolute z-30 top-10 left-10">
-                    {/* <Popover width={75} position="bottom" withArrow shadow="md">
-                      <Popover.Target>
-                        <Image
-                          width={24}
-                          height={24}
-                          src="/arrowDown.svg"
-                          alt="arrow"
-                          className="cursor-pointer"
-                        />
-                      </Popover.Target>
-                      <Popover.Dropdown className="rounded-md">
-                        <div className="flex flex-col gap-3">
-                          <div className="flex gap-1">
-                            <h4>KE</h4>
-                          </div>
-
-                          <div className="flex gap-1">
-                            <h4>UG</h4>
-                          </div>
-
-                          <div className="flex gap-1">
-                            <h4>NG</h4>
-                          </div>
-
-                          <div className="flex gap-1 ">
-                            <h4>US</h4>
-                          </div>
-                        </div>
-                      </Popover.Dropdown>
-                    </Popover> */}
-                  </div>
                   <TextInput
                     placeholder="Phone number"
                     label="Phone number"
                     size="md"
                     withAsterisk
+                    disabled={URL ? true : false}
                     required
                     value={details.phone}
                     onChange={(e) => {
@@ -612,49 +592,14 @@ export default function FeoModal({ opened, close, URL }: IFeoModal) {
                           <IconX size="3.2rem" stroke={1.5} />
                         </Dropzone.Reject>
                         {imgPreview ? (
-                          <div className="flex flex-col items-center justify-center gap-2 ">
-                            <div className="rounded-[11px] p-[1px] border border-[#7C827D]">
-                              <Image
-                                src={imgPreview}
-                                alt=""
-                                width={150}
-                                height={150}
-                              />
-                            </div>
-                            <div className="flex items-center justify-between gap-4">
-                              <span className=" text-davy-grey text-14">
-                                {fileName}
-                              </span>
-                              <span className=" text-phillipine-silver text-[10px]">
-                                {imgSize}MB Image
-                              </span>
-                            </div>
-                          </div>
+                          <div className="flex flex-col items-center justify-center gap-2 "></div>
                         ) : (
                           <>
                             <Dropzone.Idle>
-                              <div className="flex flex-col items-center justify-center gap-1">
-                                <Image
-                                  src={"/create-card/upload.png"}
-                                  alt={"upload"}
-                                  width={47.73}
-                                  height={47.73}
-                                />
-                                <p className=" text-phillipine-silver text-[8.37px] ">
-                                  image, smaller than 10MB
-                                </p>
-                              </div>
+                              <div className="flex flex-col items-center justify-center gap-1"></div>
                             </Dropzone.Idle>
 
-                            <div className="flex flex-col items-center justify-center gap-2">
-                              <Text
-                                size="xl"
-                                inline
-                                className=" text-[10.05px] text-dim "
-                              >
-                                Drag and drop your file here or
-                              </Text>
-                            </div>
+                            <div className="flex flex-col items-center justify-center gap-2"></div>
 
                             <Link href={"/"}>
                               <Button
@@ -723,7 +668,7 @@ export default function FeoModal({ opened, close, URL }: IFeoModal) {
                   onClick={(e) => {
                     if (URL) {
                       console.log("hellooooo");
-                      handleSubmitDetails(e, "PATCH", URL);
+                      handleEditDetails(e, "PATCH", URL);
                       return;
                     }
                     handleSubmitDetails(e, "POST", createUrl);
