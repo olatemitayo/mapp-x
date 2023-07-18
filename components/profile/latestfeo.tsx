@@ -10,7 +10,7 @@ interface LatestFeoProps {
 
 export default function Latestfeo({ className }: LatestFeoProps) {
   // const lastestAddedFEO = Data.slice(-3);
-  const [header, setHeader] = useState<any>([]);
+  const [header, setHeader] = useState<any[]>([]);
   //get dashboard data
   //to get data for the country
   const recentFetch = async () => {
@@ -23,7 +23,7 @@ export default function Latestfeo({ className }: LatestFeoProps) {
         },
       });
       const data = await res.json();
-
+      console.log(data);
       setHeader(data);
     } catch (error) {}
   };
@@ -37,7 +37,7 @@ export default function Latestfeo({ className }: LatestFeoProps) {
 
       {header.map((data) => (
         <div
-        key={data.id}
+          key={data.id}
           className={clsx(
             "flex  gap-3 items-center justify-between rounded-md w-[100%] p-2 mx-auto bg-white feoshadow",
             className

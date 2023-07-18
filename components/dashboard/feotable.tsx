@@ -5,6 +5,7 @@ import { Data } from "../farmers/famersdata";
 import FeoModal from "../admin/feomodal";
 import Latestfeo from "../profile/latestfeo";
 import { useEffect, useState } from "react";
+import { UserDetails } from "@/pages/_app";
 
 interface FEOData {
   name: string;
@@ -111,51 +112,76 @@ export function Individual(): JSX.Element {
 }
 
 interface FEOtableProp {
-  id?: any
+  id?: any;
 }
 
-export default function Feotable({ id }:FEOtableProp) {
+export default function Feotable({ id }: FEOtableProp) {
+  const [payload, setPayload] = useState<UserDetails>({
+    profile_picture: "",
+    first_name: "",
+    role: "",
+  });
+
+  useEffect(() => {
+    if (localStorage.getItem("my-user")) {
+      setPayload(JSON.parse(localStorage.getItem("my-user") as string));
+    }
+
+    return () => {};
+  }, []);
   return (
-    <div className="flex justify-between mt-[20px]">
-      <div className="w-[69.5%] h-[345px] bg-white rounded-[20px] border-[1px] ">
-        <div className="border-b-2 h-[120px] px-8 py-5 flex flex-col justify-between  ">
-          <div className="flex justify-between">
-            <h2 className="text-2xl font-semibold">FEO Ranking</h2>
-            <Image width={28} height={28} src="/feomore.svg" alt="feomore" />
+    <>
+      {payload.role === "Admin" ? (
+        <div className="flex justify-between mt-[20px]">
+          <div className="w-[69.5%] h-[345px] bg-white rounded-[20px] border-[1px] ">
+            <div className="border-b-2 h-[120px] px-8 py-5 flex flex-col justify-between  ">
+              <div className="flex justify-between">
+                <h2 className="text-2xl font-semibold">FEO Ranking</h2>
+                <Image
+                  width={28}
+                  height={28}
+                  src="/feomore.svg"
+                  alt="feomore"
+                />
+              </div>
+              <div className="flex items-center justify-between text-[14px] text-[#8F9198] ">
+                <div className="w-[20%]">NAME</div>
+                <div className="w-[20%]">NO OF FARMERS</div>
+                <div className="w-[20%]">MAPPED FARMLAND</div>
+                <div className="w-[20%]">PROGRESS</div>
+              </div>
+            </div>
+            <div className="flex flex-col justify-between px-8 py-5">
+              <Individual />
+            </div>
           </div>
-          <div className="flex items-center justify-between text-[14px] text-[#8F9198] ">
-            <div className="w-[20%]">NAME</div>
-            <div className="w-[20%]">NO OF FARMERS</div>
-            <div className="w-[20%]">MAPPED FARMLAND</div>
-            <div className="w-[20%]">PROGRESS</div>
+          <div className="w-[29.5%] h-[345px] bg-white rounded-[20px] border-[1px] px-8 py-5">
+            <div className="flex justify-between">
+              <div className="flex items-center gap-1">
+                <h2 className="text-2xl font-semibold">Latest FEOs</h2>
+              </div>
+              <div className="relative">
+                <FeoModal />
+                <Image
+                  width={24}
+                  height={24}
+                  src="/add_circle.svg"
+                  alt="add"
+                  className="absolute"
+                />
+              </div>
+            </div>
+            {}
+            <div>
+              <Latestfeo className="!gap-6" />
+            </div>
+            <div></div>
+            <div></div>
           </div>
         </div>
-        <div className="flex flex-col justify-between px-8 py-5">
-          <Individual />
-        </div>
-      </div>
-      <div className="w-[29.5%] h-[345px] bg-white rounded-[20px] border-[1px] px-8 py-5">
-        <div className="flex justify-between">
-          <div className="flex items-center gap-1">
-            <h2 className="text-2xl font-semibold">Latest FEOs</h2>
-          </div>
-          <div className="relative">
-            <FeoModal />
-            <Image
-              width={24}
-              height={24}
-              src="/add_circle.svg"
-              alt="add"
-              className="absolute"
-            />
-          </div>
-        </div>
-        <div>
-          <Latestfeo className="!gap-6" />
-        </div>
+      ) : (
         <div></div>
-        <div></div>
-      </div>
-    </div>
+      )}
+    </>
   );
 }

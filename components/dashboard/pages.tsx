@@ -80,7 +80,7 @@ export default function Pages({ text, page, children }: PagesProps) {
               <img
                 src={"/feoo.jpg"}
                 alt="profilePic"
-                className="rounded-[50%] w-[120px] h-[120px]"
+                className="rounded-[50%] w-[50px] h-[50px]"
               />
             )}
           </span>
