@@ -57,7 +57,7 @@ export default function FeoModal({ opened, close, URL }: IFeoModal) {
     city: "",
   };
   const [details, setDetails] = useState<DetailsProps>(initialDetails);
-  const [fetched, setFetched] = useState(false);
+
   //hanlde submit details
   const handleSubmitDetails = async (e, method, url) => {
     e.preventDefault();
@@ -162,7 +162,6 @@ export default function FeoModal({ opened, close, URL }: IFeoModal) {
     if (details.country) stateFetch();
   }, [details.country, stateFetch]);
 
-
   //to get data for the city
   const cityFetch = async () => {
     const token = JSON.parse(localStorage.getItem("my-user"))?.access;
@@ -187,9 +186,9 @@ export default function FeoModal({ opened, close, URL }: IFeoModal) {
     } catch (error) {}
   };
 
-    useEffect(() => {
-      if (details.state) cityFetch();
-    }, [details.state, cityFetch]);
+  useEffect(() => {
+    if (details.state) cityFetch();
+  }, [details.state, cityFetch]);
 
   const fetchDetails = async () => {
     const token = JSON.parse(localStorage.getItem("my-user"))?.access;
@@ -225,49 +224,327 @@ export default function FeoModal({ opened, close, URL }: IFeoModal) {
   const createUrl = "https://mapx.onrender.com/api/admin/fieldofficers/create/";
 
   return (
-    <>
-      <Modal
-        opened={opened}
-        onClose={close}
-        title="Add new FEO"
-        size="40%"
-        styles={{
-          title: {
-            fontWeight: "bold",
-          },
-          root: {
-            width: "900px !important",
-            borderRadius: "10px",
-          },
-          close: {},
-        }}
-      >
-        {/* DETAILS MODAL  */}
-        <div className="pt-10">
-          <Stepper
-            active={active}
-            onStepClick={setActive}
-            breakpoint="sm"
-            iconSize={32}
-            color="#BF2018"
-            styles={{
-              separator: {
-                backgroundColor: "#8F9198",
-                border: "none",
-                height: "5px",
-                borderRadius: "35px",
-                color: "white",
-              },
-              separatorActive: {
-                backgroundColor: "#C81107",
-              },
-            }}
-          >
-            {/* DETAILS  */}
-            <Stepper.Step label="Details" completedIcon={1}>
-              <div className="flex flex-col gap-4 ">
-                {/* DROPZONE  */}
+    <Modal
+      opened={opened}
+      onClose={close}
+      title="Add new FEO"
+      size="40%"
+      styles={{
+        title: {
+          fontWeight: "bold",
+        },
+        root: {
+          width: "900px !important",
+          borderRadius: "10px",
+        },
+        close: {},
+      }}
+    >
+      {/* DETAILS MODAL  */}
+      <div className="pt-10">
+        <Stepper
+          active={active}
+          onStepClick={setActive}
+          breakpoint="sm"
+          iconSize={32}
+          color="#BF2018"
+          styles={{
+            separator: {
+              backgroundColor: "#8F9198",
+              border: "none",
+              height: "5px",
+              borderRadius: "35px",
+              color: "white",
+            },
+            separatorActive: {
+              backgroundColor: "#C81107",
+            },
+          }}
+        >
+          {/* DETAILS  */}
+          <Stepper.Step label="Details" completedIcon={1}>
+            <div className="flex flex-col gap-4 ">
+              {/* DROPZONE  */}
+              <div>
+                <Dropzone
+                  onDrop={(files) => {
+                    const reader = new FileReader();
+                    setDetails({
+                      ...details,
+                      img: files[0],
+                    });
+                    setFileName(files[0].name);
+                    setImgSize(files[0].size);
+                    const data = files[0].size;
+                    console.log(data / 1024);
+                    reader.readAsDataURL(files[0]);
+
+                    reader.onload = () => {
+                      setImgPreview(reader.result as string);
+                    };
+                  }}
+                  maxSize={3 * 1024 ** 2}
+                  accept={IMAGE_MIME_TYPE}
+                  styles={{
+                    root: {
+                      border: "1px dashed #F2A29D",
+                      "&:hover": {
+                        border: "1px dashed #F2A29D",
+                      },
+                    },
+                  }}
+                >
+                  <Group
+                    className="flex flex-col"
+                    position="center"
+                    spacing="xl"
+                    style={{ minHeight: rem(220), pointerEvents: "none" }}
+                  >
+                    <Dropzone.Accept>
+                      <IconUpload size="3.2rem" stroke={1.5} />
+                    </Dropzone.Accept>
+                    <Dropzone.Reject>
+                      <IconX size="3.2rem" stroke={1.5} />
+                    </Dropzone.Reject>
+                    {imgPreview ? (
+                      <div className="flex flex-col items-center justify-center gap-2 ">
+                        <div className="rounded-[11px] p-[1px] border border-[#7C827D]">
+                          <Image
+                            src={imgPreview}
+                            alt=""
+                            width={150}
+                            height={150}
+                          />
+                        </div>
+                        <div className="flex items-center justify-between gap-4">
+                          <span className=" text-davy-grey text-14">
+                            {fileName}
+                          </span>
+                        </div>
+                      </div>
+                    ) : (
+                      <>
+                        <Dropzone.Idle>
+                          <div className="flex flex-col items-center justify-center gap-1">
+                            <Image
+                              src={"/add_photo.svg"}
+                              alt={"add_photo.svg"}
+                              width={47.73}
+                              height={47.73}
+                            />
+                          </div>
+                        </Dropzone.Idle>
+
+                        <Link href={"/"}>
+                          <Button
+                            className="w-full mt-2 rounded-lg text-engineering"
+                            styles={{
+                              root: {
+                                background: "#F8E7E7 !important",
+                                height: "50px",
+                                "&:hover": {
+                                  background: " !important ",
+                                },
+                              },
+                            }}
+                          >
+                            Choose File
+                          </Button>
+                        </Link>
+                      </>
+                    )}
+                  </Group>
+                </Dropzone>
+              </div>
+              {/* FIRST NAME  */}
+              <TextInput
+                placeholder="Enter Name"
+                label="First Name"
+                size="md"
+                withAsterisk
+                required
+                value={details.first_name}
+                onChange={(e) => {
+                  setDetails({
+                    ...details,
+                    first_name: e.target.value,
+                  });
+                }}
+                classNames={{
+                  label: "text-[16px] mb-2",
+                  input: " focus:border-[#C1C2C6] ",
+                }}
+              />
+              {/* LAST NAME  */}
+              <TextInput
+                placeholder="Enter Name"
+                label="Last Name"
+                size="md"
+                withAsterisk
+                required
+                value={details.last_name}
+                onChange={(e) => {
+                  setDetails({
+                    ...details,
+                    last_name: e.target.value,
+                  });
+                }}
+                classNames={{
+                  label: "text-[16px] mb-2",
+                  input: " focus:border-[#C1C2C6] ",
+                }}
+              />
+              {/* EMAIL ADDRESS  */}
+              <TextInput
+                placeholder="Enter address"
+                label="Email Address"
+                size="md"
+                withAsterisk
+                disabled={URL ? true : false}
+                required
+                value={details.email}
+                onChange={(e) => {
+                  setDetails({
+                    ...details,
+                    email: e.target.value,
+                  });
+                }}
+                classNames={{
+                  label: "text-[16px] mb-2",
+                  input: " focus:border-[#C1C2C6] ",
+                }}
+              />
+              <div className="relative flex">
+                <TextInput
+                  placeholder="Phone number"
+                  label="Phone number"
+                  size="md"
+                  withAsterisk
+                  disabled={URL ? true : false}
+                  required
+                  value={details.phone}
+                  onChange={(e) => {
+                    setDetails({
+                      ...details,
+                      phone: e.target.value,
+                    });
+                  }}
+                  classNames={{
+                    label: "text-[16px] mb-2",
+                    root: "flex-1",
+                    input: "focus:border-[#C1C2C6]",
+                  }}
+                />
+              </div>
+              <div className="flex justify-end">
+                <Button
+                  onClick={nextStep}
+                  className="bg-[#bf2018] text-[#fff] hover:bg-[#bf2018]"
+                >
+                  Assign Location
+                  <span className="ms-2">
+                    <Image
+                      width={16}
+                      height={16}
+                      src="/forward.svg"
+                      alt="forward"
+                    />
+                  </span>
+                </Button>
+              </div>
+            </div>
+          </Stepper.Step>
+          {/* ASSIGN LOCATION  */}
+          <Stepper.Step label="Assign Location" completedIcon={2}>
+            <div className="flex flex-col gap-6">
+              <Select
+                label="Country"
+                placeholder="Select Country"
+                searchable
+                nothingFound="No options"
+                value={details.country}
+                data={country || []}
+                onChange={(value) => {
+                  setDetails({
+                    ...details,
+                    country: value as string,
+                  });
+                }}
+                classNames={{
+                  label: "text-[16px] mb-2",
+                  input: " focus:border-[#C1C2C6] ",
+                }}
+              />
+              <Select
+                label="State"
+                placeholder="Select State"
+                searchable
+                nothingFound="No options"
+                value={details.state}
+                data={state || []}
+                onChange={(value) => {
+                  setDetails({
+                    ...details,
+                    state: value as string,
+                  });
+                }}
+                classNames={{
+                  label: "text-[16px] mb-2",
+                  input: "bg-[#F5F5F6] border-[#C1C2C6] focus:border-[#C1C2C6]",
+                }}
+              />
+              <Select
+                label="City"
+                placeholder="Select City"
+                searchable
+                nothingFound="No options"
+                value={details.city}
+                data={city || []}
+                onChange={(value) => {
+                  setDetails({
+                    ...details,
+                    city: value as string,
+                  });
+                }}
+                classNames={{
+                  label: "text-[16px] mb-2",
+                  input: "bg-[#F5F5F6]  focus:border-[#C1C2C6]",
+                }}
+              />
+            </div>
+            <div className="flex justify-between mt-6">
+              <Button
+                variant="default"
+                onClick={prevStep}
+                className="bg-none text-[#4A4C58] hover:bg-none"
+              >
+                <span className="me-2">
+                  <Image width={16} height={16} src="/back.svg" alt="back" />
+                </span>
+                Details
+              </Button>
+              <Button
+                onClick={nextStep}
+                className="bg-[#bf2018] text-[#fff] hover:bg-[#bf2018]"
+              >
+                Confirm Entries
+                <span className="ms-2">
+                  <Image
+                    width={16}
+                    height={16}
+                    src="/forward.svg"
+                    alt="forward"
+                  />
+                </span>
+              </Button>
+            </div>
+          </Stepper.Step>
+          {/* CONFIRM ENTRIES  */}
+          <Stepper.Step label="Confirm Entries" completedIcon={3}>
+            <div className="flex flex-col gap-5 my-7">
+              <div className="flex flex-col justify-between">
                 <div>
+                  {/* image preview  */}
                   <Dropzone
                     onDrop={(files) => {
                       const reader = new FileReader();
@@ -285,13 +562,14 @@ export default function FeoModal({ opened, close, URL }: IFeoModal) {
                         setImgPreview(reader.result as string);
                       };
                     }}
+                    // onReject={(files) => console.log("rejected files", files)}
                     maxSize={3 * 1024 ** 2}
                     accept={IMAGE_MIME_TYPE}
                     styles={{
                       root: {
-                        border: "1px dashed #F2A29D",
+                        border: "1px dashed #C81107",
                         "&:hover": {
-                          border: "1px dashed #F2A29D",
+                          border: "1px dashed #6D0802",
                         },
                       },
                     }}
@@ -309,33 +587,14 @@ export default function FeoModal({ opened, close, URL }: IFeoModal) {
                         <IconX size="3.2rem" stroke={1.5} />
                       </Dropzone.Reject>
                       {imgPreview ? (
-                        <div className="flex flex-col items-center justify-center gap-2 ">
-                          <div className="rounded-[11px] p-[1px] border border-[#7C827D]">
-                            <Image
-                              src={imgPreview}
-                              alt=""
-                              width={150}
-                              height={150}
-                            />
-                          </div>
-                          <div className="flex items-center justify-between gap-4">
-                            <span className=" text-davy-grey text-14">
-                              {fileName}
-                            </span>
-                          </div>
-                        </div>
+                        <div className="flex flex-col items-center justify-center gap-2 "></div>
                       ) : (
                         <>
                           <Dropzone.Idle>
-                            <div className="flex flex-col items-center justify-center gap-1">
-                              <Image
-                                src={"/add_photo.svg"}
-                                alt={"add_photo.svg"}
-                                width={47.73}
-                                height={47.73}
-                              />
-                            </div>
+                            <div className="flex flex-col items-center justify-center gap-1"></div>
                           </Dropzone.Idle>
+
+                          <div className="flex flex-col items-center justify-center gap-2"></div>
 
                           <Link href={"/"}>
                             <Button
@@ -358,337 +617,74 @@ export default function FeoModal({ opened, close, URL }: IFeoModal) {
                     </Group>
                   </Dropzone>
                 </div>
-                {/* FIRST NAME  */}
-                <TextInput
-                  placeholder="Enter Name"
-                  label="First Name"
-                  size="md"
-                  withAsterisk
-                  required
-                  value={details.first_name}
-                  onChange={(e) => {
-                    setDetails({
-                      ...details,
-                      first_name: e.target.value,
-                    });
-                  }}
-                  classNames={{
-                    label: "text-[16px] mb-2",
-                    input: " focus:border-[#C1C2C6] ",
-                  }}
-                />
-                {/* LAST NAME  */}
-                <TextInput
-                  placeholder="Enter Name"
-                  label="Last Name"
-                  size="md"
-                  withAsterisk
-                  required
-                  value={details.last_name}
-                  onChange={(e) => {
-                    setDetails({
-                      ...details,
-                      last_name: e.target.value,
-                    });
-                  }}
-                  classNames={{
-                    label: "text-[16px] mb-2",
-                    input: " focus:border-[#C1C2C6] ",
-                  }}
-                />
-                {/* EMAIL ADDRESS  */}
-                <TextInput
-                  placeholder="Enter address"
-                  label="Email Address"
-                  size="md"
-                  withAsterisk
-                  disabled={URL ? true : false}
-                  required
-                  value={details.email}
-                  onChange={(e) => {
-                    setDetails({
-                      ...details,
-                      email: e.target.value,
-                    });
-                  }}
-                  classNames={{
-                    label: "text-[16px] mb-2",
-                    input: " focus:border-[#C1C2C6] ",
-                  }}
-                />
-                <div className="relative flex">
-                  <TextInput
-                    placeholder="Phone number"
-                    label="Phone number"
-                    size="md"
-                    withAsterisk
-                    disabled={URL ? true : false}
-                    required
-                    value={details.phone}
-                    onChange={(e) => {
-                      setDetails({
-                        ...details,
-                        phone: e.target.value,
-                      });
-                    }}
-                    classNames={{
-                      label: "text-[16px] mb-2",
-                      root: "flex-1",
-                      input: "focus:border-[#C1C2C6]",
-                    }}
+                <h5>{details?.img?.name}</h5>
+              </div>
+              <div className="flex justify-between">
+                <h5>First Name</h5>
+                <h5>{details.first_name}</h5>
+              </div>
+              <div className="flex justify-between">
+                <h5>Last Name</h5>
+                <h5>{details.last_name}</h5>
+              </div>
+              <div className="flex justify-between">
+                <h5>Email Address</h5>
+                <h5>{details.email}</h5>
+              </div>
+              <div className="flex justify-between">
+                <h5>Phone Number</h5>
+                <h5>{details.phone}</h5>
+              </div>
+              <div className="flex justify-between">
+                <h5>Country</h5>
+                <h5>{details.country}</h5>
+              </div>
+              <div className="flex justify-between">
+                <h5>State</h5>
+                <h5>{details.state}</h5>
+              </div>
+              <div className="flex justify-between">
+                <h5>City</h5>
+                <h5>{details.city}</h5>
+              </div>
+            </div>
+            <div className="flex justify-between mt-6">
+              <Button
+                variant="default"
+                onClick={prevStep}
+                className="bg-none text-[#4A4C58] hover:bg-none"
+              >
+                <span className="me-2">
+                  <Image width={16} height={16} src="/back.svg" alt="back" />
+                </span>
+                Assign Location
+              </Button>
+              <Button
+                onClick={(e) => {
+                  if (URL) {
+                    console.log("hellooooo");
+                    handleEditDetails(e, "PATCH", URL);
+                    return;
+                  }
+                  handleSubmitDetails(e, "POST", createUrl);
+                }}
+                className="bg-[#bf2018] text-[#fff] hover:bg-[#bf2018]"
+              >
+                Save Entries
+                <span className="ms-2">
+                  <Image
+                    width={16}
+                    height={16}
+                    src="/forward.svg"
+                    alt="forward"
                   />
-                </div>
-                <div className="flex justify-end">
-                  <Button
-                    onClick={nextStep}
-                    className="bg-[#bf2018] text-[#fff] hover:bg-[#bf2018]"
-                  >
-                    Assign Location
-                    <span className="ms-2">
-                      <Image
-                        width={16}
-                        height={16}
-                        src="/forward.svg"
-                        alt="forward"
-                      />
-                    </span>
-                  </Button>
-                </div>
-              </div>
-            </Stepper.Step>
-            {/* ASSIGN LOCATION  */}
-            <Stepper.Step label="Assign Location" completedIcon={2}>
-              <div className="flex flex-col gap-6">
-                <Select
-                  label="Country"
-                  placeholder="Select Country"
-                  searchable
-                  nothingFound="No options"
-                  value={details.country}
-                  data={country || []}
-                  onChange={(value) => {
-                    setDetails({
-                      ...details,
-                      country: value as string,
-                    });
-                  }}
-                  classNames={{
-                    label: "text-[16px] mb-2",
-                    input: " focus:border-[#C1C2C6] ",
-                  }}
-                />
-                <Select
-                  label="State"
-                  placeholder="Select State"
-                  searchable
-                  nothingFound="No options"
-                  value={details.state}
-                  data={state || []}
-                  onChange={(value) => {
-                    setDetails({
-                      ...details,
-                      state: value as string,
-                    });
-                  }}
-                  classNames={{
-                    label: "text-[16px] mb-2",
-                    input:
-                      "bg-[#F5F5F6] border-[#C1C2C6] focus:border-[#C1C2C6]",
-                  }}
-                />
-                <Select
-                  label="City"
-                  placeholder="Select City"
-                  searchable
-                  nothingFound="No options"
-                  value={details.city}
-                  data={city || []}
-                  onChange={(value) => {
-                    setDetails({
-                      ...details,
-                      city: value as string,
-                    });
-                  }}
-                  classNames={{
-                    label: "text-[16px] mb-2",
-                    input: "bg-[#F5F5F6]  focus:border-[#C1C2C6]",
-                  }}
-                />
-              </div>
-              <div className="flex justify-between mt-6">
-                <Button
-                  variant="default"
-                  onClick={prevStep}
-                  className="bg-none text-[#4A4C58] hover:bg-none"
-                >
-                  <span className="me-2">
-                    <Image width={16} height={16} src="/back.svg" alt="back" />
-                  </span>
-                  Details
-                </Button>
-                <Button
-                  onClick={nextStep}
-                  className="bg-[#bf2018] text-[#fff] hover:bg-[#bf2018]"
-                >
-                  Confirm Entries
-                  <span className="ms-2">
-                    <Image
-                      width={16}
-                      height={16}
-                      src="/forward.svg"
-                      alt="forward"
-                    />
-                  </span>
-                </Button>
-              </div>
-            </Stepper.Step>
-            {/* CONFIRM ENTRIES  */}
-            <Stepper.Step label="Confirm Entries" completedIcon={3}>
-              <div className="flex flex-col gap-5 my-7">
-                <div className="flex flex-col justify-between">
-                  <div>
-                    {/* image preview  */}
-                    <Dropzone
-                      onDrop={(files) => {
-                        const reader = new FileReader();
-                        setDetails({
-                          ...details,
-                          img: files[0],
-                        });
-                        setFileName(files[0].name);
-                        setImgSize(files[0].size);
-                        const data = files[0].size;
-                        console.log(data / 1024);
-                        reader.readAsDataURL(files[0]);
-
-                        reader.onload = () => {
-                          setImgPreview(reader.result as string);
-                        };
-                      }}
-                      // onReject={(files) => console.log("rejected files", files)}
-                      maxSize={3 * 1024 ** 2}
-                      accept={IMAGE_MIME_TYPE}
-                      styles={{
-                        root: {
-                          border: "1px dashed #C81107",
-                          "&:hover": {
-                            border: "1px dashed #6D0802",
-                          },
-                        },
-                      }}
-                    >
-                      <Group
-                        className="flex flex-col"
-                        position="center"
-                        spacing="xl"
-                        style={{ minHeight: rem(220), pointerEvents: "none" }}
-                      >
-                        <Dropzone.Accept>
-                          <IconUpload size="3.2rem" stroke={1.5} />
-                        </Dropzone.Accept>
-                        <Dropzone.Reject>
-                          <IconX size="3.2rem" stroke={1.5} />
-                        </Dropzone.Reject>
-                        {imgPreview ? (
-                          <div className="flex flex-col items-center justify-center gap-2 "></div>
-                        ) : (
-                          <>
-                            <Dropzone.Idle>
-                              <div className="flex flex-col items-center justify-center gap-1"></div>
-                            </Dropzone.Idle>
-
-                            <div className="flex flex-col items-center justify-center gap-2"></div>
-
-                            <Link href={"/"}>
-                              <Button
-                                className="w-full mt-2 rounded-lg text-engineering"
-                                styles={{
-                                  root: {
-                                    background: "#F8E7E7 !important",
-                                    height: "50px",
-                                    "&:hover": {
-                                      background: " !important ",
-                                    },
-                                  },
-                                }}
-                              >
-                                Choose File
-                              </Button>
-                            </Link>
-                          </>
-                        )}
-                      </Group>
-                    </Dropzone>
-                  </div>
-                  <h5>{details?.img?.name}</h5>
-                </div>
-                <div className="flex justify-between">
-                  <h5>First Name</h5>
-                  <h5>{details.first_name}</h5>
-                </div>
-                <div className="flex justify-between">
-                  <h5>Last Name</h5>
-                  <h5>{details.last_name}</h5>
-                </div>
-                <div className="flex justify-between">
-                  <h5>Email Address</h5>
-                  <h5>{details.email}</h5>
-                </div>
-                <div className="flex justify-between">
-                  <h5>Phone Number</h5>
-                  <h5>{details.phone}</h5>
-                </div>
-                <div className="flex justify-between">
-                  <h5>Country</h5>
-                  <h5>{details.country}</h5>
-                </div>
-                <div className="flex justify-between">
-                  <h5>State</h5>
-                  <h5>{details.state}</h5>
-                </div>
-                <div className="flex justify-between">
-                  <h5>City</h5>
-                  <h5>{details.city}</h5>
-                </div>
-              </div>
-              <div className="flex justify-between mt-6">
-                <Button
-                  variant="default"
-                  onClick={prevStep}
-                  className="bg-none text-[#4A4C58] hover:bg-none"
-                >
-                  <span className="me-2">
-                    <Image width={16} height={16} src="/back.svg" alt="back" />
-                  </span>
-                  Assign Location
-                </Button>
-                <Button
-                  onClick={(e) => {
-                    if (URL) {
-                      console.log("hellooooo");
-                      handleEditDetails(e, "PATCH", URL);
-                      return;
-                    }
-                    handleSubmitDetails(e, "POST", createUrl);
-                  }}
-                  className="bg-[#bf2018] text-[#fff] hover:bg-[#bf2018]"
-                >
-                  Save Entries
-                  <span className="ms-2">
-                    <Image
-                      width={16}
-                      height={16}
-                      src="/forward.svg"
-                      alt="forward"
-                    />
-                  </span>
-                </Button>
-              </div>
-            </Stepper.Step>
-            {/* <Stepper.Completed>Completed!</Stepper.Completed> */}
-          </Stepper>
-        </div>
-      </Modal>
-    </>
+                </span>
+              </Button>
+            </div>
+          </Stepper.Step>
+          {/* <Stepper.Completed>Completed!</Stepper.Completed> */}
+        </Stepper>
+      </div>
+    </Modal>
   );
 }
