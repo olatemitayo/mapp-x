@@ -2,10 +2,10 @@ import { Progress } from "@mantine/core";
 import Image from "next/image";
 import { Data } from "../farmers/famersdata";
 
-import FeoModal from "../admin/feomodal";
 import Latestfeo from "../profile/latestfeo";
 import { useEffect, useState } from "react";
 import { UserDetails } from "@/pages/_app";
+import FeoModal from "../admin/feomodal";
 
 interface FEOData {
   name: string;
