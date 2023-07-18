@@ -121,7 +121,7 @@ export function Individual(): JSX.Element {
           <div className="w-[20%] ">{feo.registered_farmers}</div>
           <div className="w-[20%] ">{feo.mapped_farmlands}</div>
           <div className="w-[20%]  flex flex-col">
-            <h5 className="text-[10px]">{`${feo.progress_level}%`}</h5>
+            <h5 className="text-[10px]">{+feo.progress_level.toFixed()}%</h5>
             <Progress color="red" value={feo.progress_level} />
           </div>
         </div>
