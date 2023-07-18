@@ -47,11 +47,19 @@ function Profile() {
               <div className="flex items-center justify-between px-10 bg-white rounded-b-lg ">
                 <div className="flex gap-3">
                   <div className="rounded-[50%]" style={{ marginTop: "-4rem" }}>
-                    <img
-                      src={payload.profile_picture}
-                      alt="profilePic"
-                      className="rounded-[50%] w-[120px] h-[120px]"
-                    />
+                    {payload?.role === "Admin" ? (
+                      <img
+                        src={"/adminn.jpg"}
+                        alt="profilePic"
+                        className="rounded-[50%] w-[120px] h-[120px]"
+                      />
+                    ) : (
+                      <img
+                        src={"/feoo.jpg"}
+                        alt="profilePic"
+                        className="rounded-[50%] w-[120px] h-[120px]"
+                      />
+                    )}
                   </div>
                   <div>
                     <h1 className="text-[#4A4C58] font-semibold">

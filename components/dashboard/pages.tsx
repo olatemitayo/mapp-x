@@ -6,8 +6,9 @@ import { Popover, TextInput } from "@mantine/core";
 import { AuthContext, ContextType, UserDetails } from "@/pages/_app";
 
 interface PagesProps {
-  text: string;
-  page: string;
+  text?: string;
+  page?: string;
+  role?: string;
   children?: React.ReactNode;
 }
 
@@ -68,7 +69,21 @@ export default function Pages({ text, page, children }: PagesProps) {
             alt="notifications"
           />
           <Image src="/widget.svg" width={24} height={24} alt="widget" />
-          <span className=" text-davy-grey">{payload?.profile_picture}</span>
+          <span className=" text-davy-grey">
+            {payload?.role === "Admin" ? (
+              <img
+                src={"/adminn.jpg"}
+                alt="profilePic"
+                className="rounded-[50%] w-[50px] h-[50px]"
+              />
+            ) : (
+              <img
+                src={"/feoo.jpg"}
+                alt="profilePic"
+                className="rounded-[50%] w-[120px] h-[120px]"
+              />
+            )}
+          </span>
         </div>
       </div>
       <div />

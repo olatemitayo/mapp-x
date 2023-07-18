@@ -37,6 +37,7 @@ export default function Latestfeo({ className }: LatestFeoProps) {
 
       {header.map((data) => (
         <div
+        key={data.id}
           className={clsx(
             "flex  gap-3 items-center justify-between rounded-md w-[100%] p-2 mx-auto bg-white feoshadow",
             className

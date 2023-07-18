@@ -80,7 +80,10 @@ export function Adminheader() {
     <>
       {HeaderItems.map((item) =>
         item.isReversed ? (
-          <div className="flex  min-w-[280px] min-h-[100px] items-center w-[16%]  rounded-2xl gap-3 justify-start ps-4 bg-white">
+          <div
+            key={item.figure}
+            className="flex  min-w-[280px] min-h-[100px] items-center w-[16%]  rounded-2xl gap-3 justify-start ps-4 bg-white"
+          >
             <div className="flex flex-col  max-w-[150px]">
               <h4 className="text-sm">{item.header}</h4>
               <h2 className="text-2xl font-[600] text-[#252735]">
@@ -165,7 +168,10 @@ export function Adminheader() {
             </figure>
           </div>
         ) : (
-          <div className="flex  min-w-[280px] min-h-[100px] items-center w-[20%] rounded-2xl gap-3 justify-start ps-4 bg-white">
+          <div
+            key={item.figure}
+            className="flex  min-w-[280px] min-h-[100px] items-center w-[20%] rounded-2xl gap-3 justify-start ps-4 bg-white"
+          >
             <figure>
               <Image
                 width={55}
@@ -196,7 +202,10 @@ export function FEOHeader() {
     <>
       {FEOItems.map((item) =>
         item.isReversed ? (
-          <div className="flex  min-w-[280px] min-h-[100px] items-center w-[16%]  rounded-2xl gap-3 justify-start ps-4 bg-white">
+          <div
+            key={item.figure}
+            className="flex  min-w-[280px] min-h-[100px] items-center w-[16%]  rounded-2xl gap-3 justify-start ps-4 bg-white"
+          >
             <div className="flex flex-col  max-w-[150px]">
               <h4 className="text-sm">{item.header}</h4>
               <h2 className="text-2xl font-[600] text-[#252735]">
@@ -281,7 +290,10 @@ export function FEOHeader() {
             </figure>
           </div>
         ) : (
-          <div className="flex  min-w-[280px] min-h-[100px] items-center w-[20%] rounded-2xl gap-3 justify-start ps-4 bg-white">
+          <div
+            key={item.figure}
+            className="flex  min-w-[280px] min-h-[100px] items-center w-[20%] rounded-2xl gap-3 justify-start ps-4 bg-white"
+          >
             <figure>
               <Image
                 width={55}

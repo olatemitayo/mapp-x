@@ -4,26 +4,31 @@ import Link from "next/link";
 
 const AdminItems = [
   {
+    id: "1",
     img: "/dashboard.png",
     text: "Dashboard",
     link: "/dashboard",
   },
   {
+    id: "2",
     img: "/farmers.png",
     text: "Farmers",
     link: "/farmers",
   },
   {
+    id: "3",
     img: "/map.png",
     text: "Mapping",
     link: "#",
   },
   {
+    id: "4",
     img: "/feo.png",
     text: "FEOs",
     link: "/feos",
   },
   {
+    id: "5",
     img: "/activity.png",
     text: "Activity Log",
     link: "/activity-log",
@@ -32,16 +37,19 @@ const AdminItems = [
 
 const FEOItems = [
   {
+    id: "1",
     img: "/dashboard.png",
     text: "Dashboard",
     link: "/dashboard",
   },
   {
+    id: "2",
     img: "/farmers.png",
     text: "Farmers",
     link: "/farmers",
   },
   {
+    id: "3",
     img: "/map.png",
     text: "Mapping",
     link: "#",
@@ -50,6 +58,7 @@ const FEOItems = [
 
 const groups = [
   {
+    id: "1",
     img: "/profile.png",
     text: "Profile",
     link: "/profile",
@@ -57,6 +66,7 @@ const groups = [
 ];
 
 const logout = {
+  id: "2",
   img: "/logout.png",
   text: "Log Out",
   link: "/logout",
@@ -97,7 +107,11 @@ export default function Sidebar() {
           <ul className="flex flex-col gap-10">
             {payload?.role === "Admin"
               ? AdminItems.map((item) => (
-                  <Link href={item.link} className="flex items-center gap-3">
+                  <Link
+                    key={item.id}
+                    href={item.link}
+                    className="flex items-center gap-3"
+                  >
                     <Image
                       src={item.img}
                       width={24}
@@ -110,7 +124,11 @@ export default function Sidebar() {
                   </Link>
                 ))
               : FEOItems.map((item) => (
-                  <Link href={item.link} className="flex items-center gap-3">
+                  <Link
+                    key={item.id}
+                    href={item.link}
+                    className="flex items-center gap-3"
+                  >
                     <Image
                       src={item.img}
                       width={24}
@@ -126,7 +144,11 @@ export default function Sidebar() {
 
           <ul className="flex flex-col gap-10">
             {groups.map((group) => (
-              <Link href={group.link} className="flex items-center gap-3">
+              <Link
+                key={group.id}
+                href={group.link}
+                className="flex items-center gap-3"
+              >
                 <Image
                   src={group.img}
                   width={24}
