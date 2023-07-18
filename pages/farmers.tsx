@@ -7,6 +7,7 @@ import withAuth from "@/components/protected-route";
 import { AuthContext, ContextType, UserDetails } from "@/pages/_app";
 import FarmerModal from "@/components/farmers/farmermodal";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 interface PagesProps {
   role: string;
@@ -24,6 +25,28 @@ const Farmers: React.FC<PagesProps> = () => {
     location: "",
     phone_number: "",
   });
+  const [farmerData, setFarmerData] = useState([]);
+
+  //get farmers list
+  const farmersList = async () => {
+    const token = JSON.parse(localStorage.getItem("my-user"))?.access;
+    try {
+      const res = await fetch("https://mapx.onrender.com/api/farmers/list/", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = await res.json();
+
+      setFarmerData(data.results);
+    } catch (error) {
+      toast.error("Unable to get Farmers list");
+    }
+  };
+  useEffect(() => {
+    farmersList();
+  }, []);
 
   useEffect(() => {
     if (localStorage.getItem("my-user")) {
@@ -42,7 +65,7 @@ const Farmers: React.FC<PagesProps> = () => {
           <div>{payload.role === "Admin" ? <div></div> : <FarmerModal />}</div>
         </div>
         <div className="flex-1 overflow-auto no-scrollbar">
-          {FarmersList.length == 0 ? (
+          {farmerData.length == 0 ? (
             <Nofarmersdata text="Farmers" para="farmer" />
           ) : (
             <Farmertable />

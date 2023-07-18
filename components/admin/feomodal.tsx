@@ -229,6 +229,7 @@ export default function FeoModal({ opened, close, URL }: IFeoModal) {
       onClose={close}
       title="Add new FEO"
       size="40%"
+      className="no-scrollbar"
       styles={{
         title: {
           fontWeight: "bold",
@@ -276,7 +277,7 @@ export default function FeoModal({ opened, close, URL }: IFeoModal) {
                     setFileName(files[0].name);
                     setImgSize(files[0].size);
                     const data = files[0].size;
-                    console.log(data / 1024);
+
                     reader.readAsDataURL(files[0]);
 
                     reader.onload = () => {
@@ -555,14 +556,13 @@ export default function FeoModal({ opened, close, URL }: IFeoModal) {
                       setFileName(files[0].name);
                       setImgSize(files[0].size);
                       const data = files[0].size;
-                      console.log(data / 1024);
+
                       reader.readAsDataURL(files[0]);
 
                       reader.onload = () => {
                         setImgPreview(reader.result as string);
                       };
                     }}
-                    // onReject={(files) => console.log("rejected files", files)}
                     maxSize={3 * 1024 ** 2}
                     accept={IMAGE_MIME_TYPE}
                     styles={{
@@ -662,7 +662,6 @@ export default function FeoModal({ opened, close, URL }: IFeoModal) {
               <Button
                 onClick={(e) => {
                   if (URL) {
-                    console.log("hellooooo");
                     handleEditDetails(e, "PATCH", URL);
                     return;
                   }

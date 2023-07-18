@@ -74,13 +74,13 @@ export default function Pages({ text, page, children }: PagesProps) {
               <img
                 src={"/adminn.jpg"}
                 alt="profilePic"
-                className="rounded-[50%] w-[50px] h-[50px]"
+                className="rounded-[50%] w-[40px] h-[40px]"
               />
             ) : (
               <img
                 src={"/feoo.jpg"}
                 alt="profilePic"
-                className="rounded-[50%] w-[50px] h-[50px]"
+                className="rounded-[50%] w-[40px] h-[40px]"
               />
             )}
           </span>

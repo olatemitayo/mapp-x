@@ -1,16 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
-import { Divider, Drawer, Group, Table, TextInput } from "@mantine/core";
+import { Drawer, Group, Table, TextInput } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { FarmersList } from "./famersdata";
 import Link from "next/link";
-
-
+import { toast } from "react-toastify";
 
 export default function Farmertable() {
   const [selectedRow, setSelectedRow] = useState(null);
   const [drawerOpened, setDrawerOpened] = useState(false);
   const [opened, { open, close }] = useDisclosure(false);
+  const [farmerData, setFarmerData] = useState([]);
 
   const handleRowClick = (index) => {
     setSelectedRow(index);
@@ -21,6 +20,26 @@ export default function Farmertable() {
     setSelectedRow(null);
     setDrawerOpened(false);
   };
+  //get farmers list
+  const farmersList = async () => {
+    const token = JSON.parse(localStorage.getItem("my-user"))?.access;
+    try {
+      const res = await fetch("https://mapx.onrender.com/api/farmers/list/", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = await res.json();
+
+      setFarmerData(data.results);
+    } catch (error) {
+      toast.error("Unable to get Farmers list");
+    }
+  };
+  useEffect(() => {
+    farmersList();
+  }, []);
 
   const ths = (
     <tr>
@@ -131,43 +150,50 @@ export default function Farmertable() {
     </tr>
   );
 
-  const rows = FarmersList.map((item, index) => (
+  const rows = farmerData.map((item, index) => (
     <tr
-      key={item.name}
+      key={item.id}
       onClick={() => handleRowClick(index)}
       className="hover:bg-[#f0f0f0] hover:cursor-pointer"
     >
       <td className="!border-0">{item.name}</td>
-      <td className="!border-0">{item.id}</td>
+      <td className="!border-0">{item.folio_id}</td>
       <td className="!border-0">{item.phone}</td>
       <td className="!border-0">{item.email}</td>
-      <td className="!border-0">{item.assigned}</td>
+      <td className="!border-0">{item.assigned_field_officer}</td>
       <td className="!border-0">{item.address}</td>
       <td className="!border-0">{item.country}</td>
-      <td className="flex !border-0">
-        {item.mapped ? (
-          <div className="bg-[#FFF1F3] px-2">
-            <div className="flex items-center gap-1">
-              <Image width={16} height={16} src={"/redpoint.svg"} alt="point" />
-              <div className=" text-[#C01048]   flex justify-center py-1">
-                {" "}
-                Unmapped
+      <td className="!border-0">
+        <span className="flex">
+          {item.is_mapped ? (
+            <div className=" bg-[#ECFDF3] px-2 flex ">
+              <div className="flex items-center gap-1">
+                <Image
+                  width={16}
+                  height={16}
+                  src={"/greenpoint.svg"}
+                  alt="point"
+                />
+                <div className="flex   text-[#027A48] py-1">Mapped</div>
               </div>
             </div>
-          </div>
-        ) : (
-          <div className=" bg-[#ECFDF3] px-2 ">
-            <div className="flex items-center gap-1">
-              <Image
-                width={16}
-                height={16}
-                src={"/greenpoint.svg"}
-                alt="point"
-              />
-              <div className="flex   text-[#027A48] py-1">Mapped</div>
+          ) : (
+            <div className="bg-[#FFF1F3] px-2 items-center">
+              <div className="flex gap-1">
+                <Image
+                  width={16}
+                  height={16}
+                  src={"/redpoint.svg"}
+                  alt="point"
+                />
+                <div className=" text-[#C01048]   flex justify-center py-1">
+                  {" "}
+                  Unmapped
+                </div>
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </span>
       </td>
     </tr>
   ));
@@ -180,7 +206,7 @@ export default function Farmertable() {
             <div className="flex gap-2">
               <h2 className="text-2xl font-semibold">All Farmers</h2>
               <span className="bg-[#FCE9E8] text-[#BF2018] px-3 py-1 rounded-[32px]">
-                {FarmersList.length}
+                {farmerData.length}
               </span>
             </div>
 
@@ -225,7 +251,7 @@ export default function Farmertable() {
           onClose={closeDrawer}
           position="right"
           size="md"
-          title={selectedRow !== null ? FarmersList[selectedRow].name : ""}
+          title={selectedRow !== null ? farmerData[selectedRow].name : ""}
           classNames={{
             title: "ms-5 font-[700] text-[18px]",
             close: "focus:outline-0 w-[2rem]",
@@ -250,7 +276,7 @@ export default function Farmertable() {
                     </div>
                     <div className="flex flex-col gap-2">
                       <h1 className="text=[#4A4C58] font-semibold text-[14px]">
-                        {FarmersList[selectedRow].name}
+                        {farmerData[selectedRow].name}
                       </h1>
                       <div className="flex gap-2">
                         <Image
@@ -271,7 +297,7 @@ export default function Farmertable() {
                           alt="profile"
                         />
                         <p className="text-[12px] text-[#8F9198] font-normal">
-                          {FarmersList[selectedRow].phone}
+                          {farmerData[selectedRow].phone}
                         </p>
                       </div>
                     </div>
@@ -284,7 +310,7 @@ export default function Farmertable() {
                           alt="profile"
                         />
                         <p className="text-[12px] text-[#8F9198] font-normal">
-                          {`${FarmersList[selectedRow].address} - ${FarmersList[selectedRow].country}`}
+                          {`${farmerData[selectedRow].address} - ${farmerData[selectedRow].country}`}
                         </p>
                       </div>
                       <div className="flex gap-2">
@@ -295,7 +321,7 @@ export default function Farmertable() {
                           alt="profile"
                         />
                         <p className="text-[12px] text-[#8F9198] font-normal">
-                          {FarmersList[selectedRow].email}
+                          {farmerData[selectedRow].email}
                         </p>
                       </div>
                     </div>
@@ -306,13 +332,11 @@ export default function Farmertable() {
                     Assigned FEO
                   </h3>
                   <p className="text-[#bf2018] text-[14px]">
-                    {FarmersList[selectedRow].assigned}
+                    {farmerData[selectedRow].assigned}
                   </p>
                 </div>
                 {/* MAPPED FARMLAND  */}
-                {FarmersList[selectedRow].mapped ? (
-                  <div>No Mapped Farm</div>
-                ) : (
+                {farmerData[selectedRow].is_mapped ? (
                   <div className="flex flex-col gap-4 mt-6">
                     <h3 className="text-[16px] text-[#8F9198] font-semibold">
                       Mapped Farmland
@@ -371,7 +395,7 @@ export default function Farmertable() {
                           opened={opened}
                           onClose={close}
                           position="right"
-                          title={`${FarmersList[selectedRow].name}'s Farm`}
+                          title={`${farmerData[selectedRow].name}'s Farm`}
                           classNames={{
                             title: "ms-5 font-[700] text-[18px]",
                             close: "focus:outline-0 w-[2rem]",
@@ -676,6 +700,8 @@ export default function Farmertable() {
                       </div>
                     </div>
                   </div>
+                ) : (
+                  <div>No mapped Farm</div>
                 )}
               </div>
             )}

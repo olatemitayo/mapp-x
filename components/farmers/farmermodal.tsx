@@ -82,11 +82,9 @@ export default function FarmerModal() {
       const data = await res.json();
 
       setDetails(initialDetails);
-      console.log(data);
+
       close();
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   //to get data for the country
@@ -107,9 +105,7 @@ export default function FarmerModal() {
           return acc;
         }, [])
       );
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
   //to get data for the state
   const stateFetch = async () => {
@@ -129,9 +125,7 @@ export default function FarmerModal() {
           return acc;
         }, [])
       );
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
   //to get data for the city
   const cityFetch = async () => {
@@ -151,9 +145,7 @@ export default function FarmerModal() {
           return acc;
         }, [])
       );
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   return (
@@ -210,14 +202,13 @@ export default function FarmerModal() {
                       setFileName(files[0].name);
                       setImgSize(files[0].size);
                       const data = files[0].size;
-                      // console.log(data / 1024);
+
                       reader.readAsDataURL(files[0]);
 
                       reader.onload = () => {
                         setImgPreview(reader.result as string);
                       };
                     }}
-                    // onReject={(files) => console.log("rejected files", files)}
                     maxSize={3 * 1024 ** 2}
                     accept={IMAGE_MIME_TYPE}
                     styles={{
@@ -618,14 +609,13 @@ export default function FarmerModal() {
                           setFileName(files[0].name);
                           setImgSize(files[0].size);
                           const data = files[0].size;
-                          // console.log(data / 1024);
+
                           reader.readAsDataURL(files[0]);
 
                           reader.onload = () => {
                             setImgPreview(reader.result as string);
                           };
                         }}
-                        // onReject={(files) => console.log("rejected files", files)}
                         maxSize={3 * 1024 ** 2}
                         accept={IMAGE_MIME_TYPE}
                         styles={{

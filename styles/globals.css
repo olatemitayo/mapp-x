@@ -89,7 +89,7 @@
 }
 
 .no-scrollbar::-webkit-scrollbar {
-    display: none;
+    display: none!important;
 }
 .paginw{
     width: 100%!important;

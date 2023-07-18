@@ -29,10 +29,7 @@ export default function CreateNewPasword() {
       );
       if (res.ok) router.push("/signin");
       const data = await res.json();
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   const handlesubmit = (e: FormEvent) => {

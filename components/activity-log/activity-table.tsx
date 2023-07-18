@@ -16,10 +16,9 @@ export default function ActivityTable() {
         },
       });
       const data = await res.json();
-      console.log(data);
+
       setTableData(data.results);
     } catch (error) {
-      console.log(error);
       toast.error("Unable to fetch");
     }
   };
