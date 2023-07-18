@@ -263,7 +263,7 @@ export default function Farmertable() {
               <div className="p-5 ">
                 <div>
                   <h3 className="text-[16px] text-[#8F9198] font-semibold">
-                    Farmer&aposs Details
+                    Farmer&apos;s Details
                   </h3>
                   {/* farmer details  */}
                   <div className="flex gap-5 mt-4">
@@ -286,7 +286,7 @@ export default function Farmertable() {
                           alt="profile"
                         />
                         <p className="text-[12px] text-[#8F9198] font-normal">
-                          MX-20230412
+                          {farmerData[selectedRow].folio_id}
                         </p>
                       </div>
                       <div className="flex gap-2">
