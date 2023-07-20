@@ -31,9 +31,10 @@ interface IFeoModal {
   opened?: boolean;
   close?: () => void;
   URL?: string;
+  feoList?: () => void;
 }
 
-export default function FeoModal({ opened, close, URL }: IFeoModal) {
+export default function FeoModal({ opened, feoList, close, URL }: IFeoModal) {
   const [active, setActive] = useState(0);
   const nextStep = () =>
     setActive((current) => (current < 3 ? current + 1 : current));
@@ -81,6 +82,7 @@ export default function FeoModal({ opened, close, URL }: IFeoModal) {
       });
       const data = await res.json();
       setDetails(initialDetails);
+      feoList();
       close();
     } catch (error) {}
   };
@@ -107,6 +109,7 @@ export default function FeoModal({ opened, close, URL }: IFeoModal) {
       });
       const data = await res.json();
       setDetails(initialDetails);
+      feoList();
       close();
     } catch (error) {}
   };

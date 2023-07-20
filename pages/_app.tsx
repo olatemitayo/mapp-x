@@ -3,6 +3,7 @@ import type { AppProps } from "next/app";
 import { MantineProvider } from "@mantine/core";
 import { Dispatch, SetStateAction, useState, createContext } from "react";
 import { ModalsProvider } from "@mantine/modals";
+import { PortalProvider } from "@ibnlanre/portal";
 
 export interface UserDetails {
   first_name?: string;
@@ -46,7 +47,9 @@ export default function App({ Component, pageProps }: AppProps) {
     <MantineProvider withGlobalStyles withNormalizeCSS>
       <ModalsProvider>
         <AuthContext.Provider value={storeData}>
-          <Component {...pageProps} />
+          <PortalProvider>
+            <Component {...pageProps} />
+          </PortalProvider>
         </AuthContext.Provider>
       </ModalsProvider>
     </MantineProvider>

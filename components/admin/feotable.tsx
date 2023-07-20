@@ -34,10 +34,11 @@ export default function FEOFarmertable() {
         }
       );
       const data = await res.json();
-
+      console.log(data);
       setTableData(data.results);
     } catch (error) {
-      toast.error("Unable to get FEO list");
+      console.log(error);
+      toast.error("Unable to fetch");
     }
   };
 
@@ -58,6 +59,7 @@ export default function FEOFarmertable() {
         toast.success("FEO deleted successfully");
       }
     } catch (error) {
+      console.log(error);
       setDeleteLoading(false);
       toast.error("Unable to delete!");
     }
